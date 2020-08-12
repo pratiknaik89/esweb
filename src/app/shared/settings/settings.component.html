@@ -1,0 +1,46 @@
+<!-- <form name="form" id="form" #f="ngForm" novalidate autocomplete="off">
+    <div class="modal-body"> -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="col-form-label"> Date Format <span class="text-danger">*</span></label>
+            <select class="form-control" name="drpdateformat" id="drpdateformat" [(ngModel)]="settings.dateformat"
+                tabindex="{{reftabindex}}">
+                <option [ngValue]="undefined">Select Date format</option>
+                <option [ngValue]="b" *ngFor="let b of dateformats">{{b}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="col-form-label"> Currency <span class="text-danger">*</span></label>
+            <select class="form-control" name="drpcurrency" id="drpcurrency" [(ngModel)]="settings.currency"
+                tabindex="{{reftabindex + 1}}">
+                <option [ngValue]="undefined">Select Currency</option>
+                <option [ngValue]="b.code" *ngFor="let b of currencyData">{{b.country}} - {{b.currency}}</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="col-form-label"> Timezone <span class="text-danger">*</span></label>
+            <select class="form-control" name="drptimezone" id="drptimezone" [(ngModel)]="settings.timezone"
+                tabindex="{{reftabindex + 2}}">
+                <option [ngValue]="undefined">Select Timezone</option>
+                <option [ngValue]="b.id" *ngFor="let b of timezoneData">{{b.tzname}} - {{b.utcoffset}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="col-form-label"> Decimals <span class="text-danger">*</span></label><br />
+            <input class="form-control" id="dec" name="dec" focus="true" numbers-only [(ngModel)]="settings.decimals"
+                tabindex="{{reftabindex + 3}}" type="number" placeholder="Enter no. of decimals" />
+        </div>
+    </div>
+</div>
+<!-- </div>
+</form> -->

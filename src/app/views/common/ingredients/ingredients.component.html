@@ -1,0 +1,136 @@
+<div class="card" style="padding: 3%;">
+    <div class="row">
+        <div class="col-md-12">
+            <h5 class="text-center"><b>Ingredients</b></h5>
+        </div>
+    </div>
+    <div class="row">
+        <!-- <div class="form-group"> -->
+        <div class="col-md-12 text-center">
+            <!-- <div class="row"> -->
+            <label for="">When searching, suggest items in:</label>
+            <br />
+            <!-- </div> -->
+            <!-- <div class="row"> -->
+            <label>Inventory Only</label>
+            <p-inputSwitch name=" type" [(ngModel)]="invenalldb">
+            </p-inputSwitch>
+            <label>Entire Database</label>
+            <!-- </div> -->
+
+
+            <!-- Inventory Only  -->
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label class="col-form-label"> &nbsp;</label>
+            <!-- <input type="text" name="ingqty" id="ingqty" class="form-control"
+                            [(ngModel)]="ingredient.quantity"> -->
+            <button *ngIf="!ingedit" type="button" class="form-control btn btn-sm btn-success"
+                (click)="funAddIngredient(ingredient)">Add</button>
+            <button *ngIf="ingedit" type="button" class="form-control btn btn-sm btn-warning"
+                (click)="funUpdateIng($event)">Change</button>
+        </div>
+        <div class="col-md-6">
+            <label class="col-form-label"> Name<span class="text-danger">*</span></label>
+            <p-autoComplete [(ngModel)]="selectedIng" name="ingname" id="ingname" [suggestions]="filterItem"
+                (completeMethod)="funFilterItem($event)" field="description" [minLength]="1" [style]="{width:'100%'}"
+                forceSelection="true" placeholder="Search Item" (onSelect)="onSelectItem($event)" tabindex="3">
+            </p-autoComplete>
+        </div>
+        <div class="col-md-2">
+            <label class="col-form-label"> Quantity<span class="text-danger">*</span></label>
+            <input numeric decimals="2" type="text" name="ingqty" id="ingqty" style="height: 32px;" class="form-control"
+                [(ngModel)]="ingredient.quantity" tabindex="4">
+        </div>
+        <div class="col-md-2">
+            <label class="col-form-label"> Unit<span class="text-danger">*</span></label>
+            <select tabindex="5" [disabled]="ingunitdisable" class="form-control" name="ingunit" id="ingunit"
+                style="height: 32px;" [(ngModel)]="selectedItemUnit">
+                <option value="">---Select---</option>
+                <option value={{item.id}} *ngFor="let item of itemUnitLst">{{item.shortdescription}}
+                </option>
+            </select>
+        </div>
+        <div *ngIf="ingredientreuired" class="text-danger">
+            {{ingrdientrequiredmsg}}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <!-- <p-autoComplete [(ngModel)]="itemlist" name="ingname" id="ingname" [suggestions]="filterItem"
+                        (completeMethod)="funFilterItem($event)" field="description" [minLength]="1"
+                        [style]="{width:'100%'}" forceSelection="true" placeholder="Search Item">
+                    </p-autoComplete> -->
+        <p-table *ngIf="ingredientsdata.length > 0" #dt [columns]="ingredientsCols" [value]="ingredientsdata"
+            [paginator]="false" [alwaysShowPaginator]="false" dataKey="id" [rowsPerPageOptions]="rowPageArray"
+            [rows]="pageRow" [expandedRowKeys]="expandedRows" [globalFilterFields]="ingredientsfieldarray"
+            editMode="row" class="popuppaginator" [scrollable]="true" scrollHeight="250px">
+            <!-- <ng-template pTemplate="caption">
+
+                            <div style="text-align: left">
+                                <input pInputText type="text" size="50" placeholder="  Search ..."
+                                    (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                            </div>
+
+                        </ng-template> -->
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                        [ngStyle]="{'width':col.jstyle,'display':col.hide,'text-alient':col.textjson}">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                            ariaLabelDesc="Activate to sort in descending order"
+                            ariaLabelAsc="Activate to sort in ascending order">
+                        </p-sortIcon>
+                    </th>
+                </tr>
+
+                <!-- <tr>
+                                <td class="text-center"><button type="button" class="btn btn-sm btn-success"
+                                        (click)="addingredient(ingredient)">Add</button>
+                                </td>
+                                <td>
+                                    <p-autoComplete [(ngModel)]="itemlist" name="ingname" id="ingname"
+                                        [suggestions]="filterItem" (completeMethod)="funFilterItem($event)"
+                                        field="description" [minLength]="1" [style]="{width:'100%'}"
+                                        forceSelection="true" placeholder="Search Item">
+                                    </p-autoComplete>
+                                </td>
+                                <td><input type="text" name="ingqty" id="ingqty" class="form-control"
+                                        [(ngModel)]="ingredient.quantity"></td>
+                                <td><select class="form-control" name="ingunit" id="ingunit"
+                                        [(ngModel)]="ingredient.unit">
+                                        <option value={{item}} *ngFor="let item of units">{{item}}</option>
+                                    </select></td>
+                            </tr> -->
+
+            </ng-template>
+
+            <ng-template pTemplate="body" let-ingredientsdata let-expanded="expanded" let-columns="columns"
+                let-i="rowIndex">
+
+                <tr>
+                    <td style="width:19.1%">
+                        <button class="btn btn-primary btn-sm" translate=""
+                            (click)="funEditIngredient(ingredientsdata,i)" type="button">Edit</button>
+                        <button class="btn btn-danger btn-sm" translate="" (click)="removeingredient(ingredientsdata,i)"
+                            type="button">Delete</button>
+                        <!-- <button class="btn-sm icon-minus" (click)="removeingredient()"></button> -->
+                    </td>
+                    <td style="width: 47.6%;">{{ingredientsdata.description}}</td>
+                    <td class="text-right">{{ingredientsdata.quantity}}</td>
+                    <td>{{ingredientsdata.unitname}}</td>
+
+
+                </tr>
+
+            </ng-template>
+        </p-table>
+
+    </div>
+</div>
+
+<!-- </div> -->

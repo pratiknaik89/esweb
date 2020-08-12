@@ -1,0 +1,165 @@
+<ol class="breadcrumb">
+  <app-breadcrumb></app-breadcrumb>
+  <!-- Breadcrumb Menu-->
+  <li class="breadcrumb-menu">
+    <app-actionbtn [buttons]="buttons" (onaction)="buttonClicks($event)" [isfav]="isfav"></app-actionbtn>
+  </li>
+</ol>
+<div class="fixed-content">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">Company Code</label>
+                <input type="text" [(ngModel)]="company.cmpcode" name="cmpcode" class="form-control" readonly>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">Company Name</label> <span class="text-danger">*</span>
+                <input type="text" [(ngModel)]="company.cmpname" name="cmpname" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">Contact Number</label> <span class="text-danger">*</span>
+                <input type="text" [(ngModel)]="company.cmpcontact" name="cmpname" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">Email</label> <span class="text-danger">*</span>
+                <input type="text" [(ngModel)]="company.cmpemail" name="cmpname" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">Country</label><span class="text-danger">*</span>
+                <div class="input-group">
+                  <select class="form-control" (change)=getStates($event); tabindex="3" [(ngModel)]="company.country"
+                    name="cntry" #cntry="ngModel" id="ctry" required>
+                    <option [value]="''">Select Country</option>
+                    <option [value]="a.code" *ngFor="let a of countries">{{a.name}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">State</label><span class="text-danger">*</span>
+                <select class="form-control" (change)=getCities($event); tabindex="3" [(ngModel)]="company.state"
+                  name="stat" #stat="ngModel" id="stat" required>
+                  <option [value]="''">Select State</option>
+                  <option [value]="a.code" *ngFor="let a of states">{{a.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">City</label><span class="text-danger">*</span>
+                <!-- <p-dropdown [options]="cityList" optionLabel="name" [filter]="1" [style]="{'width':'100%'}"></p-dropdown> -->
+                <select class="form-control" tabindex="3" [(ngModel)]="company.city" name="cit" #cit="ngModel" id="cit"
+                  required>
+                  <option [value]="''">Select City</option>
+                  <option [value]="a.code" *ngFor="let a of cities">{{a.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">Address</label><span class="text-danger">*</span>
+                <textarea [(ngModel)]="company.addr1" name="address1" class="form-control"></textarea>
+              </div>
+            </div>
+            <!-- <div class="col-md-12">
+              <div class="form-group">
+                <label for="">Address Line 2</label>
+                <textarea [(ngModel)]="company.addr2" name="address2" class="form-control"></textarea>
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <div class="col-md-12">
+              <label for="">Company Logo <i  pTooltip="1.Document Format should be JPEG/JPG.
+                2.The size of the documents  must be less than 5MB . "
+                class="fa fa-info-circle" style="vertical-align: center; font-size: 16px;
+                font-weight: 500;" ></i></label><br>
+              <div>
+                <img src="{{src1}}" #imgpreview1 id="imgpreview1" style="max-width:100px;"
+                  (click)="imagePopup(imgpreview1)">
+              </div><br/>
+              <div>
+                <p-fileUpload name="img" [url]="upload_url" mode="basic" #imgUpload1 maxFileSize="{{uploadMaxFilesize}}"
+                  (onSelect)="selectFile($event,imgUpload1)" (onUpload)="onFileUpload($event,imgUpload1,imgpreview1,1)"
+                  (onBeforeSend)="onFileBeforeUpload($event,'logo')"
+                  (onProgress)="onFileUploadProgress($event,imgUpload1)" auto="true" [chooseLabel]="'Upload Image'"
+                  accept="image/*">
+                </p-fileUpload>
+                <small> </small>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">Timezone</label><span class="text-danger">*</span>
+                <!-- <p-dropdown [options]="timezoneList" optionLabel="value" [filter]="1" [style]="{'width':'100%'}"></p-dropdown> -->
+                <select class="form-control" tabindex="3" [(ngModel)]="company.timezone" name="tz" #tz="ngModel" id="tz"
+                  required>
+                  <option [value]="''">Select Timezone</option>
+                  <option [value]="a.code" *ngFor="let a of timezoneList">{{a.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">Domain</label><span class="text-danger">*</span>
+                <!-- <input type="text" [(ngModel)]="company.cmpdomain"  name="companyname" class="form-control"> -->
+                <ul class="col-md-12">
+                  <li *ngFor="let a of company.cmpdomain">{{a.domain}}</li>
+                </ul>
+                <button type="button" name="domain" (click)=domain();
+                  class="btn btn-default btn-lg form-control">{{tempcmpdomain}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #template>
+  <form name="form">
+    <div class="modal-header">
+      <h5 class="modal-title">Add Domain</h5>
+      <button type="button" class="close" (click)=closeModal(); data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <div class="row p-2 mb-2" *ngFor="let a of company.cmpdomain;index as i">
+          <div class="col-md-10">
+            <input type="text" [(ngModel)]="a.domain" name="cmp_domain_{{i}}" class="form-control"
+              (blur)="checkDuplicateDomain(a,i)">
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn bnt-danger" (click)="removeDomain(a,i)"><i class="fa fa-close"></i></button>
+          </div>
+        </div>
+        <button class="btn btn-info btn-xs text-white" (click)="addMoreDomain()">Add more Domain</button>
+        <div class="row p-2">
+          <div class="col-md-10"></div>
+          <div class="col-md-2 pr-0">
+            <button type="button" (click)=apply(); class="btn btn-md btn-success float-right">Apply</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </form>
+</ng-template>

@@ -1,0 +1,187 @@
+<ol class="breadcrumb">
+  <app-breadcrumb></app-breadcrumb>
+  <!-- Breadcrumb Menu-->
+
+</ol>
+<div class="fixed-content">
+  <div class="card-body  p-0 mb-2">
+    <div class="row">
+      <div class="col-md-12">
+        <p-tabView>
+          <p-tabPanel header="Basic Info.">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="">Company Code</label>
+                      <input type="text" readonly [(ngModel)]="company.cmpcode" name="companycode" class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="">Company Name</label>
+                      <input  placeholder="Company Name" type="text" [(ngModel)]="company.cmpname" name="companyname" class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="">Country</label>
+                      <div class="input-group">
+                        <select class="form-control" tabindex="3" [(ngModel)]="company.cmpcountry" name="cntry"
+                          #cntry="ngModel" id="ctry" required>
+                          <option [value]="''">Select Country</option>
+                          <option [value]="a.code" *ngFor="let a of countries">{{a.name}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="">Email</label>
+                      <input type="text" placeholder="Email" [(ngModel)]="company.cmpemail" name="email" class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="">Contact Number</label>
+                      <input type="text"  placeholder="Contact Number" [(ngModel)]="company.cmpcontact" name="mobile" class="form-control">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group" style="border-bottom: 1px solid lightgrey;">
+                      <label for="">User Login details</label>
+
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="">Full Name</label>
+                      <input type="text" [disabled]="cmpid !='' " [(ngModel)]="company.cmploggernname" name="loggername"
+                        class="form-control">
+                    </div>
+                  </div>
+                </div> -->
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="">First Name</label>
+                      <input type="text"  placeholder="First Name"  [disabled]="cmpid !='' " [(ngModel)]="company.cmploggerfname" name="loggerfname"
+                        class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="">Last Name</label>
+                      <input type="text"  placeholder="Last Name"  [disabled]="cmpid !='' " [(ngModel)]="company.cmploggerlname" name="loggerlname"
+                        class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="">Username</label>
+                      <input type="text"  placeholder="Username" [disabled]="cmpid !='' " [(ngModel)]="company.cmpusername" name="username"
+                        class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="">Login Email</label>
+                      <input type="text"  placeholder="Login Email" [disabled]="cmpid !='' " [(ngModel)]="company.cmploginemail" name="email"
+                        class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="row" *ngIf="cmpid == '' ">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="">Password</label>
+                      <input type="password" placeholder="Password" [(ngModel)]="company.cmploginpwd" name="pass" class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="row">
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="">Domain</label>
+                                <input type="text" [(ngModel)]="cmpdomain" name="domain" class="form-control">
+                              </div>
+                            </div>
+                          </div> -->
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <button (click)="saveCmpDetails()" class="btn btn-success btn-lg">Finish</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="">Domain</label><span class="text-danger">*</span>
+                  <!-- <input type="text" [(ngModel)]="company.cmpdomain"  name="companyname" class="form-control"> -->
+                  <ul class="col-md-12" *ngIf="company.cmpdomain[0].domain!=''">
+                    <li *ngFor="let a of company.cmpdomain">{{a.domain}}</li>
+                  </ul>
+                  <button type="button" name="domain" (click)=domain();
+                    class="btn btn-default btn-lg form-control">{{tempcmpdomain}}</button>
+                </div>
+              </div>
+            </div>
+          </p-tabPanel>
+        </p-tabView>
+
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #template>
+  <form name="form">
+    <div class="modal-header">
+      <h5 class="modal-title">Add Domain</h5>
+      <button type="button" class="close" (click)=closeModal(); data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <div class="row p-2 mb-2" *ngFor="let a of company.cmpdomain;index as i">
+          <div class="col-md-10">
+            <input type="text" [(ngModel)]="a.domain" name="cmp_domain_{{i}}" class="form-control"
+              (blur)="checkDuplicateDomain(a,i)">
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn bnt-danger" (click)="removeDomain(a,i)"><i
+                class="fa fa-close"></i></button>
+          </div>
+        </div>
+        <button class="btn btn-info btn-xs text-white" (click)="addMoreDomain()">Add more Domain</button>
+        <div class="row p-2">
+          <div class="col-md-10"></div>
+          <div class="col-md-2 pr-0">
+            <button type="button" (click)=apply(); class="btn btn-md btn-success float-right">Apply</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </form>
+</ng-template>

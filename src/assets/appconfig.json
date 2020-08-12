@@ -1,0 +1,7 @@
+{
+    "api_root": "http://localhost:8005/api",
+    "upload_folder": "uploaddoc",
+    "directUpload": "directUpload",
+    "document_path": "http://localhost:8005/documents",
+    "server_type": "uat"
+}

@@ -1,0 +1,295 @@
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title">User</h4>
+    <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form name="form" #f="ngForm" novalidate (ngSubmit)="f.form.valid && save()">
+    <div class="modal-body modal-lg">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label >User Type</label><span class="text-danger">*</span>
+            <select class="form-control" [disabled]="isEdit"
+            (change)="bindRole()"
+            name="usertype" #usertype="ngModel" [(ngModel)]="form.usertype" tabindex="1"
+          name="usertype" id="usertype" required>
+              <option value="">Select User Type</option>
+              <option [value]="a.code" *ngFor="let a of userList">{{a.name}}</option>
+            </select>
+            <div *ngIf="f.submitted && usertype.invalid" class="text-danger">
+              <div *ngIf="usertype.errors.required" data-tab="1">User Type  is required 
+              </div>
+            </div>
+          </div>
+        </div>
+       
+
+
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Role</label><span class="text-danger">*</span>
+            <select class="form-control" name="role" #role="ngModel" [(ngModel)]="form.role" tabindex="2"
+              name="role" id="role" required>
+              <option value="">Select role</option>
+              <option [value]="a.id" *ngFor="let a of roleList">{{a.name}}</option>
+            </select>
+            <div *ngIf="f.submitted && role.invalid" class="text-danger">
+              <div *ngIf="role.errors.required" data-tab="1">Role is required
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>First Name</label><span class="text-danger">*</span>
+            <input class="form-control" id="usrname" name="usrname" #usrname="ngModel" type="text"
+              [(ngModel)]="form.name" autocomplete="off" required tabindex="2" placeholder="First Name"
+              minlength="1" maxlength="50">
+          </div>
+          <small>
+            <div *ngIf="f.submitted && usrname.invalid" class="text-danger">
+              <div *ngIf="usrname.errors.required" data-tab="1">First Name is required
+              </div>
+            </div>
+          </small>
+        </div>
+
+        <div class="col-sm-6">
+
+          <div class="form-group">
+            <label>Last Name</label><span class="text-danger">*</span>
+            <input class="form-control" id="lastname" name="lastname" #lastname="ngModel" type="text"
+              [(ngModel)]="form.lastname" autocomplete="off" tabindex="3" placeholder="Last Name"
+              minlength="1" maxlength="50" required>
+          </div>
+          <small>
+            <div *ngIf="f.submitted && lastname.invalid" class="text-danger">
+              <div *ngIf="lastname.errors.required" data-tab="1">Last Name is required
+              </div>
+            </div>
+          </small>
+        </div>
+
+      </div>
+     
+   
+
+   
+      <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Username</label><span class="text-danger">*</span>
+              <input [disabled]="isEdit" class="form-control" id="username" name="username" #username="ngModel" type="text"
+                [(ngModel)]="form.username" autocomplete="off" required tabindex="4"
+                placeholder="Username" minlength="1" maxlength="50">
+            </div>
+            <small>
+              <div *ngIf="f.submitted && username.invalid" class="text-danger">
+                <div *ngIf="username.errors.required" data-tab="1">User name is required
+                </div>
+              </div>
+            </small>
+          </div>
+       <div class="col-sm-6">
+            <div class="form-group">
+              <label>Email</label><span class="text-danger">*</span>
+              <input class="form-control" id="email" name="email" #email="ngModel" type="text" [(ngModel)]="form.email"
+                autocomplete="off" required tabindex="5" placeholder="Email" minlength="1"
+                maxlength="50">
+            </div>
+            <small>
+              <div *ngIf="f.submitted && email.invalid" class="text-danger">
+                <div *ngIf="email.errors.required" data-tab="1">Email is required
+                </div>
+              </div>
+            </small>
+          </div>
+       
+        </div>
+  
+  
+        <div class="row">
+         <div class="col-sm-6">
+            <div class="form-group">
+              <label>Password</label><span class="text-danger">*</span>
+              <input class="form-control" id="password" name="password" #password="ngModel" type="password"
+                [readonly]="form.id != null" [(ngModel)]="form.password" autocomplete="off" tabindex="6"
+                placeholder="Password" minlength="1" required>
+            </div>
+            <small>
+              <div *ngIf="f.submitted && password.invalid" class="text-danger">
+                <div *ngIf="password.errors.required" data-tab="1">Password is required
+                </div>
+              </div>
+            </small>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Confirm Password</label><span class="text-danger">*</span>
+              <input class="form-control" id="cnf_pass" name="cnf_pass" #cnf_pass="ngModel" type="password"
+                [(ngModel)]="form.cnf_pass" autocomplete="off" required tabindex="7" [readonly]="form.id !=null"
+                placeholder="Confierm Password" minlength="1"  >
+            </div>
+            <div *ngIf="form.cnf_pass">
+              <small class="text-danger text-error" *ngIf="form.password!=form.cnf_pass"
+               >Password does not match</small>
+            </div>
+          </div>
+  
+         
+          <!-- <div class="col-sm-6">
+            <div class="form-group">
+              <label>ph1</label><span class="text-danger">*</span>
+              <input class="form-control" id="name" name="name" #name="ngModel" type="text" [(ngModel)]="form.ph1"
+                autocomplete="off" required tabindex="6" placeholder="{{'ph1' | translate}}" minlength="1" maxlength="50">
+            </div>
+          </div> -->
+        </div>
+
+
+      <div class="row">
+      
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Phone</label>
+            <input class="form-control" id="ph1" name="ph1" #ph1="ngModel" type="text" [(ngModel)]="form.ph1"
+              autocomplete="off" tabindex="9" placeholder="Phone number" minlength="1" maxlength="50">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Mobile</label>
+            <input class="form-control" id="desc" name="desc" #desc="ngModel" type="text" [(ngModel)]="form.mob"
+              autocomplete="off" tabindex="10" placeholder="Mobile" minlength="1" maxlength="50">
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div class="row">
+       
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Street</label>
+            <input class="form-control" id="addr1" name="addr1" #addr1="ngModel" type="text" [(ngModel)]="form.addr1"
+              tabindex="11" autocomplete="off" placeholder="Street" minlength="1" maxlength="50">
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Apartment</label>
+            <input class="form-control" id="addr2" name="addr2" #addr2="ngModel" type="text" [(ngModel)]="form.addr2"
+              tabindex="12" autocomplete="off" placeholder="Apartment" minlength="1" maxlength="50">
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="row">
+        
+            <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="">Country</label>
+                  <!-- <p-dropdown [options]="countryList" name="dispensary.country" (onChange)="onCountryChange($event)" [(ngModel)]="dispensary.country" optionLabel="countryname" [filter]="1" [style]="{'width':'100%'}"></p-dropdown> -->
+                  <select class="form-control" name="country" #country="ngModel" [(ngModel)]="form.country" tabindex="13"
+                    (change)="onCountryChange($event)" name="country" id="country" >
+                    <option value="">Select Country</option>
+                    <option value="{{a.countryid}}" *ngFor="let a of countryList">{{a.countryname}}</option>
+                  </select>
+                  <!-- <div *ngIf="f.submitted && country.invalid" class="text-danger">
+                    <div *ngIf="country.errors.required" data-tab="1">{{'country' | translate}} {{'is_required' |translate}}
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="">State</label>
+                  <!-- <p-dropdown [options]="stateList" name="dispensary.state" (onChange)="onStateChange($event)" [(ngModel)]="dispensary.state" optionLabel="statename" [filter]="1" [style]="{'width':'100%'}"></p-dropdown> -->
+                  <select class="form-control" name="form.state" #state="ngModel" [(ngModel)]="form.state" tabindex="14"
+                    (change)="onStateChange($event)" name="state" id="state" >
+                    <option value="">Select State</option>
+                    <option value="{{a.stateid}}" *ngFor="let a of stateList">{{a.statename}}</option>
+                  </select>
+                  <!-- <div *ngIf="f.submitted && state.invalid" class="text-danger">
+                    <div *ngIf="state.errors.required" data-tab="1">{{'state' | translate}} {{'is_required' |translate}}
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+     
+      </div>
+
+
+
+      <div class="row">
+      
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="">City</label>
+                  <!-- <p-dropdown [options]="cityList" name="dispensary.city" [(ngModel)]="dispensary.city" optionLabel="cityname" [filter]="1" [style]="{'width':'100%'}"></p-dropdown> -->
+                  <select class="form-control" name="city" id="city"  #city="ngModel" [(ngModel)]="form.city"
+                    tabindex="15">
+                    <option value="">Select City</option>
+                    <option value="{{a.cityid}}" *ngFor="let a of cityList">{{a.cityname}}</option>
+                  </select>
+                  <!-- <div *ngIf="f.submitted && city.invalid" class="text-danger">
+                    <div *ngIf="city.errors.required" data-tab="1">{{'city' | translate}} {{'is_required' |translate}}
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Zip</label>
+                  <input class="form-control" id="zip" name="zip" #zip="ngModel" type="text" [(ngModel)]="form.zip"
+                    tabindex="16" autocomplete="off" placeholder="Zip" minlength="1" maxlength="50">
+                </div>
+              </div>
+      </div>
+
+
+      <div class="row">
+       
+        <div class="col-sm-6">
+          <div class="form-group">
+            <br>
+            <p-checkbox name="Active" value="1" label="Active" [(ngModel)]="form.active"
+              binary="form.active" tabindex="17"></p-checkbox>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <p-checkbox name="Active" value="1" label="{{'Active' | translate}}" [(ngModel)]="form.active"
+              binary="form.active" tabindex="17"></p-checkbox>
+          </div>
+        </div>
+
+
+      </div> -->
+
+
+    </div>
+
+    <div class="modal-footer ">
+      <button [disabled]="isEdit" class="btn btn-danger btn-sm" type="button" (click)="clear()" tabindex="19"><i
+          class="fa fa-rotate-left"></i>
+        Reset</button>
+      <button class="btn text-white btn-success btn-sm" type="submit"><i class="fa fa-save" tabindex="18"></i>&nbsp;
+        Save</button>
+    </div>
+  </form>
+</ng-template>

@@ -1,0 +1,48 @@
+<ol class="breadcrumb">
+  <app-breadcrumb></app-breadcrumb>
+  <!-- Breadcrumb Menu-->
+  <li class="breadcrumb-menu">
+    <app-actionbtn [buttons]="buttons" [showDispensary]="false" (onaction)="buttonClicks($event)"></app-actionbtn>
+  </li>
+</ol>
+<div class="fixed-content">
+  <div class="row ">
+    <div class="col-md-3 mb-2" *ngFor="let a of companyList">
+      <p-card>
+        <div style="min-height: 100px;">
+          <div class="row">
+            <div class="col-md-2">
+              <img src="https://png.pngtree.com/element_our/sm/20180518/sm_5aff6089d3e02.png" alt="logod"
+                style="height:40px;">
+            </div>
+            <div class="col-md-10">
+              <p style="line-height:37px;font-weight:600;text-transform: uppercase;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"
+                title="{{a.name}}">{{a.name}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+              <div class="row">
+                <small class="text-secondary">Company Code: {{a.companycode}}</small>
+              </div>
+              <div class="row">
+                <small class="text-secondary">Domain: {{a.cmpdomain}}</small>
+              </div>
+              
+              
+            </div>
+
+          </div>
+        </div>
+        <p-footer>
+          <div class="col-md-12 text-right">
+            <button type="button" (click)="onClickLink(a)" class="btn text-white btn-lg btn-success btn-block"
+              style="color:#2eadd3;font-weight:600;cursor:pointer;">Select <i class="fa fa-arrow-right"></i>
+            </button>
+          </div>
+        </p-footer>
+      </p-card>
+    </div>
+  </div>
+</div>

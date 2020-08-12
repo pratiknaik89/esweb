@@ -1,0 +1,20 @@
+<ol class="breadcrumb">
+    <app-breadcrumb></app-breadcrumb>
+    <span style="text-transform: capitalize;padding-left: 5px;"> </span>
+  
+    <li class="breadcrumb-menu">
+      <app-actionbtn [buttons]="buttons" (onaction)="buttonClicks($event)" [isfav]="isfav"></app-actionbtn>
+  
+    </li>
+  </ol>
+
+  <div class="fixed-content">
+    <div class="row">
+      <div class="col-md-12">
+        <app-grid [controlName]="'mom'"   [styles]="gridStyle" #grid [api]="'/master'" [apiFlag]=""
+          [actionButtons]="gridButtons" (onAction)="edit($event)"> </app-grid>
+      </div>
+    </div>
+  
+  </div>
+  <master-add #form></master-add>

@@ -1,0 +1,124 @@
+<ng-template #template>
+    <div class="modal-header">
+      <h4 class="modal-title">Master</h4>
+      <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form name="form" #f="ngForm" novalidate (ngSubmit)="f.form.valid && save()">
+      <div class="modal-body modal-lg">
+       
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Code</label><span class="text-danger">*</span>
+              <input class="form-control" id="code" name="code" #code="ngModel" type="text"
+                [(ngModel)]="form.code" autocomplete="off" required tabindex="1" placeholder="Code"
+                minlength="1" maxlength="10">
+            </div>
+            <small>
+              <div *ngIf="f.submitted && code.invalid" class="text-danger">
+                <div *ngIf="code.errors.required" data-tab="1">code is required
+                </div>
+              </div>
+            </small>
+          </div>
+  
+          <div class="col-sm-6">
+  
+            <div class="form-group">
+              <label>Name</label><span class="text-danger">*</span>
+              <input class="form-control" id="name" name="name" #name="ngModel" type="text"
+                [(ngModel)]="form.name" autocomplete="off" tabindex="2" placeholder="Name"
+                minlength="1" maxlength="50" required>
+            </div>
+            <small>
+              <div *ngIf="f.submitted && name.invalid" class="text-danger">
+                <div *ngIf="name.errors.required" data-tab="1">Name is required
+                </div>
+              </div>
+            </small>
+          </div>
+  
+        </div>
+       
+     
+  
+     
+        <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Group</label><span class="text-danger">*</span>
+                <input  class="form-control" id="group" name="group" #group="ngModel" type="text"
+                  [(ngModel)]="form.group" autocomplete="off" required tabindex="3"
+                  placeholder="Group" minlength="1" maxlength="50">
+              </div>
+              <small>
+                <div *ngIf="f.submitted && group.invalid" class="text-danger">
+                  <div *ngIf="group.errors.required" data-tab="1">Group is required
+                  </div>
+                </div>
+              </small>
+            </div>
+         <div class="col-sm-6">
+              <div class="form-group">
+                <label>Parent Id</label><span class="text-danger">*</span>
+                <input  class="form-control" id="parentid" name="parentid" #parentid="ngModel" type="text"
+                  [(ngModel)]="form.parentid" autocomplete="off" required tabindex="3"
+                  placeholder="Parent Id" minlength="1" maxlength="50">
+              </div>
+              <small>
+                <div *ngIf="f.submitted && parentid.invalid" class="text-danger">
+                  <div *ngIf="parentid.errors.required" data-tab="1">Parent Id is required
+                  </div>
+                </div>
+              </small>
+            </div>
+         
+          </div>
+          <div class="row">
+         
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Description</label><span class="text-danger">*</span>
+                <input  class="form-control" id="description" name="description" #description="ngModel" type="text"
+                  [(ngModel)]="form.description" autocomplete="off"  tabindex="3"
+                  placeholder="Description" minlength="1" maxlength="50">
+                  </div>
+                  </div>
+          </div>
+     <div class="row">
+         
+          <div class="col-sm-6">
+            <div class="form-group">
+              <br>
+              <p-checkbox name="Active" value="1" label="Active" [(ngModel)]="form.active"
+                binary="form.active" tabindex="17"></p-checkbox>
+            </div>
+          </div>
+  
+        </div>
+  
+        <!-- <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <p-checkbox name="Active" value="1" label="{{'Active' | translate}}" [(ngModel)]="form.active"
+                binary="form.active" tabindex="17"></p-checkbox>
+            </div>
+          </div>
+  
+  
+        </div> -->
+  
+  
+      </div>
+  
+      <div class="modal-footer ">
+        <button  class="btn btn-danger btn-sm" type="button" (click)="clear()" tabindex="19"><i
+            class="fa fa-rotate-left"></i>
+          Reset</button>
+        <button class="btn text-white btn-success btn-sm" type="submit"><i class="fa fa-save" tabindex="18"></i>&nbsp;
+          Save</button>
+      </div>
+    </form>
+  </ng-template>

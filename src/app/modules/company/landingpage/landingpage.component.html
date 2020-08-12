@@ -1,0 +1,73 @@
+<ol class="breadcrumb">
+    <app-breadcrumb></app-breadcrumb>
+    <!-- Breadcrumb Menu-->
+    <li class="breadcrumb-menu">
+      <app-actionbtn [buttons]="buttons" [showDispensary]="false" (onaction)="buttonClicks($event)"></app-actionbtn>
+    </li>
+  </ol>
+  
+  <div class="fixed-content">
+    <div class="card col-md-8">
+      <div class="card-body">
+        <div class="col-md-12 text-right pr-0 pb-1">
+          <button type="button" class="btn btn-primary" (click)="addNewAtrribute()"><i class="fa fa-plus"
+              [ngClass]="{'fa-save': (isEditAttr)}"></i></button>
+        </div>
+        <div cdkDropList [cdkDropListData]="landingpageList" #firstList="cdkDropList" (cdkDropListDropped)="drop($event)"
+          style="width: 100%">
+  
+          <div *ngFor="let item of landingpageList;let i = index;" cdkDrag
+            class="mb-3 border p-3 {{item.isdelete ? 'border-danger bg-danger' : ''}}">
+            <div class="row ">
+              <div class="col-md-1 pr-0"><i class="fa fa-align-justify" style="cursor: move;"></i></div>
+              <div class="col-md-10 pl-0">
+                <div class="row" *ngIf="!item.isdelete">
+                  <div class="col-md-5 text-center">
+                    <div><img src="{{global.getConfig().cloudinary_url+item.img}}" width="180px" (click)="imagePopup(imgpreview)" #imgpreview
+                        id="imgpreview{{i}}"  onerror="defcom.imgerror(this);"></div>
+                    <div class="mt-1">
+                      <p-fileUpload name="img" [url]="upload_url" mode="basic" #imgUpload1
+                        maxFileSize="{{uploadMaxFilesize}}" (onSelect)="selectFile($event,imgUpload1,a)"
+                        (onUpload)="onFileUpload($event,imgUpload1,i,item)"
+                        (onBeforeSend)="onFileBeforeUpload($event,imgUpload1)"
+                        (onProgress)="onFileUploadProgress($event,imgUpload1)" auto="true" [chooseLabel]="'Upload LandingPage'"
+                        accept="image/*">
+  
+                      </p-fileUpload>
+                    </div>
+                  </div>
+
+                  <!-- <div class="col-md"> -->
+                    <!-- <div class="d-block">
+                      <h4>{{item.title}}</h4>
+                    </div> -->
+                    <!-- <label for="">Title</label>
+  
+                    <input type="text" name="title" [(ngModel)]="item.title" class="form-control"> -->
+                    <!-- <div class="d-block">
+                      <p>{{item.desc}}</p>
+                    </div> -->
+                    <!-- <label for="">Description</label>
+                    <input type="text" name="desc" [(ngModel)]="item.desc" class="form-control">
+  
+                    <p-checkbox tabindex="5" name="active" binary="true" [(ngModel)]="item.active"
+                      label="{{'active' | translate}}"></p-checkbox>
+  
+                  </div> -->
+  
+                </div>
+                <div class="row" *ngIf="item.isdelete">
+                  <div class="col-md-12">
+                    Item is Deleted. Press save to save changes
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-1 text-right" style="margin-top:-10px;"><i class="fa fa-{{item.isdelete ? 'undo':'close'}}" style="cursor: pointer;"
+                  (click)="ondelete(item,i)"></i></div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
