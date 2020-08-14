@@ -46,10 +46,9 @@ body {
 }
 
 .app-header {
-  background-color: #8fcdff;
   height: 42px;
-  background-color: var(--bg);
-  border-bottom: 1px solid #989fa4;
+  background-color: #6fa86f;
+  border-bottom: 2px solid #77803d;
   height: 42px;
   /* background: #e6e3e6; */
   /*background: -webkit-gradient(left top, left bottom, color-stop(0%, #fef4d2), color-stop(47%, #fef1c4), color-stop(100%, #ffdf73 ));
@@ -517,7 +516,8 @@ body .ui-dropdown{
 }
 .modal-header { 
   padding: 2px 10px 2px 10px;
-  background: var(--bg);
+  background: #6fa86f!important;
+  //background: var(--bg);
 }
 
 .modal-footer {  
