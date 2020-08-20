@@ -10,7 +10,14 @@ export class EditorComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+$('body').addClass('sidebar-minimized');
     this.pdfSrc='assets/sdlc.pdf';
+  }
+  ngOnDestroy(): void {
+    $('body').removeClass('sidebar-minimized');
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    
   }
 
 }
