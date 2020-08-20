@@ -132,27 +132,111 @@
 
 
 .pop1{
-    border: 1px solid #c8c8c8;
-    background-color: #f4f4f4;
-    color: #333333;
-    padding: 0.714em 0.857em;
-    font-weight: 400;
-    position: static;
-    font-size: 14px;
-    transition: background-color 0.2s;
+    
       
   }
 
 
 
-  .doccontainer {
-    background: var(--surface-e);
-    padding: 2rem;
+  .doc-thumb-container{
+    padding: 15px;
     box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
-   
-    margin-bottom: 2rem;
-    margin: .5em;
-    border: 1px solid #dee2e6;
-    height:250px;
-    width: 200px;
+   background-color: #fff;
+    border: 1px solid #dee2e6;  
+    height:200px;
+    display: flex;
+    flex-direction: column;
   }
+
+  .image-wrap{
+    flex: 1;
+    width: 100%;
+    justify-self: flex-end;
+    align-self: flex-end;
+     
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    overflow: hidden;
+  
+  
+  }
+  .image-wrap img{
+    height: 100%;
+    width: auto;
+  }
+
+
+  .doc-name-wrap{
+    width: 100%;
+    justify-self: flex-end;
+    align-self: flex-end;
+    height: 30px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    font-weight: 500;
+  }
+
+  .left-bar-fixed{
+    position: absolute;
+    height: inherit;
+    width: 200px;
+    margin-left: -15px;
+    margin-top: -15px;
+    background-color: #ccc;
+    border-right: 1px solid #c8ced2;
+  }
+  .content-wrapper {
+    position: relative;
+    display: block;
+    height: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+  .action-bar {
+   
+    width: 100%;
+    background-color: #f4f4f4;
+    background: linear-gradient(to bottom, white 0%, #f6f6f6 47%, #ededed 100%);
+    border-bottom: 1px solid #c8ced2;
+}
+
+  .scroll-content{
+    flex: 1;
+    overflow: auto;
+    display: block;
+  }
+
+  .envelope{
+    border: 1px solid #c8c8c8;
+    background-color: #ffffff;
+    color: #333333;
+    padding: 0.714em 0.557em;
+    font-weight: 400;
+    position: static;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    margin: 2px 2px 2px 2px;
+    cursor: pointer;
+  }
+
+  .envelope:hover{
+    border: 1px solid #004229;
+  }
+
+  .envelope.eactive {
+    background-color: #4dbd74;
+    border: 1px solid #004229;
+    color: #ffffff;
+    font-weight: bold;
+    padding-left: 12px;
+  }
+
+  .main-content {
+    margin-left: 205px;
+    min-height: 300px;
+   
+}
