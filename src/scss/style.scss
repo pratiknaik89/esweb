@@ -603,6 +603,8 @@ p-table.popuppaginator > div > p-paginator > div:first-child {
   justify-content: center; 
   align-items: center;
   font-weight: 500;
+  position: relative;
+  overflow: hidden;
 }
 
 
@@ -636,4 +638,23 @@ p-table.popuppaginator > div > p-paginator > div:first-child {
 
 .app-header .nav-item .nav-link{
   color: #fff!important;
+}
+
+
+
+.pop_panel.content
+{
+  background: rgba(255, 255, 255, 0.795);
+  bottom: -100%;
+  color: #fff;
+  height: 100%;
+  left: 0%;
+  text-align: center;
+  position: absolute;
+  transition: bottom 0.2s ease;
+  width: 100%;
+}
+.doc-thumb-container:hover .content
+{
+  bottom: 0%;
 }

@@ -10,7 +10,7 @@
     </li>
 </ol>
 <div class="fixed-content p-0">
-    <p-dataView #dv [value]="documentsDeatilList"  layout="grid" [paginator]="true" [rows]="20" paginatorPosition="both"
+    <p-dataView #dv [value]="documentsDeatilList" layout="grid" [paginator]="true" [rows]="20" paginatorPosition="both"
         filterBy="brand" styleClass="doctemplate" [sortField]="sortField" [sortOrder]="sortOrder">
         <p-header>
             <div class="ui-helper-clearfix" style="position: sticky;
@@ -29,7 +29,8 @@
                         <div class="d-flex p-2">
                             <span class="p-input-icon-left">
                                 <i class="pi pi-search"></i>
-                                <input type="text" (input)="dv.filter($event.target.value)" pInputText [(ngModel)]="value1" placeholder="Search Template">
+                                <input type="text" (input)="dv.filter($event.target.value)" pInputText
+                                    [(ngModel)]="value1" placeholder="Search Template">
                             </span>
 
                         </div>
@@ -93,6 +94,15 @@
                     </button> -->
                     <div class="doc-name-wrap">
                         <div>{{item.name}}</div>
+                        <div class="pop_panel content">
+                            <button class="btn text-info">
+                                <i class="fa fa-pencil" style="font-size:21px;"></i>
+                            </button>
+                            <button class="btn  text-danger">
+                                <i class="fa fa-trash" style="font-size:21px;"></i>
+                            </button>
+
+                        </div>
                     </div>
 
                 </div>
