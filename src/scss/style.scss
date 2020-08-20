@@ -540,3 +540,7 @@ p-table.popuppaginator > div > p-paginator > div:first-child {
   float: left !important;
   margin-top: .5rem !important;
 }
+
+.ui-table-resizable .ui-resizable-column{
+    background-clip: unset!important; 
+}
