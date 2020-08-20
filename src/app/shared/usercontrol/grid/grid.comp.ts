@@ -115,7 +115,7 @@ export class GridComponent implements OnInit, AfterViewInit {
   }
 
   selectedRow(rows) {
-    this.backColor = rows.id;
+    //this.backColor = rows.id;
     //this.OnEditRow.emit([event,rows]);
   }
 

@@ -169,7 +169,7 @@
   }
 
   .envelope{
-    border: 1px solid #c8c8c8;
+    border-bottom: 1px solid #c8c8c8;
     background-color: #ffffff;
     color: #333333;
     padding: 0.714em 0.557em;
@@ -182,12 +182,12 @@
   }
 
   .envelope:hover{
-    border: 1px solid #004229;
+    border-bottom: 1px solid #004229;
   }
 
   .envelope.eactive {
     background-color: #4dbd74;
-    border: 1px solid #004229;
+    border-bottom: 1px solid #004229;
     color: #ffffff;
     font-weight: bold;
     padding-left: 12px;
