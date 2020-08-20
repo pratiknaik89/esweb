@@ -1,5 +1,5 @@
 import { Component, OnInit ,Input} from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-recipient',
   templateUrl: './recipient.component.html',
@@ -7,7 +7,7 @@ import { Component, OnInit ,Input} from '@angular/core';
 })
 export class RecipientComponent implements OnInit {
  templateList:any=[];
-  constructor() { }
+  constructor(private router: Router) { }
   form:any={
     id:0,
     type:'',
@@ -17,7 +17,14 @@ export class RecipientComponent implements OnInit {
     rectype:''
     
   }
+  buttons:any=[];
   ngOnInit(): void {
+    this.buttons = [
+      {
+        'id': 'next', 'color': 'white', 'bg': 'success', 'text': 'Next', 'icon': 'arrow-right', 'shortcut': 'ctrl+shift+a',
+        'disabled': false, 'access': true
+      }
+    ];
     this.templateList=[{name:1}]
   }
   addnewTemplate(){
@@ -27,4 +34,16 @@ export class RecipientComponent implements OnInit {
     this.templateList.push(data);
   }
 
+
+  buttonClicks(id) {
+
+    switch (id) {
+      case 'next':
+        this.router.navigate(['/documents/editor']);
+        break;
+     
+      default:
+        break;
+    }
+  }
 }
