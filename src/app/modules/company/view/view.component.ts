@@ -37,9 +37,10 @@ export class ViewComponent implements OnInit {
     ];
     this.gridButtons = [{
       'id': 'edit', 'color': 'white', 'bg': 'info', 'text': 'Edit', 'iconi': 'fa fa-edit', 'btnstyle': this.global.btnStyle
-    }, {
-        'id': 'editProfile', 'color': 'white', 'bg': 'success', 'text': 'Profile', 'iconi': 'fa fa-fort-awesome', 'btnstyle': this.global.btnStyle
-      }];
+    }, ];
+    // {
+    //   'id': 'editProfile', 'color': 'white', 'bg': 'success', 'text': 'Profile', 'iconi': 'fa fa-fort-awesome', 'btnstyle': this.global.btnStyle
+    // }
     
   }
 
