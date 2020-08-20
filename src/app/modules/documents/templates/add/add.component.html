@@ -7,38 +7,64 @@
 
   </li>
 </ol>
-<div class="fixed-content">
+<div class="fixed-content" *ngIf="!showreci"> 
   <div class="row">
     <div class="col-md-3"></div>
 
     <div class="col-md-6 ">
       <p-card>
-        <div class="row">
+
+        <div class="row mt-5">
           <div class="col-md-12">
+            <div class="text-danger">*Only PDF file allowed</div>
             <div class="form-group container" >
-              <div class="row">
+              <div class="row"><div class="col-md-4"></div>
+                <div class="col-md-4 mt-3">
+                  <img src="/assets/img/brand/upload.png" style="width: 100px;height: 60px;">
+                </div>
+                <div class="col-md-4"></div>
+              </div>
+             
+              <div class="row mt-3">
                 <div class="col-md-4"></div>
                 <div class="col-md-4 mt-2" >
-                  <p-fileUpload name="img[]" tabindex="15" [url]="upload_url" mode="basic" #pdf1 auto="true"
-                    [chooseLabel]="'Upload PDF'" accept="pdf/*">
-                  </p-fileUpload>
+                  
+                  <p-fileUpload [multiple]="true" name="img[]" tabindex="15" [url]="upload_url"
+                  mode="basic" #imgUpload2 maxFileSize="{{uploadMaxFilesize}}"
+                  (onSelect)="selectFile($event,imgUpload2)"
+                  (onUpload)="onFileUpload($event,imgUpload2,imgpreview,3,i)"
+                  (onBeforeSend)="onFileBeforeUpload($event,'exclusive','mobilebanner')"
+                  (onProgress)="onFileUploadProgress($event,imgUpload2)" auto="true"
+                  [chooseLabel]="'Upload PDF'" accept="image/*">
+               </p-fileUpload>
 
                 </div>
 
                 <div class="col-md-4"></div>
               </div>
             </div>
-
           </div>
 
+          </div>
+          <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-4">
+
+            <button (click)="enableRecipient()" class="btn btn-success btn-sm mt-2" style="width: 120px;" type="button"
+            translate="">Next &nbsp;<i class="fa fa-arrow-right"></i>
+        </button>
+          </div>
+          <div class=""></div>
         </div>
-
-
-
-
-
-      </p-card>
-    </div>
+        </p-card>
+        </div>
+</div>
     <div class="col-md-3"></div>
   </div>
-</div>
+
+<!-- <div class="row">
+  <div class="col-md-12">
+    <app-recipient *ngIf="showreci" [arraydata]="array"></app-recipient>
+  </div>
+ 
+</div> -->

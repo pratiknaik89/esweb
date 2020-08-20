@@ -1,7 +1,7 @@
 .container{
-    border: 1px  dotted #2f353a;;
+    border: 2px  dotted #2f353a;;
             padding: 2px 14px 2px 14px;
-             height: 100px;
+             height: 150px;
              width: 518px px;
             border-radius: 4px;
 }
