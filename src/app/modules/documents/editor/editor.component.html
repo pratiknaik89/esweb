@@ -1,7 +1,19 @@
 
+<ol class="breadcrumb">
+    <app-breadcrumb></app-breadcrumb>
+    <span style="text-transform: capitalize;padding-left: 5px;"> </span>
+  
+    <li class="breadcrumb-menu">
+      <app-actionbtn [isfav]="isfav"></app-actionbtn>
+  
+    </li>
+  </ol>
+  <div class="fixed-content p-0">
 <i-docsigneditor 
 [offlineSaving]="true" 
-[reduceHeight]="101"
+[reduceHeight]="153"
 [zoom]="0.8" [url]="pdfSrc" 
 [toolbarBg]="'#e7edee'"
-[options]="options"></i-docsigneditor>
+[options]="options"
+></i-docsigneditor>
+</div>
