@@ -29,6 +29,7 @@
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/primeng.min.css"
              
+             
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -39,7 +40,11 @@
              
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/chart.js/dist/Chart.min.js",
-              "src/assets/js/common.js"
+              "src/assets/js/common.js",
+              
+              "node_modules/esigndoccontrol/resources/js/jquery-ui.min.js",
+              "node_modules/esigndoccontrol/resources/js/jquery.contextMenu.min.js",
+              "node_modules/esigndoccontrol/resources/js/jquery.ui.position.min.js"
             ]
           },
           "configurations": {
@@ -136,12 +141,14 @@
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [
               "node_modules/chart.js/dist/Chart.min.js"
+             
             ],
             "styles": [
               "node_modules/flag-icon-css/css/flag-icon.css",
               "node_modules/font-awesome/css/font-awesome.css",
               "node_modules/simple-line-icons/css/simple-line-icons.css",
               "src/scss/style.scss"
+            
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
