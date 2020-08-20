@@ -541,6 +541,9 @@ p-table.popuppaginator > div > p-paginator > div:first-child {
   margin-top: .5rem !important;
 }
 
+.ui-table-resizable .ui-resizable-column{
+    background-clip: unset!important; 
+}
 
 .ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover {
   outline: 0 none;
