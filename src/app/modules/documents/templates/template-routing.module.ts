@@ -14,7 +14,7 @@ const routes: Routes = [
       {
         path: '',
         data: {
-          title: ''
+          title: 'Template'
         },
         children: [
           {
@@ -39,7 +39,11 @@ const routes: Routes = [
             },
             canActivate: [Prerequisite],
           },
-         
+          {
+            path: 'documents/templates/recipient',
+            loadChildren: () => import('./../../../shared/usercontrol/recipient/recipient.module').then(m => m.RecipientModule),
+  
+          },
         ]
       }
     ]
