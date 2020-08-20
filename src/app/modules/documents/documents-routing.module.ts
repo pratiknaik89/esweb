@@ -3,7 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { Prerequisite } from '../../service/prerequisite';
 
+
 import { from } from 'rxjs';
+import { EditorComponent } from './editor/editor.component';
 
 const routes: Routes = [
   {
@@ -27,9 +29,21 @@ const routes: Routes = [
             loadChildren: () => import('./templates/templates.module').then(m => m.TemplatesModule)
             
           },
+       
+            {
+              path: 'editor',
+              component: EditorComponent,
+              //canActivate: [AuthGuard],
+              data: {
+                title: 'Editor',
+                code: 'doceditor',
+               // role: 'di'
+              },
+              canActivate: [Prerequisite],
+            },
 
-        ]
-      }
+     
+        ]}
     ]
   }
 ];
