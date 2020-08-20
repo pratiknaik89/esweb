@@ -8,6 +8,7 @@
       class="btn btn-{{item.bg || 'default'}} text-{{item.color || 'white'}}"
       title="{{item.text  + ' ' +  item.shortcut ? item.shortcut :'' }}" [disabled]="item.disabled"
       *ngFor="let item of buttons;let i=index" data-toggle="modal"
+      [ngClass]="{'hide': item.hide}"
       (click)="onaction_click(item)"><i class="{{item.iconi ? item.iconi : 'icon-'+ item.icon  }}"></i>
       &nbsp;{{item.text || 'Button'}}
 

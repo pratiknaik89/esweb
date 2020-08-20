@@ -4,7 +4,7 @@
     </app-breadcrumb>
     <li class="breadcrumb-item active" *ngIf="selectedenvelope"><span tabindex="0">{{selectedenvelope.name}}</span></li>
     <li class="breadcrumb-menu">
-        <app-actionbtn [buttons]="buttons" (onaction)="buttonClicks($event)"></app-actionbtn>
+        <app-actionbtn #actionbar [buttons]="buttons" (onaction)="buttonClicks($event)"></app-actionbtn>
 
     </li>
 </ol>

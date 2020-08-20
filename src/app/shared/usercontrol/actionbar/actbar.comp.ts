@@ -23,7 +23,7 @@ export class ActionBarComponent implements OnInit {
     constructor(private global: GlobalService, private favorite: Favoriteservice, private shortcut: HotkeysService) { }
 
     ngOnInit(): void {
-        
+
         this.isloadingfav = true;
         const curmenu = this.global.getCurrentMenu();
         const uid = this.global.getUser().id;
@@ -86,7 +86,7 @@ export class ActionBarComponent implements OnInit {
     clikedcount = false;
 
     onaction_click(item) {
-        
+
         if (item.rtype && item.rtype == 'submit') {
 
             if (!this.clikedcount) {
@@ -102,6 +102,16 @@ export class ActionBarComponent implements OnInit {
         this.onaction.emit(item.id);
 
     }
+
+    changeProp(id, prop, value) {
+        let ar = this.buttons.find(a => {
+            return a.id == id
+        })
+        if (ar) {
+            ar[prop] = value;
+        }
+    }
+
 
     onfav_click() {
         this.islocfav = !this.islocfav;

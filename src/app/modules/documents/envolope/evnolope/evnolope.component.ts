@@ -1,16 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { ActionBarComponent } from '../../../../shared/usercontrol/actionbar/actbar.comp';
 @Component({
   selector: 'app-evnolope',
   templateUrl: './evnolope.component.html',
   styleUrls: ['./evnolope.component.css']
 })
 export class EvnolopeComponent implements OnInit {
+  @ViewChild('actionbar', { static: false }) actionbar: ActionBarComponent;
   items: any = [];
   showDocpannel: boolean = false;
   buttons = [];
   constructor() {
     this.buttons = [
+      {
+        'id': 'edit', 'color': 'white', 'bg': 'primary', 'text': 'Edit Envelope', 'icon': 'pencil', 'shortcut': 'ctrl+shift+a',
+        'disabled': true, 'access': true
+      },
       {
         'id': 'add', 'color': 'white', 'bg': 'success', 'text': 'Add Template In Evelope', 'icon': 'plus', 'shortcut': 'ctrl+shift+a',
         'disabled': false, 'access': true
@@ -33,14 +39,14 @@ export class EvnolopeComponent implements OnInit {
 
     }
 
- 
+
     this.documentsDeatilList = [
       { id: 1, name: "Document 1", src: "/assets/img/img1.png" },
-    { id: 2, name: "Document 2", src: "/assets/img/img2.png" },
-    { id: 3, name: "Document 3", src: "" },
-    { id: 4, name: "Document 1", src: "/assets/img/img1.png" },
-    { id: 5, name: "Document 1", src: "/assets/img/img1.png" },
-    { id: 6, name: "Document 1", src: "/assets/img/img1.png" },];
+      { id: 2, name: "Document 2", src: "/assets/img/img2.png" },
+      { id: 3, name: "Document 3", src: "" },
+      { id: 4, name: "Document 1", src: "/assets/img/img1.png" },
+      { id: 5, name: "Document 1", src: "/assets/img/img1.png" },
+      { id: 6, name: "Document 1", src: "/assets/img/img1.png" },];
     //   this.items = [
     //     {
     //         label: 'Documemnt 1',
@@ -71,7 +77,7 @@ export class EvnolopeComponent implements OnInit {
     }
   }
   onColumnClick(item) {
-
+    this.actionbar.changeProp('edit', 'disabled', false);
     this.selectedenvelope = item;
   }
 }
