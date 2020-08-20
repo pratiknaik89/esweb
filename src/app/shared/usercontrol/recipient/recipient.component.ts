@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Input} from '@angular/core';
 
 @Component({
   selector: 'app-recipient',
@@ -6,14 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./recipient.component.css']
 })
 export class RecipientComponent implements OnInit {
-
+ 
   constructor() { }
   form:any={
     id:0,
     type:'',
     name:'',
     email:'',
-    active:''
+    active:'',
+    rectype:''
     
   }
   ngOnInit(): void {
