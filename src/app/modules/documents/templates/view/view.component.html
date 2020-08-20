@@ -1,1 +1,119 @@
-<p>view works!</p>
+<ol class="breadcrumb">
+    <app-breadcrumb>
+
+    </app-breadcrumb>
+    <!-- <li class="breadcrumb-item active" *ngIf="selectedenvelope.id">&nbsp;<span
+            tabindex="0">{{selectedenvelope.name}}</span></li> -->
+    <li class="breadcrumb-menu">
+        <app-actionbtn #actionbar [buttons]="buttons" (onaction)="buttonClicks($event)"></app-actionbtn>
+
+    </li>
+</ol>
+<div class="fixed-content p-0">
+    <p-dataView #dv [value]="documentsDeatilList"  layout="grid" [paginator]="true" [rows]="20" paginatorPosition="both"
+        filterBy="brand" styleClass="doctemplate" [sortField]="sortField" [sortOrder]="sortOrder">
+        <p-header>
+            <div class="ui-helper-clearfix" style="position: sticky;
+            top: 0px;
+            z-index: 1;">
+                <div class="p-grid">
+                    <!-- <div class="p-col-12 p-md-1">
+                        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By"
+                            (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
+                    </div> -->
+                    <div class="col-6 mt-2 filter-container">
+                        <!-- <div style="position:relative">
+                            <input type="search" pInputText placeholder="Search by Template"
+                                (input)="dv.filter($event.target.value)">
+                        </div> -->
+                        <div class="d-flex p-2">
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input type="text" (input)="dv.filter($event.target.value)" pInputText [(ngModel)]="value1" placeholder="Search Template">
+                            </span>
+
+                        </div>
+                    </div>
+                    <div class="col-6 mt-2" style="text-align:right">
+                        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                    </div>
+                </div>
+
+            </div>
+
+        </p-header>
+
+        <ng-template let-item pTemplate="listItem">
+
+            <div class="col-md-12">
+                <div style="display: flex;justify-content: space-between;
+                align-items: center;
+                padding: 2em;
+                border-bottom: 1px solid #d9dad9;">
+                    <div style="    display: flex;
+                align-items: center;">
+                        <div style="width: 80px;height: 80px;overflow: hidden;"><img src="{{item.src}}"
+                                style="width: 80px;"></div>
+                        <div class="p-grid">
+                            <div class="col-md-12 text-bold" style="font-weight: 500;"> {{item.name}}</div>
+                            <div class="col-md-12 text-bold" style="font-weight: 500;"> Created on 2020-12-10</div>
+                            <div class="col-md-12 text-bold" style="font-weight: 500;"> Owner Chinmay</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- <div class="p-col-12">
+                <div class="car-details">
+                    <div>
+                        <img src="assets/showcase/images/demo/car/{{car.brand}}.png">
+                        <div class="p-grid">
+                            <div class="p-col-12">Vin: <b>{{car.vin}}</b></div>
+                            <div class="p-col-12">Year: <b>{{car.year}}</b></div>
+                            <div class="p-col-12">Brand: <b>{{car.brand}}</b></div>
+                            <div class="p-col-12">Color: <b>{{car.color}}</b></div>
+                        </div>
+                    </div>
+                    <button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)"></button>
+                </div>
+            </div> -->
+        </ng-template>
+        <ng-template let-item pTemplate="gridItem">
+
+            <div class="col-md-3 mb-2 mt-2">
+                <div class="doc-thumb-container">
+                    <div class="image-wrap">
+                        <img *ngIf="item.src != '' " src="{{item.src}}">
+                    </div>
+
+
+                    <!-- <button *ngIf="item.src != '' " class="btn btn-primary btn-sm mt-2" type="button"
+                        translate=""><i class="fa fa-eye"></i>
+                    </button> -->
+                    <div class="doc-name-wrap">
+                        <div>{{item.name}}</div>
+                    </div>
+
+                </div>
+                <!-- <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
+                    <img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60">
+                    <div class="car-detail">{{car.year}} - {{car.color}}</div>
+                    <button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)"
+                        style="margin-top:0"></button>
+                </p-panel> -->
+            </div>
+
+        </ng-template>
+    </p-dataView>
+
+    <!-- <div class="row">
+        <div class="col-md-3 mb-3" *ngFor="let item of documentsDeatilList">
+
+
+
+
+        </div>
+    </div> -->
+
+</div>
