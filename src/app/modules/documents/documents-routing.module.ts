@@ -20,13 +20,12 @@ const routes: Routes = [
             path: 'envolope',
             loadChildren: () => import('./envolope/envolope.module').then(m => m.EnvolopeModule),
 
+
           },
           {
             path: 'templates',
-            loadChildren: () => import('./templates/templates.module').then(m => m.TemplatesModule),
-            data: {
-              title: 'Template'
-            }
+            loadChildren: () => import('./templates/templates.module').then(m => m.TemplatesModule)
+            
           },
 
         ]

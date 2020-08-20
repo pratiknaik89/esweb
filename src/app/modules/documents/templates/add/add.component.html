@@ -1,3 +1,9 @@
+<style>
+  .newfileUpload .sdss {
+    background-color: chocolate;
+  }
+</style>
+
 <ol class="breadcrumb">
   <app-breadcrumb></app-breadcrumb>
   <span style="text-transform: capitalize;padding-left: 5px;"> </span>
@@ -7,60 +13,65 @@
 
   </li>
 </ol>
-<div class="fixed-content" *ngIf="!showreci"> 
+<div class="fixed-content" *ngIf="!showreci">
   <div class="row">
     <div class="col-md-3"></div>
 
     <div class="col-md-6 ">
-      <p-card>
+      <p-card header="Add New Template">
 
-        <div class="row mt-5">
-          <div class="col-md-12">
-            <div class="text-danger">*Only PDF file allowed</div>
-            <div class="form-group container" >
-              <div class="row"><div class="col-md-4"></div>
-                <div class="col-md-4 mt-3">
-                  <img src="/assets/img/brand/upload.png" style="width: 100px;height: 60px;">
-                </div>
+        
+              <!-- <div class="row"><div class="col-md-4"></div>
+                
                 <div class="col-md-4"></div>
-              </div>
-             
+              </div> -->
+
               <div class="row mt-3">
-                <div class="col-md-4"></div>
-                <div class="col-md-4 mt-2" >
-                  
-                  <p-fileUpload [multiple]="true" name="img[]" tabindex="15" [url]="upload_url"
-                  mode="basic" #imgUpload2 maxFileSize="{{uploadMaxFilesize}}"
-                  (onSelect)="selectFile($event,imgUpload2)"
-                  (onUpload)="onFileUpload($event,imgUpload2,imgpreview,3,i)"
-                  (onBeforeSend)="onFileBeforeUpload($event,'exclusive','mobilebanner')"
-                  (onProgress)="onFileUploadProgress($event,imgUpload2)" auto="true"
-                  [chooseLabel]="'Upload PDF'" accept="image/*">
-               </p-fileUpload>
+
+                <div class="col-md-12 mt-2">
+
+                  <p-fileUpload [multiple]="false"   styleClass="newfileUpload" name="img[]" tabindex="15"
+                    [url]="upload_url" mode="advanced" #imgUpload2 maxFileSize="{{uploadMaxFilesize}}"
+                    (onSelect)="selectFile($event,imgUpload2)"
+                    (onUpload)="onFileUpload($event,imgUpload2,imgpreview,3,i)"
+                    (onBeforeSend)="onFileBeforeUpload($event,'exclusive','mobilebanner')"
+                    (onProgress)="onFileUploadProgress($event,imgUpload2)" auto="true" [chooseLabel]="'Upload PDF'"
+                    accept="image/*">
+                    <ng-template pTemplate="toolbar">
+                      <div class="text-danger d-block text-center">*Only PDF file allowed</div>
+                    </ng-template>
+                    <ng-template pTemplate="content">
+                      <div style="height: 200px;" class="upload-container">
+                        <div class="row">
+                          <div class="col-md-12 text-center mt-3">
+                            <img src="/assets/img/brand/upload.png" style="width: 100px;height: 60px;">
+                            <span class="d-block text-center mt-4">Drop file here</span>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </p-fileUpload>
 
                 </div>
 
-                <div class="col-md-4"></div>
-              </div>
-            </div>
-          </div>
+ 
 
-          </div>
-          <div class="row">
-          <div class="col-md-4"></div>
-          <div class="col-md-4">
+        </div>
+        <div class="row">
 
-            <button (click)="enableRecipient()" class="btn btn-success btn-sm mt-2" style="width: 120px;" type="button"
-            translate="">Next &nbsp;<i class="fa fa-arrow-right"></i>
-        </button>
+          <div class="col-md-12 text-center">
+
+            <button (click)="enableRecipient()" class="btn btn-success btn-lg mt-2 pl-5 pr-5" type="button"
+              translate="">Next &nbsp;<i class="fa fa-arrow-right"></i>
+            </button>
           </div>
           <div class=""></div>
         </div>
-        </p-card>
-        </div>
-</div>
-    <div class="col-md-3"></div>
+      </p-card>
+    </div>
   </div>
+  <div class="col-md-3"></div>
+</div>
 
 <!-- <div class="row">
   <div class="col-md-12">

@@ -2236,7 +2236,7 @@ body .ui-table .ui-sortable-column:not(.ui-state-highlight):hover a:hover {
 }
 
 body .ui-table .ui-sortable-column.ui-state-highlight {
-  background-color: #007ad9;
+  background-color: transparent;
   color: #ffffff;
 }
 
@@ -2250,8 +2250,12 @@ body .ui-table .ui-editable-column input {
 }
 
 body .ui-table .ui-editable-column input:focus {
-  outline: 1px solid #007ad9;
+  outline: 1px solid transparent;
   outline-offset: 2px;
+}
+
+body .ui-table .ui-sortable-column .ui-sortable-column-icon {
+  color: #ffffff;
 }
 
 body .ui-table .ui-table-tbody>tr {
@@ -4342,7 +4346,7 @@ body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-active {
 
 .nav-dropdown-items .nav-item a {
   font-size: 12px !important;
-  color: #6fa86f !important;
+  color:#333333 !important;
   font-weight: bold;
   padding: 0.4rem 1rem;
 }

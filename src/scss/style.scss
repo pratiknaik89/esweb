@@ -58,9 +58,11 @@ body {
 }
 
 .sidebar .sidebar-minimizer {
-  background-color: rgb(249, 249, 249);
-  border-top: 1px solid #e8e6e8;
+  background-color: rgb(249, 249, 249)!important;
+  border-top: 1px solid #e8e6e8!important;
 }
+
+ 
 
 .sidebar li.nav-item {
   position: relative;
@@ -144,7 +146,7 @@ label {
 }
 
 .sidebar .nav-link.active, .sidebar .nav-link.active i {
-  color: #1c1b16 !important;
+  color: #ffffff !important;
   background: #6fa86f;
 }
 .sidebar .nav-dropdown.open {
@@ -161,7 +163,7 @@ label {
     padding: .4rem 10px;
     padding-left: 15px!important;
     cursor: pointer;
-    color: #333!important;
+    color: #333 ;
 
 }
 
@@ -631,3 +633,7 @@ p-table.popuppaginator > div > p-paginator > div:first-child {
   border: 0px!important;
   border-radius: 0;
 } 
+
+.app-header .nav-item .nav-link{
+  color: #fff!important;
+}
