@@ -6,38 +6,59 @@
       <div class="row">
         <div class="col-md-5 mx-auto">
           <div class="card-group" style="padding-bottom: 100px;">
-            <div class="card p-4" style="margin-top: 35px;
+            <div class="card pt-4 pr-4 pl-4 pb-0" style="margin-top: 35px;
             box-shadow: 0px 10px 10px #a2a2a2;">
               <div class="card-body">
                 <div class="card-body text-right">
-                  <!-- <img src="assets/img/brand/logo.png" style="
-                    width: 159px;
+                  <img src="./assets/img/brand/login.jpg" style="
+                    width: 90px;
                     position: absolute;
-                    left: 45px;
-                    top: 14px;
-                "> -->
+                    left: 25px;
+                    top: 34px;
+                    height: 80px;
+                ">
+
                   <!-- <div class="btn-group" dropdown>
                     <button name="lang" dropdownToggle type="button" class="btn btn-primary dropdown-toggle ">
                       {{ 'dropdown' | translate }} <span class="caret"></span>
                     </button>
                     <ul *dropdownMenu class="dropdown-menu" role="menu">
-                      <li role="menuitem" *ngFor="let l of lang;"><a class="dropdown-item" (click)="onChangeDropDown(l)">{{l.name}}</a></li>
+                      <li role="menuitem" *ngFor="let l of lang;"><a class="dropdown-item"
+                          (click)="onChangeDropDown(l)">{{l.name}}</a></li>
                     </ul>
                   </div> -->
 
                 </div>
-                <h1 translate>Login</h1>
-                <p class="text-muted" translate>login</p>
+                <!-- <li style="list-style:none;cursor:pointer;text-align: right;">
+                  <div class="btn-group" dropdown>
+                    <a name="lang" dropdownToggle style="border: 1px solid #8ae1ff;
+                      padding: 2px 14px 2px 14px;
+                      background-color: #e2f8ff;
+                      border-radius: 4px;">
+
+                      <i class="fa fa-language" style="font-size: 18px;
+                      color: #1c75bc;">&nbsp;<b>{{global.getLang().toUpperCase()}}</b></i>
+                    </a>
+                    <ul *dropdownMenu class="dropdown-menu" role="menu">
+                      <li role="menuitem" *ngFor="let l of lang;"><a class="dropdown-item"
+                          (click)="onLangChange(l)">{{l.name}}</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li> -->
+                <br>
+                <h1 >Login</h1>
+                <p class="text-muted" >Sign In to your account</p>
 
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-user"></i></span>
                   </div>
-                  <input type="text" class="form-control" id="username" placeholder="{{ 'Username/Email'}}" 
-                    name="username" [(ngModel)]="objlogindtl.username" #username="ngModel" [ngClass]="{ 'is-invalid': (username.dirty || username.touched) &&  username.invalid }"
-                    required>
+                  <input type="text" class="form-control" placeholder="Username/Email"
+                    autocomplete="username" id="username" name="username" [(ngModel)]="objlogindtl.username"
+                    #username="ngModel" [ngClass]="{ 'is-invalid': (username.dirty ) &&  username.invalid }" required>
                 </div>
-                <div *ngIf="(username.dirty || username.touched) &&  username.invalid" class="text-danger ml-5">
+                <div *ngIf="(username.dirty ) &&  username.invalid" class="text-danger ml-5">
                   <div *ngIf="username.errors.required">username is required</div>
                   <div *ngIf="!username.errors.required && username.dirty">Enter valid username</div>
                 </div>
@@ -46,15 +67,13 @@
                     <span class="input-group-text"><i class="icon-lock"></i></span>
                   </div>
                   <input type="password" name="password" [(ngModel)]="objlogindtl.password" class="form-control"
-                    placeholder="{{ 'Password'}}" #password="ngModel" 
-                    [ngClass]="{ 'is-invalid': (password.dirty || password.touched) &&  password.invalid }" 
-                    required>
-                    <!-- pattern="^[-a-zA-Z0-9-()]+(\s+[-a-zA-Z0-9-()]+)*$" -->
+                    placeholder="Password" autocomplete="current-password" #password="ngModel"
+                    [ngClass]="{ 'is-invalid': (password.dirty ) &&  password.invalid }" required>
                 </div>
-                <div *ngIf="(password.dirty || password.touched) &&  password.invalid" class="text-danger ml-5">
+                <div *ngIf="(password.dirty ) &&  password.invalid" class="text-danger ml-5">
                   <div *ngIf="password.errors.required">password is required</div>
-                  <div *ngIf="!password.errors.required && password.dirty">Enter valid password</div>
                 </div>
+                
                 <div class="input-group  mt-4">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fa fa-building-o"></i></span>
@@ -63,15 +82,27 @@
                     placeholder="PIN" autocomplete="current-password" #cmpcode="ngModel"
                     [ngClass]="{ 'is-invalid': (cmpcode.dirty ) &&  cmpcode.invalid }" >
                 </div>
+                <div *ngIf="(cmpcode.dirty ) &&  cmpcode.invalid" class="text-danger ml-5">
+                  <div *ngIf="cmpcode.errors.required">cmpcode is required</div>
+                </div>
                 <div class="row mt-4">
                   <div class="col-6">
-                    <button type="submit" class="btn btn-primary px-4" [disabled]="!f.form.valid" translate>Login</button>
+                    <button type="submit" class="btn btn-primary px-4" [disabled]="!f.form.valid"
+                      >Login</button>
                   </div>
-                  <div class="col-6 text-right">
-                    <!-- <button type="button" class="btn btn-link px-0" translate>loginfpwd</button> -->
-                  </div>
+                  <!-- <div class="col-6 text-right">
+                      <a href="#/forgetpassword">Forget Password</a>
+                  </div> -->
 
                 </div>
+                <div class="row">
+                  <div class="col-md-12 text-right text-muted">
+                    <!-- <small>Ver. {{global.getVersion()}}</small> -->
+                    <small>Ver. 1</small>
+                  </div>
+                </div>
+                
+
               </div>
             </div>
 
@@ -82,7 +113,7 @@
                     <i class="fa fa-times-circle" style="color:firebrick;"  *ngIf="form.controls.username.invalid"></i>
                     Username should be minimum 4 characters long.
                 </span>
-
+               
                 <span>
                     <i class="fa fa-check-circle" style="color:green;" *ngIf="form.controls.password.valid"></i>
                     <i class="fa fa-times-circle" style="color:firebrick;"  *ngIf="form.controls.password.invalid"></i>
