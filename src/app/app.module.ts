@@ -47,6 +47,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { SharedModule } from './shared/shared.module';
+ 
 
 @NgModule({
   imports: [
@@ -76,7 +77,7 @@ import { SharedModule } from './shared/shared.module';
      ...APP_CONTAINERS,
     P404Component,
     P500Component,
-    LoginComponent,
+    LoginComponent 
     
     //,FranchisemasterComponent
   ],
