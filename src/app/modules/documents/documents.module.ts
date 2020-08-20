@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import {DocumentsRoutingModule} from '../documents/documents-routing.module';
 import { from } from 'rxjs';
+import { EditorComponent } from './editor/editor.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [EditorComponent],
   imports: [
     CommonModule,
     DocumentsRoutingModule
