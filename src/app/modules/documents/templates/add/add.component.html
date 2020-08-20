@@ -1,0 +1,44 @@
+<ol class="breadcrumb">
+  <app-breadcrumb></app-breadcrumb>
+  <span style="text-transform: capitalize;padding-left: 5px;"> </span>
+
+  <li class="breadcrumb-menu">
+    <app-actionbtn [isfav]="isfav"></app-actionbtn>
+
+  </li>
+</ol>
+<div class="fixed-content">
+  <div class="row">
+    <div class="col-md-3"></div>
+
+    <div class="col-md-6 ">
+      <p-card>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group container" >
+              <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4 mt-2" >
+                  <p-fileUpload name="img[]" tabindex="15" [url]="upload_url" mode="basic" #pdf1 auto="true"
+                    [chooseLabel]="'Upload PDF'" accept="pdf/*">
+                  </p-fileUpload>
+
+                </div>
+
+                <div class="col-md-4"></div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+
+
+      </p-card>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>

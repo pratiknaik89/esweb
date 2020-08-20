@@ -145,7 +145,7 @@ label {
 
 .sidebar .nav-link.active, .sidebar .nav-link.active i {
   color: #1c1b16 !important;
-  background: #bdc3c7;
+  background: #6fa86f;
 }
 .sidebar .nav-dropdown.open {
   background: transparent;
@@ -174,7 +174,7 @@ label {
  
 
 .sidebar .nav-link:hover, app-sidebar-nav-dropdown.open, .sidebar .nav-link:hover .nav-icon{
-  background: #bdc3c7!important;
+  background: #6fa86f;
   color: #333!important;
 }
 
@@ -197,7 +197,7 @@ body .ui-paginator .ui-paginator-pages .ui-paginator-page {
 }
 
 body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active {
-  background-color: #848484;
+  background-color: #6fa86f;
   color: #ffffff;
   // background: -webkit-gradient(left top, left bottom, color-stop(0%, #fef4d2), color-stop(47%, #fef1c4), color-stop(100%, #ffdf73));
   // background: linear-gradient(to bottom, #fef4d2 0%, #fef1c4 47%, #ffdf73 100%);
@@ -543,4 +543,18 @@ p-table.popuppaginator > div > p-paginator > div:first-child {
 
 .ui-table-resizable .ui-resizable-column{
     background-clip: unset!important; 
+}
+
+.ui-panelmenu .ui-panelmenu-header.ui-state-active > a:hover {
+  outline: 0 none;
+  border: 1px solid #6fa86f!important;
+  background-color: #6fa86f!important;
+  color: #ffffff;
+}
+
+
+.ui-panelmenu .ui-panelmenu-header.ui-state-active > a {
+  border: 1px solid #6fa86f!important;
+  background-color: #6fa86f!important;
+  color: #ffffff;
 }

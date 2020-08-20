@@ -27,7 +27,8 @@ import {
 } from '@coreui/angular';
 import { ToastrModule } from 'ngx-toastr';
 import {GroupByPipe} from '../pipes/groupby.pipe'
-
+ 
+import {RecipientModule} from '../shared/usercontrol/recipient/recipient.module';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/');
 }
@@ -69,6 +70,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       },
     }),
     InputSwitchModule,
+     
+    RecipientModule
   ],
   exports: [
     FormsModule,
@@ -89,7 +92,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     IngredientsComponent,
     SettingsComponent,
     AppBreadcrumbModule,
-    GroupByPipe
+    GroupByPipe,
+    RecipientModule
   ],
   providers: []
 })

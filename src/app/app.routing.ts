@@ -44,7 +44,7 @@ export const routes: Routes = [
     component: DefaultLayoutComponent,
     //canActivate: [AuthGuard],
     data: {
-      title: 'Home'
+      title: ''
     },
     children: [
       {
@@ -67,6 +67,10 @@ export const routes: Routes = [
       {
         path: 'masters',
         loadChildren: () => import('./modules/master/master.module').then(m => m.MasterModule)
+      },
+      {
+        path: 'documents',
+        loadChildren: () => import('./modules/documents/documents.module').then(m => m.DocumentsModule)
       },
     ]
   },
