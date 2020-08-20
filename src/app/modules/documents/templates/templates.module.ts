@@ -10,6 +10,8 @@ import { FileUploadModule } from 'primeng/fileupload';
 import {CardModule} from 'primeng/card';
 import {RecipientModule} from '../../../shared/usercontrol/recipient/recipient.module';
 import {DragDropModule} from 'primeng/dragdrop';
+import { DataViewModule } from 'primeng/dataview';
+
 
 @NgModule({
   declarations: [AddComponent, ViewComponent, EdittemplateComponent],
@@ -21,7 +23,8 @@ import {DragDropModule} from 'primeng/dragdrop';
     CardModule,
     FileUploadModule,
     RecipientModule,
-    DragDropModule
+    DragDropModule,
+    DataViewModule 
     
   ]
 })

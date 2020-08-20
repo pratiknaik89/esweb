@@ -602,3 +602,32 @@ p-table.popuppaginator > div > p-paginator > div:first-child {
   align-items: center;
   font-weight: 500;
 }
+
+
+.p-grid {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -.5em;
+  margin-left: -.5em;
+  margin-top: -.5em
+}
+
+.p-grid>.p-col,.p-grid>[class*=p-col] {
+  box-sizing: border-box
+}
+
+.doctemplate .ui-dataview-header{
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border: 0px!important;
+  border-radius: 0;
+  border-bottom: 1px solid #ccc!important;
+}
+.doctemplate .ui-dataview-content{
+ 
+  border: 0px!important;
+  border-radius: 0;
+} 
