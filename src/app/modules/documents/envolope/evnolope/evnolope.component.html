@@ -1,0 +1,66 @@
+<ol class="breadcrumb">
+    <app-breadcrumb></app-breadcrumb>
+</ol>
+<div class="fixed-content">
+
+
+    <div class="fixed-content">
+
+        <div class="card-body p-0">
+
+
+            <div class="row">
+
+                <!-- <div class="col-md-12 ">
+                    <button  class="btn btn-primary btn-sm mt-2" type="button"
+                    translate="">Add Envelope<i class="fa fa-plus"></i>
+                </button>
+                    </div> -->
+                <div class="col-md-4 ">
+                    <div style="display: flex">
+                        <div style="width: 100%">
+                            <div *ngFor="let item of documentList;let i=index;" class="pop1 mb-1"
+                                (click)="onColumnClick(i)">
+                                <i class="fa fa-envelope"></i>
+                                {{item.name}} <small class="text-danger" style="
+                        position: absolute;
+                        right: 14px;
+                        font-size: 12px;
+                        font-weight: bold;
+                        "></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- *ngIf="showDocpannel" -->
+                <div class="col-md-8">
+                    <p-card *ngIf="showDocpannel">
+                        <strong>Envelope {{envNo+1}}</strong>
+                        <div class="row">
+                            <div class="col-md-4" *ngFor="let item of documentsDeatilList">
+
+                                <div class="doccontainer">
+                                    <div>{{item.name}}</div>
+                                    <img *ngIf="item.src != '' " src="{{item.src}}"
+                                        style="width: 80% ; border: 2px solid Black;">
+
+                                    <br>
+
+                                    <button *ngIf="item.src != '' " class="btn btn-primary btn-sm mt-2" type="button"
+                                        translate=""><i class="fa fa-eye"></i>
+                                    </button>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </p-card>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- <p-panelMenu [model]="items" [style]="{'width':'300px'}"></p-panelMenu> -->
+</div>
