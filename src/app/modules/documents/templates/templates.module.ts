@@ -8,6 +8,9 @@ import { iEditorModule } from "esigndoccontrol";
 import { EdittemplateComponent } from './edittemplate/edittemplate.component';
 import { FileUploadModule } from 'primeng/fileupload';
 import {CardModule} from 'primeng/card';
+import {RecipientModule} from '../../../shared/usercontrol/recipient/recipient.module';
+import {DragDropModule} from 'primeng/dragdrop';
+
 @NgModule({
   declarations: [AddComponent, ViewComponent, EdittemplateComponent],
   imports: [
@@ -16,7 +19,9 @@ import {CardModule} from 'primeng/card';
     SharedModule,
     iEditorModule,
     CardModule,
-    FileUploadModule
+    FileUploadModule,
+    RecipientModule,
+    DragDropModule
     
   ]
 })
