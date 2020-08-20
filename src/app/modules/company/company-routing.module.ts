@@ -40,6 +40,7 @@ const routes: Routes = [{
         },
         //canActivate: [AuthGuard],
         component: ViewComponent,
+        canActivate: [Prerequisite],
         }, {
           path: 'list',
           data: {

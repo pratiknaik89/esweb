@@ -121,7 +121,7 @@ this.masterService.postMaster({
           this.form.group=val.group
           this.form.parentid=val.parentid
           this.form.description=val.description
-          this.form.active=val.active,
+          this.form.active=val.isactive,
           this.form.code=val.code
         
         

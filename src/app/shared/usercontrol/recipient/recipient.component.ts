@@ -6,7 +6,7 @@ import { Component, OnInit ,Input} from '@angular/core';
   styleUrls: ['./recipient.component.css']
 })
 export class RecipientComponent implements OnInit {
- 
+ templateList:any=[];
   constructor() { }
   form:any={
     id:0,
@@ -18,6 +18,13 @@ export class RecipientComponent implements OnInit {
     
   }
   ngOnInit(): void {
+    this.templateList=[{name:1}]
+  }
+  addnewTemplate(){
+    let data={
+      name:2
+    }
+    this.templateList.push(data);
   }
 
 }
