@@ -254,6 +254,8 @@ export class RoleComponent implements OnInit {
         let sdata = data.resultValue;
         if (data.resultKey == 1) {
           this.grid.RefreshGrid();
+          this.message.show('done', 'Saved successfully', 'success', this.translate)
+          this.closeModal();
           // this.grid.insert({
           //   id: sdata.id,
           //   rolename: sdata.rolename.replace("'", ' '),
@@ -266,8 +268,7 @@ export class RoleComponent implements OnInit {
         else {
           this.updateRow(this.roledata.id);
         }
-        this.message.show('done', 'Saved successfully', 'success', this.translate)
-        this.closeModal();
+     
       }
       else if(data.resultValue.errorcode != ''){
         this.message.show('error', data.defaultError, 'warn', this.translate);

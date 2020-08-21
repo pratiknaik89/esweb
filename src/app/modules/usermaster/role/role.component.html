@@ -77,7 +77,7 @@
                 <div class="controls">
                   <div class="input-prepend input-group">
                     <input class="form-control" name="rolename" #rolename="ngModel" [(ngModel)]="roledata.rolename" size="16"
-                      type="text" autofocus="true" [ngClass]="{ 'is-invalid':  f.submitted && (rolename.dirty || rolename.touched) &&  rolename.invalid }" minlength="4" maxlength="50"
+                      type="text" autofocus="true" [ngClass]="{ 'is-invalid':  f.submitted && (rolename.dirty || rolename.touched) &&  rolename.invalid }" minlength="1" maxlength="50"
                         placeholder="Role" required />
                   </div>
   <small>
