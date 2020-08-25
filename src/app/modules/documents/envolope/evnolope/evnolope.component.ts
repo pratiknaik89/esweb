@@ -18,12 +18,24 @@ export class EvnolopeComponent implements OnInit {
         'disabled': true, 'access': true
       },
       {
-        'id': 'add', 'color': 'white', 'bg': 'success', 'text': 'Add Template In Evelope', 'icon': 'plus', 'shortcut': 'ctrl+shift+a',
+        'id': 'add', 'color': 'white', 'bg': 'success', 'text': 'Add Templates In Evelope', 'icon': 'plus', 'shortcut': 'ctrl+shift+a',
         'disabled': false, 'access': true
       }
     ];
 
-
+    this.items = [{
+      label: 'Action',
+      items: [
+        { label: 'New', icon: 'pi pi-fw pi-plus' },
+        { label: 'Edit', icon: 'pi pi-fw pi-pencil' },
+        { label: 'Remove', icon: 'pi pi-fw pi-trash' }
+      ]
+    }, {
+      label: 'Template',
+      items: [
+        { label: 'Add Templates', icon: 'pi pi-fw pi-file-o' }, 
+      ]
+    }];
   }
   documentList: any = [];
   documentsDeatilList: any = [];
