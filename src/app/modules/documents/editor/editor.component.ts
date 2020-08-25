@@ -6,18 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./editor.component.css']
 })
 export class EditorComponent implements OnInit {
-  pdfSrc:any='';
+  pdfSrc: any = '';
   constructor() { }
 
   ngOnInit(): void {
-$('body').addClass('sidebar-minimized');
-    this.pdfSrc='assets/sdlc.pdf';
+    $('body').addClass('sidebar-minimized');
+    this.pdfSrc = './assets/sdlc.pdf';
   }
   ngOnDestroy(): void {
     $('body').removeClass('sidebar-minimized');
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    
+
   }
 
 }

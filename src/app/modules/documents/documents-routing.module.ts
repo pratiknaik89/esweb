@@ -17,7 +17,12 @@ const routes: Routes = [
           title: ''
         },
         children: [
+          {
+            path: 'view',
+            loadChildren: () => import('./statusview/view.com').then(m => m.DocStatusViewModule),
 
+
+          },
           {
             path: 'envolope',
             loadChildren: () => import('./envolope/envolope.module').then(m => m.EnvolopeModule),
@@ -27,23 +32,24 @@ const routes: Routes = [
           {
             path: 'templates',
             loadChildren: () => import('./templates/templates.module').then(m => m.TemplatesModule)
-            
-          },
-       
-            {
-              path: 'editor',
-              component: EditorComponent,
-              //canActivate: [AuthGuard],
-              data: {
-                title: 'Editor',
-                code: 'doceditor',
-               // role: 'di'
-              },
-              canActivate: [Prerequisite],
-            },
 
-     
-        ]}
+          },
+
+          {
+            path: 'editor',
+            component: EditorComponent,
+            //canActivate: [AuthGuard],
+            data: {
+              title: 'Editor',
+              code: 'doceditor',
+              // role: 'di'
+            },
+            canActivate: [Prerequisite],
+          },
+
+
+        ]
+      }
     ]
   }
 ];
