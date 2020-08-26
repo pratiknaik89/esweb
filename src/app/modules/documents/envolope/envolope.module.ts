@@ -7,7 +7,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import {CardModule} from 'primeng/card';
 import { FileUploadModule } from 'primeng/fileupload';
 import {EnvelopeRoutingModule} from '../../documents/envolope/evnolope/envelope-routing.module';
- 
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 // const routes: Routes = [
 //   {
 //     path: '',
@@ -34,7 +34,7 @@ import {EnvelopeRoutingModule} from '../../documents/envolope/evnolope/envelope-
   declarations: [EvnolopeComponent],
   imports: [
     CommonModule,
-   
+    ProgressSpinnerModule,
     PanelMenuModule,
     SharedModule,
     DataViewModule,

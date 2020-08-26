@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { ActionBarComponent } from '../../../../shared/usercontrol/actionbar/actbar.comp';
+import { EnvolopeService } from '../../../../service/envolope.service';
+import { GlobalService } from '../../../../service/global.service';
+import { ToastService } from '../../../../service/toast-service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-evnolope',
   templateUrl: './evnolope.component.html',
@@ -8,10 +12,18 @@ import { ActionBarComponent } from '../../../../shared/usercontrol/actionbar/act
 })
 export class EvnolopeComponent implements OnInit {
   @ViewChild('actionbar', { static: false }) actionbar: ActionBarComponent;
+  @ViewChild('template') popupContainer;
   items: any = [];
+  loader: boolean = false;
   showDocpannel: boolean = false;
   buttons = [];
-  constructor() {
+  form: any = {
+    id: '',
+    envname: ''
+  }
+  searchstring: any = '';
+  modalRef: any;
+  constructor(private envlope: EnvolopeService, private global: GlobalService, private message: ToastService, private translate: TranslateService,) {
     this.buttons = [
       {
         'id': 'edit', 'color': 'white', 'bg': 'primary', 'text': 'Edit Envelope', 'icon': 'pencil', 'shortcut': 'ctrl+shift+a',
@@ -31,13 +43,13 @@ export class EvnolopeComponent implements OnInit {
   selectedenvelope: any = {};
   envelopeList = [];
   ngOnInit(): void {
+    this.bindEnvelope();
 
 
+    // for (let index = 0; index < 100; index++) {
+    //   this.envelopeList.push({ id: index, name: "Envelope " + index });
 
-    for (let index = 0; index < 100; index++) {
-      this.envelopeList.push({ id: index, name: "Envelope " + index });
-
-    }
+    // }
 
 
     this.documentsDeatilList = [
@@ -47,25 +59,7 @@ export class EvnolopeComponent implements OnInit {
       { id: 4, name: "Document 1", src: "/assets/img/img1.png" },
       { id: 5, name: "Document 1", src: "/assets/img/img1.png" },
       { id: 6, name: "Document 1", src: "/assets/img/img1.png" },];
-    //   this.items = [
-    //     {
-    //         label: 'Documemnt 1',
-    //         icon: 'pi pi-pw pi-file',
-    //         command: (event) => {
-    //           debugger
-    //         }
 
-    //     },
-    //     {
-    //       label: 'Documemnt 2',
-    //       icon: 'pi pi-pw pi-file',
-
-    //   },
-    //   {
-    //     label: 'Documemnt 3',
-    //     icon: 'pi pi-pw pi-file',
-
-    // }]
   }
 
   buttonClicks(id) {
@@ -76,8 +70,89 @@ export class EvnolopeComponent implements OnInit {
       }
     }
   }
+
+  bindEnvelope() {
+    debugger
+    this.envlope.getEnvolope({
+      'operate': 'bindenv'
+    }).subscribe((data: any) => {
+      if (data.resultKey === 1) {
+        this.envelopeList = data.resultValue;
+      }
+    })
+  }
+
   onColumnClick(item) {
+
+    this.loader = true;
+
+
+
+
     this.actionbar.changeProp('edit', 'disabled', false);
     this.selectedenvelope = item;
+  }
+
+
+  open() {
+
+
+    this.modalRef = this.global.showPopup(this.popupContainer);
+  }
+  closeModal() {
+
+
+    //  this.clear();
+    if (this.modalRef) {
+      this.modalRef.hide();
+    }
+  }
+
+  save() {
+    this.envlope.SaveEnvolope({
+      "envname": this.form.envname,
+      "comapnyid": this.global.getCompany(),
+
+    }).subscribe((res: any) => {
+      if (res.resultKey == 1) {
+        this.message.show('Success', 'Envelope created successfully', 'success', this.translate);
+        this.bindEnvelope();
+
+        this.closeModal();
+
+
+
+      } else if (res.resultValue.errorcode != '') {
+        this.message.show('error', res.resultValue.msg, 'error', this.translate);
+      }
+      else {
+        this.message.show('error', res.resultValue.msg, 'error', this.translate);
+      }
+    })
+  }
+
+
+
+  searchEnvolope() {
+     debugger
+    let tempEnvlist=[];
+    tempEnvlist=this.envelopeList;
+    let searchInenvList=[];
+    searchInenvList=this.envelopeList;
+    let record = searchInenvList.filter((a) => {
+      return a.name==this.searchstring;
+    }
+    
+    )
+
+    if(record != undefined){
+       this.envelopeList=[];
+       record.forEach(element => {
+        this.envelopeList.push(element);
+       });
+
+    }
+
+
   }
 }
