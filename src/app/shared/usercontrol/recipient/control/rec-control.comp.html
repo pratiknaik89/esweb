@@ -1,0 +1,64 @@
+<div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <div class="form-group">
+          <label>Id </label><span class="text-danger">*</span>
+          <input class="form-control" id="id" name="id" #usrname="ngModel" type="text" [(ngModel)]="form.id"
+            autocomplete="off" required tabindex="2" placeholder="Id" minlength="1" maxlength="50">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <div class="form-group">
+          <label> Recipient type</label><span class="text-danger">*</span>
+          <select class="form-control" name="rectype" #rectype="ngModel" [(ngModel)]="form.rectype" tabindex="13"
+            name="rectype" id="rectype">
+            <option value="">Select recipient type</option>
+            <option value="1">To</option>
+            <option value="2">CC</option>
+            <option value="3">BCC</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <div class="form-group">
+          <label> Name</label><span class="text-danger">*</span>
+          <input class="form-control" id="usrname" name="usrname" #usrname="ngModel" type="text" [(ngModel)]="form.name"
+            autocomplete="off" required tabindex="2" placeholder=" Name" minlength="1" maxlength="50">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <div class="form-group">
+          <label> Email</label><span class="text-danger">*</span>
+          <input class="form-control" id="email" name="email" #email="ngModel" type="text" [(ngModel)]="form.email"
+            autocomplete="off" required tabindex="2" placeholder=" Email" minlength="1" maxlength="50">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <div class="form-group">
+          <label> Email Body</label><span class="text-danger">*</span>
+          <textarea class="form-control" rows="4" id="usrname" name="usrname" type="text"  
+            autocomplete="off" required tabindex="2" placeholder=" Name" minlength="1" maxlength="50"></textarea>
+            
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
