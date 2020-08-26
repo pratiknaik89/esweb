@@ -10,6 +10,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import * as $ from "jquery";
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -47,7 +48,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { SharedModule } from './shared/shared.module';
- 
+
 
 @NgModule({
   imports: [
@@ -74,11 +75,11 @@ import { SharedModule } from './shared/shared.module';
   ],
   declarations: [
     AppComponent,
-     ...APP_CONTAINERS,
+    ...APP_CONTAINERS,
     P404Component,
     P500Component,
-    LoginComponent 
-    
+    LoginComponent
+
     //,FranchisemasterComponent
   ],
   providers: [{
