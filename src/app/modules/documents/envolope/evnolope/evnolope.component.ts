@@ -146,10 +146,10 @@ export class EvnolopeComponent implements OnInit {
     )
 
     if(record != undefined){
-       this.envelopeList=[];
-       record.forEach(element => {
-        this.envelopeList.push(element);
-       });
+      //  this.envelopeList=[];
+      //  record.forEach(element => {
+      //   this.envelopeList.push(element);
+      //  });
 
     }
 
