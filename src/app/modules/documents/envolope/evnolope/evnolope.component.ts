@@ -18,11 +18,14 @@ export class EvnolopeComponent implements OnInit {
   showDocpannel: boolean = false;
   buttons = [];
   form: any = {
-    id: '',
+    id: null,
     envname: ''
   }
+  onColclickid: any = '';
   searchstring: any = '';
   modalRef: any;
+  noEnvmsg: any = '';
+  showLoader: boolean = false;
   constructor(private envlope: EnvolopeService, private global: GlobalService, private message: ToastService, private translate: TranslateService,) {
     this.buttons = [
       {
@@ -52,6 +55,48 @@ export class EvnolopeComponent implements OnInit {
     // }
 
 
+
+
+  }
+
+  buttonClicks(id) {
+
+    switch (id) {
+      case 'edit':
+        this.edit(id).then((flag: boolean) => {
+          if (flag) {
+            this.open();
+          }
+        }, () => {
+
+        });
+        //    this.open();
+        break;
+      case 'fav':
+
+        break;
+      default:
+        break;
+    }
+  }
+
+  bindEnvelope() {
+this.envelopeList=[];
+    this.showLoader = true;
+    this.envlope.getEnvolope({
+      'operate': 'bindenv'
+    }).subscribe((data: any) => {
+      if (data.resultKey === 1) {
+        this.envelopeList = data.resultValue;
+        this.showLoader = false;
+      } else {
+        this.showLoader = false;
+      }
+    })
+  }
+
+  onColumnClick(item) {
+
     this.documentsDeatilList = [
       { id: 1, name: "Document 1", src: "/assets/img/img1.png" },
       { id: 2, name: "Document 2", src: "/assets/img/img2.png" },
@@ -59,31 +104,7 @@ export class EvnolopeComponent implements OnInit {
       { id: 4, name: "Document 1", src: "/assets/img/img1.png" },
       { id: 5, name: "Document 1", src: "/assets/img/img1.png" },
       { id: 6, name: "Document 1", src: "/assets/img/img1.png" },];
-
-  }
-
-  buttonClicks(id) {
-
-    switch (id) {
-      case "id": {
-
-      }
-    }
-  }
-
-  bindEnvelope() {
-    debugger
-    this.envlope.getEnvolope({
-      'operate': 'bindenv'
-    }).subscribe((data: any) => {
-      if (data.resultKey === 1) {
-        this.envelopeList = data.resultValue;
-      }
-    })
-  }
-
-  onColumnClick(item) {
-
+    this.onColclickid = item.id;
     this.loader = true;
 
 
@@ -110,12 +131,15 @@ export class EvnolopeComponent implements OnInit {
 
   save() {
     this.envlope.SaveEnvolope({
+      "id": this.form.id,
       "envname": this.form.envname,
       "comapnyid": this.global.getCompany(),
 
     }).subscribe((res: any) => {
       if (res.resultKey == 1) {
-        this.message.show('Success', 'Envelope created successfully', 'success', this.translate);
+        this.message.show('Success', 'Saved successfully', 'success', this.translate);
+       
+        this.envelopeList.push();
         this.bindEnvelope();
 
         this.closeModal();
@@ -134,25 +158,67 @@ export class EvnolopeComponent implements OnInit {
 
 
   searchEnvolope() {
-     debugger
-    let tempEnvlist=[];
-    tempEnvlist=this.envelopeList;
-    let searchInenvList=[];
-    searchInenvList=this.envelopeList;
-    let record = searchInenvList.filter((a) => {
-      return a.name==this.searchstring;
+
+    this.noEnvmsg = '';
+    this.envelopeList = [];
+    if (this.searchstring != '' || this.searchstring == undefined || this.searchstring == null) {
+      this.showLoader = true;
+      this.envlope.getEnvolope({
+        'operate': 'searchenv',
+        "keyword": this.searchstring
+      }).subscribe((data: any) => {
+        if (data.resultKey === 1) {
+
+
+          this.showLoader = false;
+          this.envelopeList = data.resultValue;
+          this.noEnvmsg = this.envelopeList.length > 0 ? '' : 'No Envolope Found!'
+
+        } else {
+          this.showLoader = false;
+          this.bindEnvelope();
+          this.noEnvmsg = '';
+        }
+      })
+    } else {
+      this.envelopeList = [];
+      this.showLoader = true;
+      this.bindEnvelope();
     }
+
+
+
+  }
+
+
+  edit(id) {
+    return new Promise((resolve, reject) => {
+      this.envlope.getEnvolope({
+        'operate': 'edit',
+        'id': this.onColclickid
+
+      }).subscribe((res: any) => {
+        if (res.resultKey === 1) {
+
+          this.form.id = res.resultValue[0].id;
+          this.form.envname = res.resultValue[0].name;
+          resolve(true);
+        } else {
+          reject();
+        }
+
+      })
+
+    });
+  }
+
+  checkEmptyEnvolope() {
     
-    )
-
-    if(record != undefined){
-      //  this.envelopeList=[];
-      //  record.forEach(element => {
-      //   this.envelopeList.push(element);
-      //  });
-
+   
+    if (this.searchstring == '' || this.searchstring == undefined || this.searchstring == null) {
+      this.envelopeList=[]
+      this.noEnvmsg='';
+      this.bindEnvelope();
     }
-
-
   }
 }
