@@ -7,123 +7,82 @@
 
   </li>
 </ol>
-<form name="form" #f="ngForm" novalidate (ngSubmit)="f.form.valid && save()">
-  <div class="fixed-content">
+
+<div class="fixed-content">
+
+  <form name="form" #f="ngForm" novalidate (ngSubmit)="f.form.valid && save()">
 
 
-    <p-card>
+    <div class="row">
+      <div class="col-md-3 "></div>
+      <div class="col-md-6 ">
 
-      <div class="row">
-        <div class="col-md-4 ">
-
-          <div class="doccontainer" *ngFor="let key of templateList">
-
-
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <div class="form-group">
-                    <label>Id </label><span class="text-danger">*</span>
-                    <input class="form-control" id="id" name="id" #usrname="ngModel" type="text" [(ngModel)]="form.id"
-                      autocomplete="off" required tabindex="2" placeholder="Id" minlength="1" maxlength="50">
-                  </div>
-                </div>
+        <div *ngFor="let key of templateList;let i = index;">
+          <div class="ui-card ui-widget ui-widget-content ui-corner-all p-3 pl-1 pr-5 d-flex mb-3"
+            style="border-left:4px solid rgb(212, 181, 0);border-radius: 5px;padding-left: 10px;">
+            <div class="handle" style="width: 40px;justify-content: center;
+            display: flex;
+            align-items: center;">
+              <div class="ui-card ui-widget ui-widget-content text-bold" style="    padding: 7px;
+              position: absolute;
+              left: 4px;
+              text-align: center;">
+                {{i + 1}}
               </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <div class="form-group">
-                    <label> Select recipient type</label><span class="text-danger">*</span>
-                    <select class="form-control" name="rectype" #rectype="ngModel" [(ngModel)]="form.rectype"
-                      tabindex="13" name="rectype" id="rectype">
-                      <option value="">Select recipient type</option>
-                      <option value="1">To</option>
-                      <option value="2">CC</option>
-                      <option value="3">BCC</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <div class="form-group">
-                    <label> Name</label><span class="text-danger">*</span>
-                    <input class="form-control" id="usrname" name="usrname" #usrname="ngModel" type="text"
-                      [(ngModel)]="form.name" autocomplete="off" required tabindex="2" placeholder=" Name" minlength="1"
-                      maxlength="50">
-                  </div>
-                </div>
-              </div>
+              <i class="fa fa-arrows fa-2x text-secondary"></i>
             </div>
 
-
-
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <div class="form-group">
-                    <label> Email</label><span class="text-danger">*</span>
-                    <input class="form-control" id="email" name="email" #email="ngModel" type="text"
-                      [(ngModel)]="form.email" autocomplete="off" required tabindex="2" placeholder=" Email"
-                      minlength="1" maxlength="50">
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="row mt-4">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <div class="form-group">
-
-                 
-                    <button class="btn btn-danger btn-sm mt-2" style="width: 100px;" type="button" translate="">Reset
-                      &nbsp;<i class="fa fa-rotate-left"></i>
-                    </button>
-
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="form-group">
-                  <div class="form-group">
-
-                    <button (click)="enableRecipient()" class="btn btn-success btn-sm mt-2" style="width: 100px;"
-                    type="button" translate="">Save &nbsp;<i class="fa fa-save"></i>
-                  </button>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
+            <app-rec-control style="flex: 1;"></app-rec-control>
 
 
           </div>
-
-
         </div>
-        <div class="col-md-4">
-        
-          <button (click)="addnewTemplate()" class="btn btn-success btn-sm mt-2" style="width: 120px;" type="button"
-          translate="">Add new &nbsp;<i class="fa fa-plus"></i>
-      </button>
-  
-
+        <div class="p-2 mt-3">
+          <button class="btn btn-warning btn-block" (click)="addnewTemplate()"><i class="fa fa-user-plus"></i> Add
+            More
+            Recipient</button>
         </div>
 
-     
       </div>
+      <div class="col-md-3 "></div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-3 "></div>
+      <div class="col-md-6 ">
+        <p-card>
+          <div class="form-group">
+            <div class="form-group">
+              <label> Subject</label><span class="text-danger">*</span>
+              <input class="form-control" id="usrname" name="usrname" #usrname="ngModel" type="text"
+                [(ngModel)]="form.name" autocomplete="off" required tabindex="2" placeholder=" Name" minlength="1"
+                maxlength="50">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-group">
+              <label> Email Body</label><span class="text-danger">*</span>
+              <textarea class="form-control" rows="4" id="usrname" name="usrname" type="text" autocomplete="off"
+                required tabindex="2" placeholder=" Name" minlength="1" maxlength="50"></textarea>
 
-      
+            </div>
+          </div>
+        </p-card>
+      </div>
+      <div class="col-md-3 "></div>
+    </div>
+    <!-- <div class="row mt-3">
+      <div class="col-md-3 "></div>
+      <div class="col-md-6 ">
+        <div class="p-2 mt-3">
+          <button class="btn btn-success btn-block" (click)="addnewTemplate()">
+          Next <i class="fa fa-arrow-right"></i>
+          </button>
+        </div>
+
+      </div>
+      <div class="col-md-3 "></div>
+    </div> -->
+  </form>
 
 
-    </p-card>
-
-
-  </div>
-</form>
+</div>

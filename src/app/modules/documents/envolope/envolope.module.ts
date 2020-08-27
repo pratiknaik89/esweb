@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EvnolopeComponent } from './evnolope/evnolope.component'; 
-import {PanelMenuModule} from 'primeng/panelmenu';
-import {DataViewModule} from 'primeng/dataview';
+import { EvnolopeComponent } from './evnolope/evnolope.component';
+import { MenuModule } from 'primeng/menu';
+import { DataViewModule } from 'primeng/dataview';
 import { SharedModule } from '../../../shared/shared.module';
-import {CardModule} from 'primeng/card';
+import { CardModule } from 'primeng/card';
 import { FileUploadModule } from 'primeng/fileupload';
 import {EnvelopeRoutingModule} from '../../documents/envolope/evnolope/envelope-routing.module';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
+
+import { DocThumbModule } from '../../../shared/usercontrol/docthumb/docthumb.com';
+
 // const routes: Routes = [
 //   {
 //     path: '',
@@ -22,7 +25,7 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
 //         data: {
 //           title: '',
 //           code: 'envolpe',
-         
+
 
 //         }
 //       }
@@ -35,13 +38,15 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
   imports: [
     CommonModule,
     ProgressSpinnerModule,
-    PanelMenuModule,
+ 
     SharedModule,
     DataViewModule,
     CardModule,
     FileUploadModule,
-    EnvelopeRoutingModule 
-     
+    EnvelopeRoutingModule,
+    MenuModule,
+    DocThumbModule
+
   ]
 })
 

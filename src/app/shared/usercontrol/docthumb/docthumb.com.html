@@ -1,0 +1,26 @@
+<div class="doc-thumb-container">
+    <div class="image-wrap">
+        <img *ngIf="item.src != '' " src="{{item.src}}">
+    </div>
+
+
+    <!-- <button *ngIf="item.src != '' " class="btn btn-primary btn-sm mt-2" type="button"
+        translate=""><i class="fa fa-eye"></i>
+    </button> -->
+    <div class="doc-name-wrap">
+        <div>{{item.name}}</div>
+        <div class="pop_panel content">
+            <button class="btn text-info">
+                <i class="fa fa-pencil" style="font-size:21px;"></i>
+            </button>
+            <button class="btn  text-danger">
+                <i class="fa fa-trash" style="font-size:21px;"></i>
+            </button>
+            <!-- <button class="btn" (click)="menu.toggle($event);">
+                <i class="fa fa-ellipsis-v" style="font-size:21px;"></i>
+            </button> -->
+
+        </div>
+    </div>
+
+</div>

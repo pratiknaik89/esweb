@@ -83,29 +83,8 @@
         <ng-template let-item pTemplate="gridItem">
 
             <div class="col-md-3 mb-2 mt-2">
-                <div class="doc-thumb-container">
-                    <div class="image-wrap">
-                        <img *ngIf="item.src != '' " src="{{item.src}}">
-                    </div>
+                <app-docthumb [item]="item"></app-docthumb>
 
-
-                    <!-- <button *ngIf="item.src != '' " class="btn btn-primary btn-sm mt-2" type="button"
-                        translate=""><i class="fa fa-eye"></i>
-                    </button> -->
-                    <div class="doc-name-wrap">
-                        <div>{{item.name}}</div>
-                        <div class="pop_panel content">
-                            <button class="btn text-info">
-                                <i class="fa fa-pencil" style="font-size:21px;"></i>
-                            </button>
-                            <button class="btn  text-danger">
-                                <i class="fa fa-trash" style="font-size:21px;"></i>
-                            </button>
-
-                        </div>
-                    </div>
-
-                </div>
                 <!-- <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
                     <img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60">
                     <div class="car-detail">{{car.year}} - {{car.color}}</div>

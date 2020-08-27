@@ -71,10 +71,12 @@
        
             <div class="scroll-content">
                 <div *ngFor="let item of envelopeList ;let i=index;"
-                    [ngClass]="{'eactive': selectedenvelope.id == item.id}" class="envelope mb-0"
+                    [ngClass]="{'eactive': selectedenvelope.id == item.id}" class="envelope mb-0 d-flex"
                     (click)="onColumnClick(item)">
-                    <i class="fa fa-envelope"></i>
-                    {{item.name}}
+                    <i class="fa fa-envelope align-self-center mr-1"></i>
+                    <span style="flex:1">{{item.name}}</span>
+                    <button type="button" style="background-color: transparent;" class="align-self-end  border-0"
+                        label="" (click)="menu.toggle($event);"><i class="fa fa-ellipsis-v"></i></button>
                 </div>
             </div>
 
@@ -103,6 +105,7 @@
 
                     </div>
 
+                    <app-docthumb [item]="item"></app-docthumb>
 
                 </div>
             </div>
@@ -167,5 +170,5 @@
 
     </div> -->
 
-    <!-- <p-panelMenu [model]="items" [style]="{'width':'300px'}"></p-panelMenu> -->
+    <p-menu #menu [popup]="true" [model]="items"></p-menu>
 </div>
