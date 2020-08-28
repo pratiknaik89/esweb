@@ -389,5 +389,8 @@
     "select_dropdown_header": "Please select column header",
     "no_records": "No Records Found",
     "select_drinkmix": "Please Selec Drink Mix",
-    "select_ingrdient": "Please select ingredient"
+    "select_ingrdient": "Please select ingredient",
+    "template_name": "Please enter name",
+    "template_desc": "Please enter description",
+    "template_docurl": "Plaese upload pdf file"
 }
