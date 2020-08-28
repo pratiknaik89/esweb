@@ -12,6 +12,10 @@ export class TemplateService {
         return this.dataservice.getHttpData('/template', req);
     }
 
+    getTemplateById(req: any) {
+        return this.dataservice.getHttpData('/template/:id', req);
+    }
+
     saveTemplate(req: any) {
         return this.dataservice.postHttpData('/template', req);
     }

@@ -32,7 +32,7 @@ export class AddComponent implements OnInit {
     this.getAllTemplate();
   }
   enableRecipient() {
-    this.router.navigate(['/documents/templates/' + this.templateObj.id + '/recipient', { queryParams: { id: this.templateObj.id } }]);
+    this.router.navigate(['/documents/templates/' + this.templateObj.id + '/recipient']);
   }
   enableEditor() {
     this.router.navigate(['/documents/editor'], { queryParams: { id: this.templateObj.id, filepath: this.templateObj.docurl } });

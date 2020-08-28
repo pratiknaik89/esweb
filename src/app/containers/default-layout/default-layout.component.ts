@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy,ViewChild,NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, NgZone } from '@angular/core';
 //import { navItems } from '../../_nav';
 import { GlobalService } from "../../service/global.service";
 import { ClsButton } from "../../model/cls-button.model";
@@ -9,13 +9,13 @@ import { Router } from '@angular/router';
 import { OutletMasterService } from "../../service/outletmaster.service";
 import { EventSenderService } from '../../common/events';
 import { FranchiseService } from '../../service/franchise.service';
-import {Favoriteservice} from '../../service/favorite.service';
+import { Favoriteservice } from '../../service/favorite.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { TranslateService } from '@ngx-translate/core';
-import {environment} from '../../../environments/environment'
-import {LoginApiService} from '../../service/login.service';
+import { environment } from '../../../environments/environment'
+import { LoginApiService } from '../../service/login.service';
 import { ToastService } from '../../service/toast-service';
-import{Momservice} from '../../service/mom.service'
+import { Momservice } from '../../service/mom.service'
 @Component({
   selector: 'app-dashboard',
   templateUrl: './default-layout.component.html',
@@ -56,7 +56,7 @@ export class DefaultLayoutComponent implements OnInit, OnDestroy {
   imgParentPath: any = {};
   constructor(private router: Router, private menuservice: MenuService,
     public global: GlobalService, private favmenu: Favoriteservice,
-     private modalService: BsModalService, private translate: TranslateService,  private momService: Momservice, private loginService: LoginApiService, private message: ToastService, private zone: NgZone) {
+    private modalService: BsModalService, private translate: TranslateService, private momService: Momservice, private loginService: LoginApiService, private message: ToastService, private zone: NgZone) {
     this.env = environment;
 
     // private shortcut: HotkeysService,
@@ -119,12 +119,12 @@ export class DefaultLayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-     
-    
-    if(this.global.getCompany() == ""){
+
+
+    if (this.global.getCompany() == "") {
       this.router.navigate(['/company/list', { backurl: '/dashboard' }]);
     }
-    
+
     const that = this;
 
     that.zone.run(() => {
@@ -166,12 +166,12 @@ export class DefaultLayoutComponent implements OnInit, OnDestroy {
     this.menuservice.getMenu({
       'type': 'usermenus',
       'userid': this.global.getUser().id,
-      'usertype':this.global.getUser().usertype
+      'usertype': this.global.getUser().usertype
     }).subscribe(
       data => {
 
         if (data.resultKey === 1) {
-         
+
           this.navItems = common.menubind(data.resultValue);
 
 

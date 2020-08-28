@@ -1,8 +1,8 @@
-<app-header #header [fixed]="true" [navbarBrandFull]="{src: 'https://elevate-holistics.com/wp-content/themes/elevate-theme/assets/img/logo.svg', width: 140, height: 30, alt: ''}"
+<app-header #header [fixed]="true"
+  [navbarBrandFull]="{src: 'https://elevate-holistics.com/wp-content/themes/elevate-theme/assets/img/logo.svg', width: 140, height: 30, alt: ''}"
   [navbarBrandMinimized]="{src: 'https://elevate-holistics.com/wp-content/themes/elevate-theme/assets/img/logo.svg', width: 140, height: 30, alt: ''}"
-   [sidebarToggler]="'lg'"
-  [sidebarToggler]=false [asideMenuToggler]=false>
-  
+  [sidebarToggler]="'lg'" [sidebarToggler]=false [asideMenuToggler]=false>
+
 
   <ul class="nav navbar-nav d-md-down-none">
     <li class="nav-item px-3">
@@ -97,7 +97,7 @@
 </app-header>
 <div class="app-body">
   <app-sidebar [fixed]="true" [display]="'lg'">
-    
+
     <app-sidebar-nav [navItems]="navItems" [perfectScrollbar] [disabled]="sidebarMinimized"></app-sidebar-nav>
     <app-sidebar-minimizer></app-sidebar-minimizer>
   </app-sidebar>
@@ -107,6 +107,12 @@
 
 
     <div class="container-fluid p-0">
+      <div id="loaderwrap">
+        <span class="loadingicon {{global.loader == true ? '' : 'hide'}}">
+          {{global.loadertext}}
+        </span>
+      </div>
+      <p-progressBar *ngIf="global.loader" mode="indeterminate" [style]="{'height': '3px'}"></p-progressBar>
       <router-outlet></router-outlet>
     </div><!-- /.container-fluid -->
   </main>
@@ -115,7 +121,7 @@
   </app-aside>
 </div>
 <app-footer>
-  
+
   <!-- <span>Powered by <a href="http://www.ideas2tech.com/">I2T </a></span> -->
   <span class="ml-auto">
     <button type="button" (click)="gotoCompanyList()"
