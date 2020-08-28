@@ -8,9 +8,10 @@ import { CardModule } from 'primeng/card';
 import { FileUploadModule } from 'primeng/fileupload';
 import {EnvelopeRoutingModule} from '../../documents/envolope/evnolope/envelope-routing.module';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
-
+import {CheckboxModule} from 'primeng/checkbox';
 import { DocThumbModule } from '../../../shared/usercontrol/docthumb/docthumb.com';
-
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import {SafePipe} from '../../../pipes/SafePipe.pipe';
 // const routes: Routes = [
 //   {
 //     path: '',
@@ -34,7 +35,7 @@ import { DocThumbModule } from '../../../shared/usercontrol/docthumb/docthumb.co
 // ];
 
 @NgModule({
-  declarations: [EvnolopeComponent],
+  declarations: [EvnolopeComponent,SafePipe],
   imports: [
     CommonModule,
     ProgressSpinnerModule,
@@ -45,7 +46,9 @@ import { DocThumbModule } from '../../../shared/usercontrol/docthumb/docthumb.co
     FileUploadModule,
     EnvelopeRoutingModule,
     MenuModule,
-    DocThumbModule
+    DocThumbModule,
+    CheckboxModule,
+    PdfViewerModule
 
   ]
 })
