@@ -27,16 +27,15 @@ export class RecipientComponent implements OnInit {
       }
     ];
     this.templateList = [{ name: 1 }]
-    debugger;
-    this.route.snapshot.paramMap.get('id');
-    this.getTemplateById(this.route.snapshot.paramMap.get('id'));
-    this.route
-      .queryParams
-      .subscribe(params => {
-        // Defaults to 0 if no query param provided.
-        console.log(params);
 
-      });
+    this.getTemplateById(this.route.snapshot.paramMap.get('id'));
+    // this.route
+    //   .queryParams
+    //   .subscribe(params => {
+    //     // Defaults to 0 if no query param provided.
+    //     console.log(params);
+
+    //   });
 
   }
   addnewTemplate() {
