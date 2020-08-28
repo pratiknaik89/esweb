@@ -28,6 +28,8 @@ import { LoginComponent } from './views/login/login.component';
 import { HotkeyModule } from 'angular2-hotkeys';
 import { CommonModule } from '@angular/common';
 
+import { ProgressBarModule } from 'primeng/progressbar';
+
 const APP_CONTAINERS = [
   DefaultLayoutComponent
 ];
@@ -71,7 +73,8 @@ import { SharedModule } from './shared/shared.module';
       cheatSheetHotkey: 'ctrl+`',
       cheatSheetCloseEsc: true
     }),
-    CommonModule
+    CommonModule,
+    ProgressBarModule
   ],
   declarations: [
     AppComponent,

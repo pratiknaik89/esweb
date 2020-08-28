@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { Prerequisite } from '../../../service/prerequisite';
-import {RecipientComponent} from '../recipient/recipient.component';
+import { RecipientComponent } from '../recipient/recipient.component';
 import { from } from 'rxjs';
 
 const routes: Routes = [
@@ -15,17 +15,17 @@ const routes: Routes = [
           title: 'Templates'
         },
         children: [
-            {
-                path: 'recipient',
-                component: RecipientComponent,
-              
-                data: {
-                  title: 'Recipient',
-                 
-                
-                },
-                canActivate: [Prerequisite],
-              },
+          {
+            path: ':id/recipient',
+            component: RecipientComponent,
+
+            data: {
+              title: 'Recipient',
+
+
+            },
+            canActivate: [Prerequisite],
+          },
 
         ]
       }

@@ -14,8 +14,6 @@ import { DragDropModule } from 'primeng/dragdrop';
 import { DataViewModule } from 'primeng/dataview';
 import { DocThumbModule } from '../../../shared/usercontrol/docthumb/docthumb.com';
 
-
-
 @NgModule({
   declarations: [AddComponent, ViewComponent, EdittemplateComponent],
   imports: [
