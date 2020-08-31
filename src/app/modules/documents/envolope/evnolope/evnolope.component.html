@@ -4,6 +4,11 @@
     </app-breadcrumb>
     <li class="breadcrumb-item active" *ngIf="selectedenvelope.id">&nbsp;<span
             tabindex="0">{{selectedenvelope.name}}</span></li>
+    &nbsp;&nbsp; <li>
+        <span class="badge badge-success badge" style="height: auto;">{{onColclickid}}</span>
+
+    </li>
+
     <li class="breadcrumb-menu">
         <app-actionbtn #actionbar [buttons]="buttons" (onaction)="buttonClicks($event)"></app-actionbtn>
 
@@ -19,7 +24,7 @@
     <form name="form" #f="ngForm" novalidate (ngSubmit)="f.form.valid && save()">
         <div class="modal-body modal-lg">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     <div class="form-group">
                         <label>Envlope Name</label><span class="text-danger">*</span>
                         <input class="form-control" id="envname" name="envname" #envname="ngModel" type="text"
@@ -32,14 +37,68 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer ">
-
-                <button class="btn text-white btn-success btn-sm" type="submit"><i class="fa fa-save"></i>&nbsp;
-                    Save</button>
-            </div>
         </div>
+        <div class="modal-footer">
+
+            <button class="btn text-white btn-success btn-sm" type="submit"><i class="fa fa-save"></i>&nbsp;
+                Save</button>
+        </div>
+
     </form>
 
+</ng-template>
+
+<ng-template #template1>
+    <div class="modal-header">
+        <h4 class="modal-title">Template</h4>
+        <button type="button" class="close" (click)="closeModal1()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body ">
+        <h4 class="modal-title text-center mt-2">Templates</h4>
+        <div class="d-flex p-2" style="justify-content: center;">
+            <span class="p-input-icon-left">
+
+                <input style="width: 80%;" type="text" pInputText [(ngModel)]="searchtemplatestring"
+                    placeholder="Search Template"> <i class="pi pi-search" (click)="searchTemplates()"></i>
+
+            </span>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 mb-3 ml-4" *ngFor="let item of templateList;let i=index">
+
+                <div class="templatecontainer">
+                    <input [(ngModel)]="item.checked" size="16" id="parent{{i}}" input type="checkbox"
+                        name="parent{{i}}" />
+                    <div class="template-wrap">
+                       
+                        <pdf-viewer [src]="urlHandle(item.docurl)" [render-text]="true"></pdf-viewer>
+                    </div>
+
+
+
+                    <div class="doc-name-wrap mt-5">
+                        <div>{{item.name}}</div>
+                    </div>
+
+                </div>
+
+
+
+                <!-- <app-docthumb [item]="item"></app-docthumb> -->
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn text-white btn-danger btn-sm" type="submit"><i class="fa fa-close"></i>&nbsp;
+            Cancel</button>
+        <button class="btn text-white btn-success btn-sm" type="submit" (click)="addTemplate()"><i class="fa fa-plus"></i>&nbsp;
+            Save</button>
+    </div>
 </ng-template>
 
 <div class="fixed-content">
@@ -53,8 +112,10 @@
                 </div>
                 <div class="d-flex p-2" style="justify-content: center;">
                     <span class="p-input-icon-left">
-                      
-                        <input style="width: 80%;" type="text" pInputText [(ngModel)]="searchstring"  (input)="checkEmptyEnvolope()" placeholder="Search Envelope">  <i class="pi pi-search" (click)="searchEnvolope()"></i>
+
+                        <input style="width: 80%;" type="text" pInputText [(ngModel)]="searchstring"
+                            (input)="checkEmptyEnvolope()" placeholder="Search Envelope"> <i class="pi pi-search"
+                            (click)="searchEnvolope()"></i>
 
                     </span>
 
@@ -63,12 +124,12 @@
             </div>
             <div class="ml-4" *ngIf="envelopeList.length <= 0">
                 {{noEnvmsg}}
-                        </div>
-            <div class="ml-5" *ngIf="showLoader">
-            <p-progressSpinner [style]="{width: '50px', height: '50px'}"></p-progressSpinner>
-        </div>
-        <!--  -->
-       
+            </div>
+            <div class="text-center" *ngIf="showLoader">
+                <p-progressSpinner [style]="{width: '50px', height: '50px'}"></p-progressSpinner>
+            </div>
+            <!--  -->
+
             <div class="scroll-content">
                 <div *ngFor="let item of envelopeList ;let i=index;"
                     [ngClass]="{'eactive': selectedenvelope.id == item.id}" class="envelope mb-0 d-flex"
@@ -87,24 +148,11 @@
         <div class="content-wrapper">
 
             <div class="row">
-               
+
                 <div class="col-md-3 mb-3" *ngFor="let item of documentsDeatilList">
-
-                    <div class="doc-thumb-container">
-                        <div class="image-wrap">
-                            <img *ngIf="item.src != '' " src="{{item.src}}">
-                        </div>
-
-
-                        <!-- <button *ngIf="item.src != '' " class="btn btn-primary btn-sm mt-2" type="button"
-                            translate=""><i class="fa fa-eye"></i>
-                        </button> -->
-                        <div class="doc-name-wrap">
-                            <div>{{item.name}}</div>
-                        </div>
-
-                    </div>
-
+                    
+                   
+                   
                     <app-docthumb [item]="item"></app-docthumb>
 
                 </div>
@@ -172,3 +220,4 @@
 
     <p-menu #menu [popup]="true" [model]="items"></p-menu>
 </div>
+
