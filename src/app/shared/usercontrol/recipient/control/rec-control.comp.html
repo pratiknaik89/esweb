@@ -4,8 +4,13 @@
       <div class="form-group">
         <div class="form-group">
           <label>Id </label><span class="text-danger">*</span>
-          <input class="form-control" id="id" name="id" #usrname="ngModel" type="text" [(ngModel)]="form.id"
-            autocomplete="off" required tabindex="2" placeholder="Id" minlength="1" maxlength="50">
+          <input class="form-control" id="id" name="id" #id="ngModel" type="text" [(ngModel)]="recipient.id"
+            autocomplete="off" required tabindex="1" placeholder="Id" minlength="1" maxlength="50">
+          <small>
+            <div *ngIf="f.submitted && id.invalid" class="text-danger">
+              <div *ngIf="id.errors.required">Id is required</div>
+            </div>
+          </small>
         </div>
       </div>
     </div>
@@ -13,18 +18,21 @@
       <div class="form-group">
         <div class="form-group">
           <label> Recipient type</label><span class="text-danger">*</span>
-          <select class="form-control" name="rectype" #rectype="ngModel" [(ngModel)]="form.rectype" tabindex="13"
+          <select class="form-control" #rtype="ngModel" [(ngModel)]="recipient.rectype" required tabindex="2"
             name="rectype" id="rectype">
             <option value="">Select recipient type</option>
-            <option value="1">To</option>
-            <option value="2">CC</option>
-            <option value="3">BCC</option>
+            <option *ngFor="let item of rectype" [value]="item.id">{{item.desc}}</option>
           </select>
+          <small>
+            <div *ngIf="f.submitted && rtype.invalid" class="text-danger">
+              <div *ngIf="rtype.errors.required">Recipient type is required</div>
+            </div>
+          </small>
         </div>
       </div>
     </div>
   </div>
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-md-12">
       <div class="form-group">
         <div class="form-group">
@@ -35,9 +43,6 @@
       </div>
     </div>
   </div>
-
-
-
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
@@ -54,11 +59,10 @@
       <div class="form-group">
         <div class="form-group">
           <label> Email Body</label><span class="text-danger">*</span>
-          <textarea class="form-control" rows="4" id="usrname" name="usrname" type="text"  
-            autocomplete="off" required tabindex="2" placeholder=" Name" minlength="1" maxlength="50"></textarea>
-            
+          <textarea class="form-control" rows="4" id="usrname" name="usrname" type="text" autocomplete="off" required
+            tabindex="2" placeholder=" Name" minlength="1" maxlength="50"></textarea>
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>

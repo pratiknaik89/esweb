@@ -1,25 +1,25 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { ClsRecipient, ClsRecipientType } from '../../../../model/cls-recipient-model';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-rec-control',
   templateUrl: './rec-control.comp.html',
   styleUrls: ['./rec-control.comp.css']
 })
 export class RecControlComponent implements OnInit {
-  templateList: any = [];
-  constructor(private router: Router) { }
-  form: any = {
-    id: 'doc',
-    type: '',
-    name: '',
-    email: '',
-    active: '',
-    rectype: ''
 
+  @Input() recipient: ClsRecipient;
+  @Input() rectype: Array<ClsRecipientType>;
+  @Input() f: NgForm;
+
+  constructor() {
   }
-  buttons: any = [];
+
   ngOnInit(): void {
 
   }
 
+  ngAfterViewInit() {
+
+  }
 }

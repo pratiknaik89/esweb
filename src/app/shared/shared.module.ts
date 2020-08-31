@@ -15,6 +15,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { ActionBarComponent } from './usercontrol/actionbar/actbar.comp';
 import { DropdownModule } from 'primeng/dropdown';
+import { CheckboxModule } from 'primeng/checkbox';
 
 // import { ItemsearchComponent } from '../views/common/itemsearch/itemsearch.component';
 import { IngredientsComponent } from '../views/common/ingredients/ingredients.component';
@@ -26,8 +27,8 @@ import {
   AppBreadcrumbModule
 } from '@coreui/angular';
 import { ToastrModule } from 'ngx-toastr';
-import {GroupByPipe} from '../pipes/groupby.pipe'
- 
+import { GroupByPipe } from '../pipes/groupby.pipe'
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/');
@@ -52,11 +53,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     ReactiveFormsModule,
     DropdownModule,
+    CheckboxModule,
     AppBreadcrumbModule.forRoot(),
-        ToastrModule.forRoot({
-            positionClass: 'toast-top-center',
-            preventDuplicates: true,
-        }),
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-center',
+      preventDuplicates: true,
+    }),
     NgMultiSelectDropDownModule.forRoot(),
     ModalModule.forRoot(),
     //TableModule,
@@ -76,6 +78,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReactiveFormsModule,
     NgMultiSelectDropDownModule,
     DropdownModule,
+    CheckboxModule,
     ButtonComponent,
     FocusDirective,
     // FocusFormDirective,

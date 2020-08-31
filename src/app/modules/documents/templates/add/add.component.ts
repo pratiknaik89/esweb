@@ -29,7 +29,7 @@ export class AddComponent implements OnInit {
   ngOnInit(): void {
     this.templateObj = new ClsTemplate();
     this.upload_url = this.global.getConfig().api_root + '/company(' + this.global.getCompany() + ')/uploadpdf';
-    this.getAllTemplate();
+    //this.getAllTemplate();
   }
   enableRecipient() {
     this.router.navigate(['/documents/templates/' + this.templateObj.id + '/recipient']);
@@ -75,30 +75,40 @@ export class AddComponent implements OnInit {
     this.global.loadertext = "Loading";
   }
 
-  getAllTemplate() {
-    this.template.getAllTemplate({
-      operate: 'get'
-    }).subscribe((data: any) => {
-      if (data.resultKey == 1) {
-        console.log(data.resultValue);
-      }
-    });
+  // getAllTemplate() {
+  //   this.template.getAllTemplate({
+  //     operate: 'get'
+  //   }).subscribe((data: any) => {
+  //     if (data.resultKey == 1) {
+  //       console.log(data.resultValue);
+  //     }
+  //   });
+  // }
+
+  validation() {
+    if (this.templateObj.docurl.trim() == "") {
+      this.message.show('error', 'file_len_msg', 'error', this.translate);
+      return false;
+    }
+    return true;
   }
 
   saveTemplate() {
-    this.global.showLoader("Saving...");
-    this.template.saveTemplate({
-      operate: 'create',
-      data: this.templateObj,
-      userid: this.global.getUser().id
-    }).subscribe((data: any) => {
-      this.global.hideLoader();
-      if (data.resultKey == 1) {
-        this.templateObj.id = data.resultValue.msg;
-        this.enableRecipient();
-        //this.enableEditor();
-      }
-    });
+    if (this.validation()) {
+      this.global.showLoader("Saving...");
+      this.template.saveTemplate({
+        operate: 'create',
+        data: this.templateObj,
+        userid: this.global.getUser().id
+      }).subscribe((data: any) => {
+        if (data.resultKey == 1) {
+          this.templateObj.id = data.resultValue.msg;
+          this.enableRecipient();
+        } else {
+          this.message.show('error', data.resultValue.msg, 'error', this.translate);
+        }
+      });
+    }
   }
 
 }

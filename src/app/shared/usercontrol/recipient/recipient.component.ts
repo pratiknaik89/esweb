@@ -1,24 +1,35 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TemplateService } from '../../../service/template.service'
+import { ClsTRecipientDtl, ClsRecipient, ClsRecipientType } from '../../../model/cls-recipient-model';
+import { ClsTemplate } from '../../../model/cls-template.model';
+import { GlobalService } from '../../../service/global.service';
+import { ToastService } from '../../../service/toast-service';
+import { TranslateService } from '@ngx-translate/core';
+import { Editor } from 'primeng/editor';
+import { NgForm } from '@angular/forms';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+
 @Component({
   selector: 'app-recipient',
   templateUrl: './recipient.component.html',
   styleUrls: ['./recipient.component.css']
 })
 export class RecipientComponent implements OnInit {
-  templateList: any = [];
-  constructor(private route: ActivatedRoute, private router: Router, private template: TemplateService) { }
-  form: any = {
-    id: 0,
-    type: '',
-    name: '',
-    email: '',
-    active: '',
-    rectype: ''
 
+  tRecipient: ClsTRecipientDtl;
+  recipientType: Array<ClsRecipientType>;
+  @ViewChild('f') ngForm: NgForm;
+
+  constructor(private route: ActivatedRoute, private router: Router,
+    private template: TemplateService, private global: GlobalService,
+    private message: ToastService, private translate: TranslateService) {
+    this.tRecipient = new ClsTRecipientDtl();
+    this.recipientType = [new ClsRecipientType("1", "To"), new ClsRecipientType("2", "CC"), new ClsRecipientType("3", "BCC")];
   }
+
   buttons: any = [];
+
   ngOnInit(): void {
     this.buttons = [
       {
@@ -26,23 +37,21 @@ export class RecipientComponent implements OnInit {
         'disabled': false, 'access': true
       }
     ];
-    this.templateList = [{ name: 1 }]
+    this.tRecipient.recipienthead.push(new ClsRecipient());
 
+    this.tRecipient.templateid = this.route.snapshot.paramMap.get('id');
     this.getTemplateById(this.route.snapshot.paramMap.get('id'));
     // this.route
     //   .queryParams
     //   .subscribe(params => {
     //     // Defaults to 0 if no query param provided.
     //     console.log(params);
-
     //   });
 
   }
+
   addnewTemplate() {
-    let data = {
-      name: 2
-    }
-    this.templateList.push(data);
+    this.tRecipient.recipienthead.push(new ClsRecipient());
   }
 
   getTemplateById(id) {
@@ -51,20 +60,78 @@ export class RecipientComponent implements OnInit {
       id: id
     }).subscribe((data: any) => {
       if (data.resultKey == 1) {
-        console.log(data.resultValue);
+        console.log(Array<ClsTemplate>(data.resultValue));
+        this.tRecipient.emailbody = <string>data.resultValue[0]["emailbody"];
+        this.tRecipient.subject = <string>data.resultValue[0]["subject"];
+        this.tRecipient.recipienthead = data.resultValue[0]["recipienthead"];
+        this.tRecipient.keeporder = <boolean>data.resultValue[0]["keeporder"];
       }
     });
   }
 
-  buttonClicks(id) {
+  validation() {
+    if (this.tRecipient.emailbody.trim() == "") {
+      return false;
+    } else if (this.tRecipient.recipienthead.length == 0) {
+      this.message.show('error', "You need to have atleast 1 recipient.", 'error', this.translate);
+      return false;
+    } else {
+      let a = this.tRecipient.recipienthead.filter(a => a.id == "" || a.rectype == "").length;
+      if (a != 0) {
+        return false;
+      }
 
+      let b = new Set(this.tRecipient.recipienthead.map(a => a.id.trim()));
+      if (b.size != this.tRecipient.recipienthead.length) {
+        this.message.show('error', "Recipient id should be unique.", 'error', this.translate);
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  saveRecipient() {
+    console.log("saveRecipient");
+    if (this.validation()) {
+      this.template.saveRecipient({
+        operate: 'update',
+        data: this.tRecipient,
+        userid: this.global.getUser().id
+      }).subscribe((data: any) => {
+        if (data.resultKey == 1) {
+          console.log(data.resultValue);
+          this.router.navigate(['/documents/templates/' + this.tRecipient.templateid + '/editor']);
+        } else {
+          this.message.show('error', data.resultValue.msg, 'error', this.translate);
+        }
+      });
+    }
+  }
+
+  buttonClicks(id) {
     switch (id) {
       case 'next':
-        this.router.navigate(['/documents/editor']);
+        this.ngForm.onSubmit(undefined);
         break;
-
       default:
         break;
     }
   }
+
+  remove(index) {
+    this.tRecipient.recipienthead.splice(index, 1);
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    console.log(2);
+    if (event.previousContainer !== event.container) {
+      transferArrayItem(event.previousContainer.data, event.container.data,
+        event.previousIndex, event.currentIndex)
+    } else {
+      moveItemInArray(this.tRecipient.recipienthead, event.previousIndex, event.currentIndex);
+    }
+    console.log(this.tRecipient.recipienthead);
+  }
+
 }
