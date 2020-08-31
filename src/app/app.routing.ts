@@ -10,7 +10,7 @@ import { LoginComponent } from './views/login/login.component';
 //import{FranchisemasterComponent} from './views/master/franchisemaster/franchisemaster.component'
 
 import { AuthGuard } from './auth.guard';
-
+import {AppguardGuard} from '../app/guard/appguard.guard';
 
 export const routes: Routes = [
   {
@@ -42,7 +42,7 @@ export const routes: Routes = [
   {
     path: '',
     component: DefaultLayoutComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AppguardGuard],
     data: {
       title: ''
     },
