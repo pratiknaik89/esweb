@@ -25,14 +25,13 @@
               "node_modules/font-awesome/css/font-awesome.css",
               "node_modules/simple-line-icons/css/simple-line-icons.css",
               "node_modules/ngx-toastr/toastr.css",
-          
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/themes/nova-light/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "src/scss/style.scss",
+              "node_modules/quill/dist/quill.snow.css",
               "node_modules/esigndoccontrol/resources/css/doceditor.min.scss",
               "node_modules/esigndoccontrol/resources/css/doceditor.min.css"
-             
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -45,7 +44,8 @@
               "src/assets/js/common.js",
               "node_modules/esigndoccontrol/resources/js/jquery-ui.min.js",
               "node_modules/esigndoccontrol/resources/js/jquery.contextMenu.min.js",
-              "node_modules/esigndoccontrol/resources/js/jquery.ui.position.min.js"
+              "node_modules/esigndoccontrol/resources/js/jquery.ui.position.min.js",
+              "node_modules/quill/dist/quill.js"
             ]
           },
           "configurations": {
@@ -142,14 +142,12 @@
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [
               "node_modules/chart.js/dist/Chart.min.js"
-             
             ],
             "styles": [
               "node_modules/flag-icon-css/css/flag-icon.css",
               "node_modules/font-awesome/css/font-awesome.css",
               "node_modules/simple-line-icons/css/simple-line-icons.css",
               "src/scss/style.scss"
-            
             ],
             "stylePreprocessorOptions": {
               "includePaths": [

@@ -32,7 +32,7 @@ export class DataService {
         // }
         this.global.loader = true;
         let token = '';
-        if (localStorage.getItem('user') !== undefined && localStorage.getItem('user')!=null) {
+        if (localStorage.getItem('user') !== undefined && localStorage.getItem('user') != null) {
             token = JSON.parse(localStorage.getItem('user'))['token'];
         }
         this.httpOptions = {

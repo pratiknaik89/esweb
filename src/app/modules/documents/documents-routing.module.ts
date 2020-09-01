@@ -36,7 +36,7 @@ const routes: Routes = [
           },
 
           {
-            path: 'editor',
+            path: 'templates/:id/editor',
             component: EditorComponent,
             //canActivate: [AuthGuard],
             data: {

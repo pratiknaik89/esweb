@@ -6,6 +6,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RecipienRoutingModule } from '../recipient/recipient-routhing.module';
 import { SharedModule } from '../../shared.module';
 import { RecControlComponent } from './control/rec-control.comp';
+import { EditorModule } from 'primeng/editor';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 @NgModule({
   declarations: [RecipientComponent, RecControlComponent],
   imports: [
@@ -13,8 +16,9 @@ import { RecControlComponent } from './control/rec-control.comp';
     CardModule,
     FormsModule,
     RecipienRoutingModule,
-    SharedModule
-
+    SharedModule,
+    DragDropModule,
+    EditorModule
   ],
 
 })
