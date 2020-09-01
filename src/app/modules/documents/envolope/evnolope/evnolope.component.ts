@@ -7,8 +7,7 @@ import { ToastService } from '../../../../service/toast-service';
 import { TranslateService } from '@ngx-translate/core';
 import { TemplateService } from '../../../../service/template.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { resolve } from 'dns';
-import { rejects } from 'assert';
+ 
 
 @Component({
   selector: 'app-evnolope',
@@ -159,6 +158,7 @@ export class EvnolopeComponent implements OnInit {
   makeDocgrid(gridList) {
 
     if (gridList.length == 0) {
+      this.showDocspinner= false;
       return;
     }
     gridList.forEach(element => {
