@@ -196,16 +196,30 @@
   .main-content {
     margin-left: 205px;
     min-height: 300px;
-   
+    position: relative;
+    padding-top: 72px;
+}
+.props{
+  height: 68px;
+    position: absolute;
+    width: calc(100% + 35px);
+    background: #fff;
+    overflow: auto;
+    z-index: 1;
+    top: -15px;
+    left: -20px;
+    border-bottom: 1px solid #ccc;
+    box-shadow: -1px 0px 5px 0px #ccc;
+    padding: 10px;
 }
 
 #show {
     /* flex-wrap: wrap; */
     /* margin-right: -15px; */
-    margin-left: 550px;
+ 
     /* right: 500px; */
 
-    margin-top: 250px;
+    margin: 20px auto;
 }
 
 .templatecontainer{

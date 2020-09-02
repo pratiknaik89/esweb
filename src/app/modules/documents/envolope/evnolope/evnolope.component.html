@@ -103,7 +103,7 @@
 </ng-template>
 
 <div class="fixed-content">
- 
+
     <div class="left-bar-fixed">
         <div class="content-wrapper">
             <div class="action-bar">
@@ -148,45 +148,49 @@
     <!-- <div *ngIf="showDocspinner">
         <p-progressSpinner [style]="{width: '50px', height: '50px'}"></p-progressSpinner>
     </div> -->
-    
+
     <!-- <div class="row"> -->
+    <!-- <div class="col-md-10"> -->
+
+        
+    <div class="main-content">
+        <div class="props">
+            <span class="badge badge-success badge" *ngFor="let item of uniqueRecepientheadList" style="height: auto;">
+                {{item}}</span>
+            
+        </div>
         <div *ngIf="documentsDeatilList.length <= 0" id="show">No Document Avaliable! Please select Envelope!</div>
 
-        <!-- <div class="col-md-10"> -->
 
+        <div class="content-wrapper">
 
-            <div class="main-content">
-                <div class="content-wrapper">
+            <div class="row">
 
-                    <div class="row">
-
-                        <div class="col-md-3 mb-3" *ngFor="let item of documentsDeatilList">
+                <div class="col-md-4 mb-3" *ngFor="let item of documentsDeatilList">
 
 
 
-                            <app-docthumb [item]="item"></app-docthumb>
-
-                        </div>
-                    </div>
-
-
+                    <app-docthumb [item]="item"></app-docthumb>
 
                 </div>
             </div>
-        <!-- </div>   -->
-        <!-- class="col-md-2" -->
-        <div   *ngIf="documentsDeatilList.length > 0">
+
+
+
+        </div>
+    </div>
+    <!-- </div>   -->
+    <!-- class="col-md-2" -->
+    <!-- <div   *ngIf="documentsDeatilList.length > 0">
             <div class=" card">
                 <div class="text-center">
                     <h4> <label>IDS</label> </h4>
                 </div>
-                <div class="ml-2" *ngFor="let item of uniqueRecepientheadList">
-                    {{item}}
-                </div>
+             
 
             </div>
-        </div>
-   
+        </div> -->
+
 
     <!-- <div class="card-body p-0">
 
