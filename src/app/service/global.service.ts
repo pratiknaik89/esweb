@@ -141,7 +141,7 @@ export class GlobalService {
         return this.config;
     }
     public getVersion(): any {
-      //  return packageg.default.version;
+        //  return packageg.default.version;
     }
     public setVersion(version: any): any {
         return this._version = version;

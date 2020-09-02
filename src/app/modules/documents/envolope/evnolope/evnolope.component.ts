@@ -7,8 +7,8 @@ import { ToastService } from '../../../../service/toast-service';
 import { TranslateService } from '@ngx-translate/core';
 import { TemplateService } from '../../../../service/template.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { resolve } from 'dns';
-import { rejects } from 'assert';
+// import { resolve } from 'dns';
+// import { rejects } from 'assert';
 
 @Component({
   selector: 'app-evnolope',
@@ -23,7 +23,7 @@ export class EvnolopeComponent implements OnInit {
   items: any = [];
   loader: boolean = false;
   showDocpannel: boolean = false;
-  uniqueRecepientheadList:any=[];
+  uniqueRecepientheadList: any = [];
   buttons = [];
   form: any = {
     id: null,
@@ -41,21 +41,27 @@ export class EvnolopeComponent implements OnInit {
     this.items = [{
       label: 'Action',
       items: [
-        { label: 'New', icon: 'pi pi-fw pi-plus',command: (event) => {
-         this.open();
-      } },
-        { label: 'Edit', icon: 'pi pi-fw pi-pencil',command: (event) => {
-          this.edit(0);
-      } },
+        {
+          label: 'New', icon: 'pi pi-fw pi-plus', command: (event) => {
+            this.open();
+          }
+        },
+        {
+          label: 'Edit', icon: 'pi pi-fw pi-pencil', command: (event) => {
+            this.edit(0);
+          }
+        },
         { label: 'Remove', icon: 'pi pi-fw pi-trash' }
       ]
     }, {
       label: 'Template',
       items: [
-        { label: 'Add Templates', icon: 'pi pi-fw pi-file-o',command: (event) => {
-          this.getAllTemplate();
-         this.open1();
-      } },
+        {
+          label: 'Add Templates', icon: 'pi pi-fw pi-file-o', command: (event) => {
+            this.getAllTemplate();
+            this.open1();
+          }
+        },
       ]
     }];
   }
@@ -66,9 +72,9 @@ export class EvnolopeComponent implements OnInit {
   selectedenvelope: any = {};
   envelopeList = [];
   filePath: any = '';
-  showDocspinner:boolean=false;
+  showDocspinner: boolean = false;
   ngOnInit(): void {
-    
+
     this.srcurl = "https://bucket-cmp2.s3.us-east-2.amazonaws.com/template/sdlc_1598598923.pdf";
     this.filePath = "https://bucket-cmp" + this.global.getCompany() + ".s3.us-east-2.amazonaws.com/";
     console.log(this.filePath);
@@ -97,7 +103,7 @@ export class EvnolopeComponent implements OnInit {
     switch (id) {
       case 'edit':
         this.edit(id)
-        
+
         //    this.open();
         break;
       case 'add':
@@ -125,7 +131,7 @@ export class EvnolopeComponent implements OnInit {
   }
 
   onColumnClick(item) {
-    
+
     this.buttons = [
       {
         'id': 'edit', 'color': 'white', 'bg': 'primary', 'text': 'Edit Envelope', 'icon': 'pencil', 'shortcut': 'ctrl+shift+a',
@@ -164,36 +170,36 @@ export class EvnolopeComponent implements OnInit {
     gridList.forEach(element => {
       element.src = this.filePath + element.src;
       this.documentsDeatilList.push(element);
-      this.uniqueRecepientheadList=this.uniqueRecepientheadList.concat(this.global.makeJSON(element.recepienthead)
-        );
-        //this.uniqueRecepientheadList=this.uniqueRecepientheadList.unique();
-    
+      this.uniqueRecepientheadList = this.uniqueRecepientheadList.concat(this.global.makeJSON(element.recepienthead)
+      );
+      //this.uniqueRecepientheadList=this.uniqueRecepientheadList.unique();
+
     });
 
-    this.uniqueRecepientheadList =  this.uniqueRecepientheadList.filter( function( item, index, inputArray ) {
+    this.uniqueRecepientheadList = this.uniqueRecepientheadList.filter(function (item, index, inputArray) {
       return inputArray.indexOf(item) == index;
-});
-this.showDocspinner= false;
+    });
+    this.showDocspinner = false;
     console.log(this.uniqueRecepientheadList);
     // gridList.forEach(element => {
     //   element.src = this.filePath + element.src;
 
     //   this.uniqueRecepientheadList.push(element);
-    
+
     // });
- 
+
 
 
   }
   bindDocuments(envid) {
     debugger
-    this.documentsDeatilList=[];
+    this.documentsDeatilList = [];
     this.envlope.getEnvolope({
       'operate': 'binddocforgrid',
       'envid': envid
     }).subscribe((data: any) => {
       if (data.resultKey === 1) {
-        this.showDocspinner= true;
+        this.showDocspinner = true;
         // this.documentList = data.resultValue;
         this.makeDocgrid(data.resultValue);
       } else {
@@ -222,11 +228,11 @@ this.showDocspinner= false;
     }
   }
 
-  closeModal1(){
+  closeModal1() {
     if (this.modalRef) {
       this.modalRef.hide();
     }
-  //  this.bindDocuments(this.onColclickid);
+    //  this.bindDocuments(this.onColclickid);
   }
 
   save() {
@@ -292,26 +298,26 @@ this.showDocspinner= false;
 
 
   edit(id) {
-     
-    
-      this.envlope.getEnvolope({
-        'operate': 'edit',
-        'id': this.onColclickid
 
-      }).subscribe((res: any) => {
-        if (res.resultKey === 1) {
 
-          this.form.id = res.resultValue[0].id;
-          this.form.envname = res.resultValue[0].name;
-          this.open();
-         
-        } else {
-       
-        }
+    this.envlope.getEnvolope({
+      'operate': 'edit',
+      'id': this.onColclickid
 
-      })
+    }).subscribe((res: any) => {
+      if (res.resultKey === 1) {
 
-    
+        this.form.id = res.resultValue[0].id;
+        this.form.envname = res.resultValue[0].name;
+        this.open();
+
+      } else {
+
+      }
+
+    })
+
+
   }
 
   checkEmptyEnvolope() {
@@ -339,15 +345,15 @@ this.showDocspinner= false;
 
 
   createTemplateData(data) {
-    
+
     this.templateList = data;
     console.log(this.documentsDeatilList);
-   
+
     let flag = this.templateList.filter((a) => {
       let flag1 = this.documentsDeatilList.filter((b) => {
         if (a.id == b.id) {
           return a.checked = true;
-        } 
+        }
       })
     })
   }
@@ -356,19 +362,19 @@ this.showDocspinner= false;
     return this.filePath + srcurl;
   }
 
-  addTemplate(){
-  let data=this.makeTemplateDate(this.templateList);
-    
+  addTemplate() {
+    let data = this.makeTemplateDate(this.templateList);
+
     console.log(this.templateList);
     this.envlope.SaveEnvolope({
       "id": this.onColclickid,
-      "operate" :"addtemplates",
+      "operate": "addtemplates",
       "comapnyid": this.global.getCompany(),
-      "data":data
+      "data": data
 
     }).subscribe((res: any) => {
       if (res.resultKey == 1) {
-        
+
         this.message.show('Success', 'Saved successfully', 'success', this.translate);
 
         this.bindDocuments(res.resultValue.msg);
@@ -386,13 +392,13 @@ this.showDocspinner= false;
     })
   }
 
-  makeTemplateDate(templateList){
-let finalArray=[];
-templateList.forEach(element => {
-  if(element.checked == true){
-    finalArray.push(element.id);
-  }
-});
-return finalArray;
+  makeTemplateDate(templateList) {
+    let finalArray = [];
+    templateList.forEach(element => {
+      if (element.checked == true) {
+        finalArray.push(element.id);
+      }
+    });
+    return finalArray;
   }
 }

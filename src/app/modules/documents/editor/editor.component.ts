@@ -71,7 +71,7 @@ export class EditorComponent implements OnInit {
   ngOnDestroy(): void {
     $('body').removeClass('sidebar-minimized');
 
-    this.sub.unsubscribe();
+    //this.sub.unsubscribe();
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
 
