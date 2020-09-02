@@ -7,8 +7,6 @@ import { ToastService } from '../../../../service/toast-service';
 import { TranslateService } from '@ngx-translate/core';
 import { TemplateService } from '../../../../service/template.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
-// import { resolve } from 'dns';
-// import { rejects } from 'assert';
 
 @Component({
   selector: 'app-evnolope',
@@ -165,6 +163,7 @@ export class EvnolopeComponent implements OnInit {
   makeDocgrid(gridList) {
 
     if (gridList.length == 0) {
+      this.showDocspinner = false;
       return;
     }
     gridList.forEach(element => {
@@ -173,7 +172,6 @@ export class EvnolopeComponent implements OnInit {
       this.uniqueRecepientheadList = this.uniqueRecepientheadList.concat(this.global.makeJSON(element.recepienthead)
       );
       //this.uniqueRecepientheadList=this.uniqueRecepientheadList.unique();
-
     });
 
     this.uniqueRecepientheadList = this.uniqueRecepientheadList.filter(function (item, index, inputArray) {
@@ -192,7 +190,6 @@ export class EvnolopeComponent implements OnInit {
 
   }
   bindDocuments(envid) {
-    debugger
     this.documentsDeatilList = [];
     this.envlope.getEnvolope({
       'operate': 'binddocforgrid',

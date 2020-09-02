@@ -106,13 +106,13 @@
     <!-- Breadcrumb -->
 
 
-    <div class="container-fluid p-0">
+    <div class="container-fluid p-0 position-relative">
       <div id="loaderwrap">
         <span class="loadingicon {{global.loader == true ? '' : 'hide'}}">
           {{global.loadertext}}
         </span>
       </div>
-      <p-progressBar *ngIf="global.loader" mode="indeterminate" [style]="{'height': '3px'}"></p-progressBar>
+      <p-progressBar  *ngIf="global.loader" mode="indeterminate" [style]="{'height': '3px','width':'100%', 'position':'absolute', 'z-index':'1'}"></p-progressBar>
       <router-outlet></router-outlet>
     </div><!-- /.container-fluid -->
   </main>

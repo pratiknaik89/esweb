@@ -74,8 +74,8 @@
                     <input [(ngModel)]="item.checked" size="16" id="parent{{i}}" input type="checkbox"
                         name="parent{{i}}" />
                     <div class="template-wrap">
-                       
-                        <pdf-viewer [src]="urlHandle(item.docurl)" [render-text]="true"></pdf-viewer>
+                        <img [src]="urlHandle(item.src)">
+                        <!-- <pdf-viewer [src]="urlHandle(item.thumbnail)" [render-text]="true"></pdf-viewer> -->
                     </div>
 
 
@@ -96,7 +96,8 @@
     <div class="modal-footer">
         <button class="btn text-white btn-danger btn-sm" type="submit"><i class="fa fa-close"></i>&nbsp;
             Cancel</button>
-        <button class="btn text-white btn-success btn-sm" type="submit" (click)="addTemplate()"><i class="fa fa-plus"></i>&nbsp;
+        <button class="btn text-white btn-success btn-sm" type="submit" (click)="addTemplate()"><i
+                class="fa fa-plus"></i>&nbsp;
             Save</button>
     </div>
 </ng-template>
@@ -143,16 +144,32 @@
 
         </div>
     </div>
-    <div *ngIf="documentsDeatilList.length <= 0" id="show">No Document Avaliable! Please select Envelope!</div>
+
+    <!-- <div *ngIf="showDocspinner">
+        <p-progressSpinner [style]="{width: '50px', height: '50px'}"></p-progressSpinner>
+    </div> -->
+
+    <!-- <div class="row"> -->
+    <!-- <div class="col-md-10"> -->
+
+        
     <div class="main-content">
+        <div class="props">
+            <span class="badge badge-success badge" *ngFor="let item of uniqueRecepientheadList" style="height: auto;">
+                {{item}}</span>
+            
+        </div>
+        <div *ngIf="documentsDeatilList.length <= 0" id="show">No Document Avaliable! Please select Envelope!</div>
+
+
         <div class="content-wrapper">
 
             <div class="row">
 
-                <div class="col-md-3 mb-3" *ngFor="let item of documentsDeatilList">
-                    
-                   
-                   
+                <div class="col-md-4 mb-3" *ngFor="let item of documentsDeatilList">
+
+
+
                     <app-docthumb [item]="item"></app-docthumb>
 
                 </div>
@@ -162,6 +179,17 @@
 
         </div>
     </div>
+    <!-- </div>   -->
+    <!-- class="col-md-2" -->
+    <!-- <div   *ngIf="documentsDeatilList.length > 0">
+            <div class=" card">
+                <div class="text-center">
+                    <h4> <label>IDS</label> </h4>
+                </div>
+             
+
+            </div>
+        </div> -->
 
 
     <!-- <div class="card-body p-0">
@@ -220,4 +248,3 @@
 
     <p-menu #menu [popup]="true" [model]="items"></p-menu>
 </div>
-

@@ -196,16 +196,30 @@
   .main-content {
     margin-left: 205px;
     min-height: 300px;
-   
+    position: relative;
+    padding-top: 72px;
+}
+.props{
+  height: 68px;
+    position: absolute;
+    width: calc(100% + 35px);
+    background: #fff;
+    overflow: auto;
+    z-index: 1;
+    top: -15px;
+    left: -20px;
+    border-bottom: 1px solid #ccc;
+    box-shadow: -1px 0px 5px 0px #ccc;
+    padding: 10px;
 }
 
 #show {
     /* flex-wrap: wrap; */
     /* margin-right: -15px; */
-    margin-left: 550px;
+ 
     /* right: 500px; */
 
-    margin-top: 250px;
+    margin: 20px auto;
 }
 
 .templatecontainer{
@@ -249,3 +263,28 @@
     border-radius: 0.25rem;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
+
+.right-bar-fixed{
+   
+
+  width: 205px;
+  margin-left: 0px;
+  margin-top: 0px;
+ margin-right: 2px;
+  background-color: #fff;
+  border-right: 1px solid #c8ced2;
+}
+
+.card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 170px;
+  height: 450px;
+
+  margin-top: 0px;
+
+}
+
+

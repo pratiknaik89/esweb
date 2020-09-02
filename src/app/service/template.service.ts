@@ -10,15 +10,16 @@ export class TemplateService {
     constructor(private dataservice: DataService) { }
 
     getAllTemplate(req: any) {
-        return this.dataservice.getHttpData('/template', req).pipe(
-            tap(result => {
-                result.resultValue.forEach(element => {
-                    element.recipienthead = JSON.parse(element.recipienthead);
-                    element.tags = JSON.parse(element.tags);
-                });
-                return result;
-            })
-        );
+        return this.dataservice.getHttpData('/template', req);
+        // return this.dataservice.getHttpData('/template', req).pipe(
+        //     tap(result => {
+        //         result.resultValue.forEach(element => {
+        //             element.recipienthead = JSON.parse(element.recipienthead);
+        //             element.tags = JSON.parse(element.tags);
+        //         });
+        //         return result;
+        //     })
+        // );
     }
 
     getTemplateById(req: any) {
