@@ -164,7 +164,7 @@ export class EvnolopeComponent implements OnInit {
     gridList.forEach(element => {
       element.src = this.filePath + element.src;
       this.documentsDeatilList.push(element);
-      this.uniqueRecepientheadList=this.uniqueRecepientheadList.concat(this.global.makeJSON(element.recepienthead)
+      this.uniqueRecepientheadList=this.uniqueRecepientheadList.concat(this.global.makeJSON(element.recipienthead)
         );
         //this.uniqueRecepientheadList=this.uniqueRecepientheadList.unique();
     
@@ -186,7 +186,7 @@ this.showDocspinner= false;
 
   }
   bindDocuments(envid) {
-    debugger
+    
     this.documentsDeatilList=[];
     this.envlope.getEnvolope({
       'operate': 'binddocforgrid',
