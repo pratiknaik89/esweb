@@ -43,7 +43,7 @@ export class AddComponent implements OnInit {
   ngOnInit(): void {
     this.templateObj = new ClsTemplate();
     this.upload_url = this.global.getConfig().api_root + '/company(' + this.global.getCompany() + ')/uploadpdf';
-    //this.getAllTemplate();
+    this.getAllTemplate();
   }
   enableRecipient() {
     this.router.navigate(['/documents/templates/' + this.templateObj.id + '/recipient']);
@@ -63,7 +63,6 @@ export class AddComponent implements OnInit {
   }
   onFileUploadProgress(event, fileUpload) {
     fileUpload.chooseLabel = "File Uploading";
-    this.global.showLoader('File is uploading');
   }
   onFileBeforeUpload(event) {
     this.upload_url += '?usercreated=' + this.global.getUser().id + '&cmp=' + this.global.getCompany();
@@ -80,10 +79,8 @@ export class AddComponent implements OnInit {
       res = event.originalEvent.body;
     }
     if (res.resultKey === 1) {
-      this.global.hideLoader();
       fileUpload.chooseLabel = "File Uploaded";
       this.templateObj.docurl = res.resultValue.path;
-      debugger
       this.imageUrl = "https://bucket-cmp" + this.global.getCompany() + ".s3.us-east-2.amazonaws.com/" + res.resultValue.imagePath;
     } else {
       this.templateObj.docurl = "";
@@ -91,15 +88,16 @@ export class AddComponent implements OnInit {
     this.global.loadertext = "Loading";
   }
 
-  // getAllTemplate() {
-  //   this.template.getAllTemplate({
-  //     operate: 'get'
-  //   }).subscribe((data: any) => {
-  //     if (data.resultKey == 1) {
-  //       console.log(data.resultValue);
-  //     }
-  //   });
-  // }
+  getAllTemplate() {
+    this.template.getAllTemplate({
+      operate: 'get'
+    }).subscribe((data: any) => {
+      if (data.resultKey == 1) {
+        debugger;
+        console.log(data.resultValue);
+      }
+    });
+  }
 
   validation() {
     if (this.templateObj.docurl.trim() == "") {
@@ -111,7 +109,6 @@ export class AddComponent implements OnInit {
 
   saveTemplate() {
     if (this.validation()) {
-      this.global.showLoader("Saving...");
       this.template.saveTemplate({
         operate: 'create',
         data: this.templateObj,

@@ -267,7 +267,8 @@ export class DefaultLayoutComponent implements OnInit, OnDestroy {
       localStorage.removeItem('mainUser');
       localStorage.setItem('linktoredirect', 'usermaster/user');
       let that = this;
-      that.global.showLoader('Back to admin please wait');
+      that.global.changeLoaderText('Back to admin please wait');
+      that.global.showLoader();
       setTimeout(() => {
         that.router.navigate(['/dashboard']);
         window.location.reload();

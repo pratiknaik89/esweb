@@ -25,7 +25,7 @@ export class LandingPageComponent implements OnInit {
   uploadMaxFilesize: any;
   upload_url = this.global.getConfig().directUpload + '?module=companybanners';
   buttons: any = [];
-  isEditAttr:any;
+  isEditAttr: any;
   constructor(private router: Router, public route: ActivatedRoute, private global: GlobalService, private translate: TranslateService, private message: ToastService,
     private chngref: ChangeDetectorRef, private landingpage: LandingPageService) { }
 
@@ -69,7 +69,7 @@ export class LandingPageComponent implements OnInit {
     this.landingpageList = [];
     this.landingpage.getLandingpage({
       'operate': 'grid'
-    }).subscribe((d: any) => { 
+    }).subscribe((d: any) => {
       const lists = d.resultValue;
 
       lists.forEach(el => {
@@ -139,14 +139,14 @@ export class LandingPageComponent implements OnInit {
         "active": true,
         "isdelete": false
       }
-    ); 
+    );
 
   }
 
 
   save() {
 
-    
+
     for (let index = 0; index < this.landingpageList.length; index++) {
       const element = this.landingpageList[index];
       element.order = index + 1;
@@ -171,13 +171,13 @@ export class LandingPageComponent implements OnInit {
 
   }
 
-  ondelete(item,index){
-    if(item.id == 0 ){
+  ondelete(item, index) {
+    if (item.id == 0) {
       this.landingpageList.splice(index, 1);
-    }else{
-      item.isdelete =  !item.isdelete;
+    } else {
+      item.isdelete = !item.isdelete;
     }
-    
+
   }
   /** File upload */
 
@@ -205,7 +205,8 @@ export class LandingPageComponent implements OnInit {
 
   onFileUploadProgress(event, fileUpload) {
     fileUpload.chooseLabel = "File Uploading";
-    this.global.showLoader('File is uploading');
+    this.global.changeLoaderText('File is uploading');
+    this.global.showLoader();
   }
 
   onFileUpload(event, fileUpload, imgsrc, item) {
