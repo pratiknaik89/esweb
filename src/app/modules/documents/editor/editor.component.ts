@@ -57,13 +57,6 @@ export class EditorComponent implements OnInit {
 
   }
 
-  ngDoCheck(): void {
-    //Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
-    //Add 'implements DoCheck' to the class.
-    if (this.editor)
-      console.log(this.editor.getDate());
-  }
-
   buttonClicks(id) {
     switch (id) {
       case 'finish':
@@ -105,7 +98,7 @@ export class EditorComponent implements OnInit {
       operate: 'update',
       data: {
         templateid: this.route.snapshot.paramMap.get('id'),
-        dataref: this.editor.getDate()
+        dataref: this.editor.getData()
       },
       userid: this.global.getUser().id
     }).subscribe((data: any) => {
