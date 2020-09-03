@@ -29,9 +29,9 @@
                         <div class="d-flex p-2">
                             <div class="ui-inputgroup" style="width: 100%;">
 
-                                <input type="text" [(ngModel)]="searchstring" (input)="checkEmptyEnvolope()"
+                                <input type="text" [(ngModel)]="searchstring" (input)="checkisEmpty()"
                                  class="form-control" pInputText placeholder="Search Template">
-                                <span class="ui-inputgroup-addon input-icon"><i class="pi pi-search"></i></span>
+                                <span class="ui-inputgroup-addon input-icon"><i class="pi pi-search" (click)="searchTemplate()"></i></span>
                             </div>
                             <!-- <span class="p-input-icon-left">
                                 <i class="pi pi-search"></i>
