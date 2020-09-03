@@ -268,7 +268,8 @@ export class ProfileComponent implements OnInit {
 
   onFileUploadProgress(event, fileUpload) {
     fileUpload.chooseLabel = "File Uploading";
-    this.global.showLoader('File is uploading');
+    this.global.changeLoaderText('File is uploading');
+    this.global.showLoader();
   }
 
 

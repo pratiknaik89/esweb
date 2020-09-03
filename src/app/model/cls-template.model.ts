@@ -7,6 +7,7 @@ export class ClsTemplate {
     tags: string[];
     recipienthead: ClsRecipientType[];
     docurl: string;
+    dataref: object;
     actv: boolean;
 
     constructor(id?: string, name: string = "", desc: string = "",

@@ -12,9 +12,11 @@ import { Observable } from 'rxjs';
 export class DataService {
     config: ConfigModel;
     httpOptions: object;
+    totalReq: number;
 
     constructor(private http: HttpClient, private rounter: Router, private global: GlobalService) {
         this.config = global.getConfig();
+        this.totalReq = 0;
     }
 
     public getHttpData(reqURL: string, objData: any) {
@@ -30,7 +32,8 @@ export class DataService {
         //     this.rounter.navigate(['/login']);
         //     return defaultObservable;
         // }
-        this.global.loader = true;
+        this.global.showLoader();
+
         let token = '';
         if (localStorage.getItem('user') !== undefined && localStorage.getItem('user') != null) {
             token = JSON.parse(localStorage.getItem('user'))['token'];
@@ -50,7 +53,8 @@ export class DataService {
         objData.dispensary = this.global.getDisp();
         const params = $.param(objData);
         const cmp = this.global.getCompany();
-
+        this.totalReq++;
+        console.log("Add", this.totalReq);
         return this.http.get(this.config.api_root + '/company(' + cmp + ')' + reqURL + '?' + params, this.httpOptions)
             .pipe(map((x: any) => {
                 if (x && x.errorCode && x.errorCode == 401) {
@@ -65,8 +69,11 @@ export class DataService {
             }))
             .pipe(finalize(() => {
                 // console.log('loaded');
-
-                this.global.loader = false;
+                this.totalReq--;
+                console.log("Sub", this.totalReq);
+                // if (this.totalReq == 0) {
+                this.global.hideLoader();
+                // }
             }));
     }
 
@@ -82,7 +89,8 @@ export class DataService {
         //  return defaultObservable;
         // }
         let t = (new Date().getTime());
-        this.global.loader = true;
+        this.global.showLoader();
+
         let token = '';
         if (localStorage.getItem('user') !== undefined && localStorage.getItem('user') !== null) {
             token = JSON.parse(localStorage.getItem('user'))['token'];
@@ -105,6 +113,8 @@ export class DataService {
             cmp = '';
         }
 
+        this.totalReq++;
+        console.log("Add", this.totalReq);
         return this.http.post(this.config.api_root + cmp + reqURL, objData, this.httpOptions)
             .pipe(map((x: any) => {
                 if (x && x.errorCode && x.errorCode == 401) {
@@ -119,8 +129,11 @@ export class DataService {
             }))
             .pipe(finalize(() => {
                 // console.log('loaded');
-                this.global.loader = false;
-
+                this.totalReq--;
+                console.log("Sub", this.totalReq);
+                // if (this.totalReq == 0) {
+                this.global.hideLoader();
+                // }
             }));
     }
 

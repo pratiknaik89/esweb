@@ -90,7 +90,7 @@ export class GridComponent implements OnInit, AfterViewInit {
 
     this.actionButtons.forEach(a => {
       let d = document.createElement('div');
-      
+
       $(d).css('display', 'inline-block');
       $(d).attr('id', 'dvirtual_' + a.id);
       $(d).append('<button type="button" id="virtual_' + a.id + '" class="btn btn-' + (a[a.id + '_color'] || a.bg) + '  btn-xs text-' + a.color + ' mr-1"><i class="' + (a[a.id + '_iconi'] || (a.iconi ? a.iconi : 'icon-' + a.icon)) + '"></i><span>' + a.text + '</span></button>');
@@ -130,7 +130,7 @@ export class GridComponent implements OnInit, AfterViewInit {
   }
 
   // bindGrid(event) {
-    
+
   //   try {
   //     this.selectedColumns.sort((a, b) => {
   //       return a.column_order - b.column_order;
@@ -208,71 +208,71 @@ export class GridComponent implements OnInit, AfterViewInit {
   // }
   bindGrid(event) {
     try {
-        this.selectedColumns.sort((a, b) => {
-            return a.column_order - b.column_order;
-        });
-        if (this.cols !== undefined && this.cols.length > 0) {
-            event.cols = this.buildCols(this.selectedColumns);
-            console.log(event.cols);
-            event.case = this.caseCols;
-            event.filters = this.advt.format_filter_data();
+      this.selectedColumns.sort((a, b) => {
+        return a.column_order - b.column_order;
+      });
+      if (this.cols !== undefined && this.cols.length > 0) {
+        event.cols = this.buildCols(this.selectedColumns);
+        console.log(event.cols);
+        event.case = this.caseCols;
+        event.filters = this.advt.format_filter_data();
 
-            if (event.multiSortMeta == null && this.sortColumn.length > 0) {
-                event.multiSortMeta = this.sortColumn;
-            }
-
-            //CHINMAY CODE 
-            // if keyword contacins ' then replaced it. and stored into "trimmedKeyword"
-
-            let trimmedKeyword = this.inputFilter.keyword;
-            if (this.inputFilter.keyword != undefined) {
-                trimmedKeyword = this.inputFilter.keyword.replace(/'/g, "\\'");
-            }
-
-            //END CHINMAY CODE
-
-            event.masterid = this.global.getDisp();
-            event.inputFilter = {
-                'column_name': this.inputFilter.column_name,
-                'keyword': trimmedKeyword,
-
-
-                'sign': (this.inputFilter.extra.search || '=')
-            }
-            // * usertype(isadmin)
-            this.gridservice.bindGrid(this.api, {
-                'operate': 'grid',
-                'filter': event,
-                'geotype': this.apiFlag,
-                'getTotalRecordsFlg': this.getTotalRecords,
-                'userid': this.global.getUser().id,
-                'params': this.params
-                // ,
-                // 'usertype': this.global.getUser().isadmin,
-                // 'isglobal': this.global.getUser().isglobal
-            }).subscribe((res: any) => {
-
-                if (res.resultKey === 1) {
-                    this.gridData = res.resultValue[0];
-                    if (this.getTotalRecords === 1) {
-                        this.totalRecords = res.resultValue[1];
-                    }
-                    this.getTotalRecords = 0;
-                }
-                else if (res.resultKey === 0) {
-                    this.message.show('error', res.defaultError, 'error', this.translate)
-                }
-            }, (error: any) => {
-                this.message.show('error', 'No records avaliable', 'error', this.translate);
-            }, () => {
-                this.isLoading = false;
-            });
+        if (event.multiSortMeta == null && this.sortColumn.length > 0) {
+          event.multiSortMeta = this.sortColumn;
         }
+
+        //CHINMAY CODE 
+        // if keyword contacins ' then replaced it. and stored into "trimmedKeyword"
+
+        let trimmedKeyword = this.inputFilter.keyword;
+        if (this.inputFilter.keyword != undefined) {
+          trimmedKeyword = this.inputFilter.keyword.replace(/'/g, "\\'");
+        }
+
+        //END CHINMAY CODE
+
+        event.masterid = this.global.getDisp();
+        event.inputFilter = {
+          'column_name': this.inputFilter.column_name,
+          'keyword': trimmedKeyword,
+
+
+          'sign': (this.inputFilter.extra.search || '=')
+        }
+        // * usertype(isadmin)
+        this.gridservice.bindGrid(this.api, {
+          'operate': 'grid',
+          'filter': event,
+          'geotype': this.apiFlag,
+          'getTotalRecordsFlg': this.getTotalRecords,
+          'userid': this.global.getUser().id,
+          'params': this.params
+          // ,
+          // 'usertype': this.global.getUser().isadmin,
+          // 'isglobal': this.global.getUser().isglobal
+        }).subscribe((res: any) => {
+
+          if (res.resultKey === 1) {
+            this.gridData = res.resultValue[0];
+            if (this.getTotalRecords === 1) {
+              this.totalRecords = res.resultValue[1];
+            }
+            this.getTotalRecords = 0;
+          }
+          else if (res.resultKey === 0) {
+            this.message.show('error', res.defaultError, 'error', this.translate)
+          }
+        }, (error: any) => {
+          this.message.show('error', 'No records avaliable', 'error', this.translate);
+        }, () => {
+          this.isLoading = false;
+        });
+      }
     }
     catch (Ex) {
-        this.message.show('error', Ex, 'error', this.translate);
+      this.message.show('error', Ex, 'error', this.translate);
     }
-}
+  }
 
   getDataOnSelectedColumns() {
     this.getTotalRecords = 0;
@@ -286,7 +286,7 @@ export class GridComponent implements OnInit, AfterViewInit {
       sortOrder: this.tableProperty.sortOrder,
       filters: this.advt.format_filter_data(),
     };
-    
+
     this.bindGrid(request);
   }
 
@@ -297,7 +297,7 @@ export class GridComponent implements OnInit, AfterViewInit {
     column = cols.map((a) => {
       if (a.extra && a.extra.case) {
         this.caseCols[a.column_name] = a.extra.case;
-    }
+      }
       return a.column_name;
     });
     fixedcolumns = this.fixedColumns.map((a) => {
@@ -478,7 +478,8 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   export() {
     try {
-      this.global.showLoader('Loading');
+      this.global.changeLoaderText('Loading');
+      this.global.showLoader();
       this.tableProperty.first = 0;
       let request = {
         first: this.tableProperty.first,
@@ -572,14 +573,14 @@ export class GridComponent implements OnInit, AfterViewInit {
     this.getTotalRecords = 1;
     this.tableProperty.first = 0;
     let request = {
-        first: this.tableProperty.first,
-        rows: this.tableProperty.rows,
-        cols: this.buildCols(this.selectedColumns),
-        case: this.caseCols,
-        sortField: this.tableProperty.sortField,
-        sortOrder: this.tableProperty.sortOrder,
-        filters: this.advt.format_filter_data(),
+      first: this.tableProperty.first,
+      rows: this.tableProperty.rows,
+      cols: this.buildCols(this.selectedColumns),
+      case: this.caseCols,
+      sortField: this.tableProperty.sortField,
+      sortOrder: this.tableProperty.sortOrder,
+      filters: this.advt.format_filter_data(),
     };
     this.bindGrid(request);
-}
+  }
 }

@@ -64,13 +64,15 @@ export class GlobalService {
     domainenv: DomainEnv;
     cmplogo: any = (this.getCompanyLogo() != '') ? this.getDomainEnvData().cloudinary_url + "cmp" + this.getCompany() + "/" + this.getCompanyLogo() : this.defaultLogo();
 
-
-    showLoader(msg) {
+    changeLoaderText(msg) {
         if (msg == '') {
             this.loadertext = 'Loading';
         } else {
             this.loadertext = msg;
         }
+    }
+
+    showLoader() {
         this.loader = true;
     }
 
