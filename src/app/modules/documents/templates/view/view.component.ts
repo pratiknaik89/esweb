@@ -77,7 +77,11 @@ export class ViewComponent implements OnInit {
     }
     this.documentsDeatilList = [];
     data.forEach(element => {
-      element.src = this.filePath + element.src;
+
+      element.src = (element.src == null || element.src == '' || element.src == undefined) ? null :
+      this.filePath + element.src;
+
+     // element.src = this.filePath + element.src;
       this.documentsDeatilList.push(element);
     });
 
