@@ -27,6 +27,7 @@ export class EvnolopeComponent implements OnInit {
     id: null,
     envname: ''
   }
+  isedit: boolean = false;
   onColclickid: any = '';
   searchstring: any = '';
   modalRef: any;
@@ -69,6 +70,7 @@ export class EvnolopeComponent implements OnInit {
   envNo: any = '';
   selectedenvelope: any = {};
   envelopeList = [];
+  tempEnvlopeList = [];
   filePath: any = '';
   showDocspinner: boolean = false;
   ngOnInit(): void {
@@ -76,7 +78,7 @@ export class EvnolopeComponent implements OnInit {
     this.srcurl = "https://bucket-cmp2.s3.us-east-2.amazonaws.com/template/sdlc_1598598923.pdf";
     this.filePath = "https://bucket-cmp" + this.global.getCompany() + ".s3.us-east-2.amazonaws.com/";
     console.log(this.filePath);
-    this.getAllTemplate();
+    // this.getAllTemplate();
     //   this.templateList = [
     //     { id: 1, name: "Template 1", src: "/assets/img/img1.png" },
     //     { id: 2, name: "Template 2", src: "/assets/img/img2.png" },
@@ -105,7 +107,10 @@ export class EvnolopeComponent implements OnInit {
         //    this.open();
         break;
       case 'add':
+        this.templateList = [];
+        this.temptemplateList=[];
         this.getAllTemplate();
+
         this.open1();
         break;
       default:
@@ -114,13 +119,16 @@ export class EvnolopeComponent implements OnInit {
   }
 
   bindEnvelope() {
+    
     this.envelopeList = [];
+    this.tempEnvlopeList = [];
     this.showLoader = true;
     this.envlope.getEnvolope({
       'operate': 'bindenv'
     }).subscribe((data: any) => {
       if (data.resultKey === 1) {
         this.envelopeList = data.resultValue;
+        this.tempEnvlopeList = data.resultValue;
         this.showLoader = false;
       } else {
         this.showLoader = false;
@@ -129,6 +137,9 @@ export class EvnolopeComponent implements OnInit {
   }
 
   onColumnClick(item) {
+    if (this.onColclickid == item.id) {
+      return;
+    }
 
     this.buttons = [
       {
@@ -161,16 +172,25 @@ export class EvnolopeComponent implements OnInit {
 
 
   makeDocgrid(gridList) {
-
+    
     if (gridList.length == 0) {
       this.showDocspinner = false;
       return;
     }
+    this.documentsDeatilList = [];
     gridList.forEach(element => {
-      element.src = this.filePath + element.src;
+
+      element.src = (element.src == null || element.src == '' || element.src == undefined) ? null :
+        this.filePath + 'template/thumbnail/'+element.src.split('/')[1].replace('.pdf','.jpeg');
+
       this.documentsDeatilList.push(element);
-      this.uniqueRecepientheadList = this.uniqueRecepientheadList.concat(this.global.makeJSON(element.recepienthead)
-      );
+      let data = JSON.parse(element.recipienthead);
+      this.uniqueRecepientheadList = this.uniqueRecepientheadList.concat(data)
+        ;
+      //this.uniqueRecepientheadList=this.uniqueRecepientheadList.unique();
+
+      // this.uniqueRecepientheadList = this.uniqueRecepientheadList.concat(this.global.makeJSON(element.recepienthead)
+      // );
       //this.uniqueRecepientheadList=this.uniqueRecepientheadList.unique();
     });
 
@@ -207,7 +227,9 @@ export class EvnolopeComponent implements OnInit {
   }
 
   open() {
-
+    if (this.isedit == false) {
+      this.form.id = null;
+    }
     this.modalRef = this.global.showPopup(this.popupContainer);
   }
 
@@ -217,7 +239,7 @@ export class EvnolopeComponent implements OnInit {
   }
 
   closeModal() {
-
+    
 
     //  this.clear();
     if (this.modalRef) {
@@ -233,6 +255,7 @@ export class EvnolopeComponent implements OnInit {
   }
 
   save() {
+    
     this.envlope.SaveEnvolope({
       "id": this.form.id,
       "envname": this.form.envname,
@@ -241,8 +264,25 @@ export class EvnolopeComponent implements OnInit {
     }).subscribe((res: any) => {
       if (res.resultKey == 1) {
         this.message.show('Success', 'Saved successfully', 'success', this.translate);
+        this.searchstring = '';
+        this.isedit = false;
+        // if (this.form.id == null) {
+        //   let data = {
+        //     id: res.resultValue.msg,
+        //     name: this.form.envname,
+        //     comapnyid: this.global.getCompany()
+        //   }
+        //   this.envelopeList.push(data);
+        // } else {
+        //   this.envelopeList.forEach(element => {
+        //     if (element.id == this.form.id) {
+        //       element.name = this.form.envname;
+        //     }
+        //   });
+        // }
 
-        this.envelopeList.push();
+        this.form.envname = '';
+        //this.envelopeList.push();
         this.bindEnvelope();
 
         this.closeModal();
@@ -258,44 +298,115 @@ export class EvnolopeComponent implements OnInit {
     })
   }
 
-
-
   searchEnvolope() {
-
-    this.noEnvmsg = '';
-    this.envelopeList = [];
-    if (this.searchstring != '' || this.searchstring == undefined || this.searchstring == null) {
-      this.showLoader = true;
-      this.envlope.getEnvolope({
-        'operate': 'searchenv',
-        "keyword": this.searchstring
-      }).subscribe((data: any) => {
-        if (data.resultKey === 1) {
-
-
-          this.showLoader = false;
-          this.envelopeList = data.resultValue;
-          this.noEnvmsg = this.envelopeList.length > 0 ? '' : 'No Envolope Found!'
-
-        } else {
-          this.showLoader = false;
-          this.bindEnvelope();
-          this.noEnvmsg = '';
-        }
-      })
-    } else {
-      this.envelopeList = [];
-      this.showLoader = true;
-      this.bindEnvelope();
+    if (this.searchstring == '' || this.searchstring == undefined || this.searchstring == null) {
+      this.envelopeList = []
+      this.noEnvmsg = '';
+      this.envelopeList = this.tempEnvlopeList;
+      //  this.bindEnvelope();
+      return;
     }
+    if (this.searchstring != '' || this.searchstring != undefined || this.searchstring != null) {
+      this.showLoader = true;
+      
+      let tempEnvlist = this.tempEnvlopeList;
+      this.envelopeList = [];
+
+      let values = tempEnvlist.filter((a) => {
+        let name = a.name.toLowerCase();
+        return name.includes(this.searchstring.toLowerCase());
+      });
+      
+      if (values.length >= 0) {
+
+        this.showLoader = false;
+        values.forEach(element => {
+          this.envelopeList.push(element);
+        });
+      } else {
+        this.showLoader = false;
+      }
 
 
 
+
+    }
   }
 
 
-  edit(id) {
+  searchtemplatestring:any='';
+  temptemplateList:any=[];
+  
+  searchTemplates(){
+    debugger
+    if (this.searchtemplatestring == '' || this.searchtemplatestring == undefined || this.searchtemplatestring == null) {
+      this.templateList = []
+      this.noEnvmsg = '';
+      this.templateList = this.temptemplateList;
+      //  this.bindEnvelope();
+      return;
+    }
 
+    if (this.searchtemplatestring != '' || this.searchtemplatestring != undefined || this.searchtemplatestring != null) {}
+    let temptemplate = this.temptemplateList;
+this.templateList=[];
+    let values = temptemplate.filter((a) => {
+      let name = a.name.toLowerCase();
+      return name.includes(this.searchtemplatestring.toLowerCase());
+    });
+    
+    if (values.length >= 0) {
+
+     
+      values.forEach(element => {
+        this.templateList.push(element);
+      });
+    } else {
+     
+    }
+  }
+
+  // searchEnvolope() {
+  //   if (this.searchstring == '' || this.searchstring == undefined || this.searchstring == null) {
+  //     this.envelopeList = []
+  //     this.noEnvmsg = '';
+  //     this.bindEnvelope();
+  //     return;
+  //   }
+  //   this.noEnvmsg = '';
+  //   this.envelopeList = [];
+  //   if (this.searchstring != '' || this.searchstring == undefined || this.searchstring == null) {
+  //     this.showLoader = true;
+  //     this.envlope.getEnvolope({
+  //       'operate': 'searchenv',
+  //       "keyword": this.searchstring
+  //     }).subscribe((data: any) => {
+  //       if (data.resultKey === 1) {
+
+
+  //         this.showLoader = false;
+  //         this.envelopeList = data.resultValue;
+  //         this.noEnvmsg = this.envelopeList.length > 0 ? '' : 'No Envolope Found!'
+
+  //       } else {
+  //         this.showLoader = false;
+  //         this.bindEnvelope();
+  //         this.noEnvmsg = '';
+  //       }
+  //     })
+  //   } else {
+  //     this.envelopeList = [];
+  //     this.showLoader = true;
+  //     this.bindEnvelope();
+  //   }
+
+
+
+  // }
+
+
+  edit(id) {
+    this.isedit = true;
 
     this.envlope.getEnvolope({
       'operate': 'edit',
@@ -329,12 +440,15 @@ export class EvnolopeComponent implements OnInit {
 
 
   getAllTemplate() {
-
+    
     this.template.getAllTemplate({
       operate: 'get'
     }).subscribe((data: any) => {
+      ;
       if (data.resultKey == 1) {
+
         this.createTemplateData(data.resultValue);
+
         // this.templateList = data.resultValue;
       }
     });
@@ -344,6 +458,7 @@ export class EvnolopeComponent implements OnInit {
   createTemplateData(data) {
 
     this.templateList = data;
+    this.temptemplateList=data;
     console.log(this.documentsDeatilList);
 
     let flag = this.templateList.filter((a) => {
@@ -356,7 +471,9 @@ export class EvnolopeComponent implements OnInit {
   }
 
   urlHandle(srcurl) {
-    return this.filePath + srcurl;
+   
+    return (srcurl == '' || srcurl != null || srcurl != undefined) ?  (this.filePath + 'template/thumbnail/'+srcurl.split('/')[1].replace('.pdf','.jpeg') ): null;
+
   }
 
   addTemplate() {

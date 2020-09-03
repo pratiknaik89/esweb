@@ -1,6 +1,11 @@
 <div class="doc-thumb-container">
     <div class="image-wrap">
-        <img *ngIf="item.src != '' " src="{{item.src}}">
+        <img *ngIf="item.src != '' " [src]="item.src">
+<!-- 
+        <img   src="{{(item.src == '' ||item.src == null || item.src == undefined || item.src== 'null' ) ? '../../../../assets/img/nothumbnail.png' : item.src }}"> -->
+
+     
+
     </div>
 
 

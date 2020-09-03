@@ -51,4 +51,8 @@ export class TemplateService {
         return this.dataservice.getHttpData('/gets3fileurl', req);
     }
 
+    getTemplate(req: any) {
+        return this.dataservice.getHttpData('/template', req);
+    }
+
 }
