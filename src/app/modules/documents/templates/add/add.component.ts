@@ -43,7 +43,7 @@ export class AddComponent implements OnInit {
   ngOnInit(): void {
     this.templateObj = new ClsTemplate();
     this.upload_url = this.global.getConfig().api_root + '/company(' + this.global.getCompany() + ')/uploadpdf';
-    this.getAllTemplate();
+    // this.getAllTemplate();
   }
   enableRecipient() {
     this.router.navigate(['/documents/templates/' + this.templateObj.id + '/recipient']);
@@ -88,16 +88,15 @@ export class AddComponent implements OnInit {
     this.global.loadertext = "Loading";
   }
 
-  getAllTemplate() {
-    this.template.getAllTemplate({
-      operate: 'get'
-    }).subscribe((data: any) => {
-      if (data.resultKey == 1) {
-        debugger;
-        console.log(data.resultValue);
-      }
-    });
-  }
+  // getAllTemplate() {
+  //   this.template.getAllTemplate({
+  //     operate: 'get'
+  //   }).subscribe((data: any) => {
+  //     if (data.resultKey == 1) {
+  //       console.log(data.resultValue);
+  //     }
+  //   });
+  // }
 
   validation() {
     if (this.templateObj.docurl.trim() == "") {
