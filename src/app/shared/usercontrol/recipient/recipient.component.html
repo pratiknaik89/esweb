@@ -86,7 +86,7 @@
               [(ngModel)]="tRecipient.emailbody" [style]="{'height':'320px'}"></p-editor>
             <small>
               <div *ngIf="f.submitted" class="text-danger">
-                <div *ngIf="tRecipient.emailbody.trim() == ''">Email body is required</div>
+                <div *ngIf="tRecipient.emailbody == null">Email body is required</div>
               </div>
             </small>
           </div>

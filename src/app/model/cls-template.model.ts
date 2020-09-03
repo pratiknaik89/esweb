@@ -11,7 +11,7 @@ export class ClsTemplate {
 
     constructor(id?: string, name: string = "", desc: string = "",
         tags: string[] = [], docurl: string = "",
-        recipienthead: ClsRecipientType[] = [new ClsRecipientType("1", "To"), new ClsRecipientType("2", "CC"), new ClsRecipientType("3", "BCC")],
+        recipienthead: ClsRecipientType[] = [new ClsRecipientType("1", "Signer"), new ClsRecipientType("2", "Receive Carbon Copy")],
         actv: boolean = true) {
         this.id = id;
         this.name = name;

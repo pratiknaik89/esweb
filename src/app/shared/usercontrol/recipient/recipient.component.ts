@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ViewChildren } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TemplateService } from '../../../service/template.service'
 import { ClsTRecipientDtl, ClsRecipient, ClsRecipientType } from '../../../model/cls-recipient-model';
@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Editor } from 'primeng/editor';
 import { NgForm } from '@angular/forms';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { RecControlComponent } from './control/rec-control.comp';
 
 @Component({
   selector: 'app-recipient',
@@ -25,7 +26,7 @@ export class RecipientComponent implements OnInit {
     private template: TemplateService, private global: GlobalService,
     private message: ToastService, private translate: TranslateService) {
     this.tRecipient = new ClsTRecipientDtl();
-    this.recipientType = [new ClsRecipientType("1", "To"), new ClsRecipientType("2", "CC"), new ClsRecipientType("3", "BCC")];
+    this.recipientType = [new ClsRecipientType("1", "Signer"), new ClsRecipientType("2", "Receive Carbon Copy")];
   }
 
   buttons: any = [];
@@ -60,23 +61,25 @@ export class RecipientComponent implements OnInit {
       id: id
     }).subscribe((data: any) => {
       if (data.resultKey == 1) {
-        console.log(Array<ClsTemplate>(data.resultValue));
-        this.tRecipient.emailbody = <string>data.resultValue[0]["emailbody"];
-        this.tRecipient.subject = <string>data.resultValue[0]["subject"];
-        this.tRecipient.recipienthead = data.resultValue[0]["recipienthead"];
-        this.tRecipient.keeporder = <boolean>data.resultValue[0]["keeporder"];
+        if (data.resultValue.length) {
+          this.tRecipient = data.resultValue.map(a => new ClsTRecipientDtl(a.id, a.subject, a.emailbody, a.keeporder, a.recipienthead))[0];
+        }
+        // this.tRecipient.emailbody = <string>data.resultValue[0]["emailbody"];
+        // this.tRecipient.subject = <string>data.resultValue[0]["subject"];
+        // this.tRecipient.recipienthead = Array<ClsRecipient>(...data.resultValue[0]["recipienthead"]);
+        // this.tRecipient.keeporder = <boolean>data.resultValue[0]["keeporder"];
       }
     });
   }
 
   validation() {
-    if (this.tRecipient.emailbody.trim() == "") {
+    if (!Boolean(this.tRecipient.emailbody)) {
       return false;
     } else if (this.tRecipient.recipienthead.length == 0) {
       this.message.show('error', "You need to have atleast 1 recipient.", 'error', this.translate);
       return false;
     } else {
-      let a = this.tRecipient.recipienthead.filter(a => a.id == "" || a.rectype == "").length;
+      let a = this.tRecipient.recipienthead.filter(a => a.id == "" || a.rectype == "" || a.id.length < 3).length;
       if (a != 0) {
         return false;
       }
@@ -92,7 +95,6 @@ export class RecipientComponent implements OnInit {
   }
 
   saveRecipient() {
-    console.log("saveRecipient");
     if (this.validation()) {
       this.template.saveRecipient({
         operate: 'update',

@@ -31,7 +31,7 @@
               <div class="form-group">
                 <label>Name</label><span class="text-danger">*</span>
                 <input class="form-control" id="name" name="name" #name="ngModel" type="text" autocomplete="off"
-                  required [tabindex]="1" placeholder="Enter Template Name" minlength="1" maxlength="10" focus="true"
+                  required [tabindex]="1" placeholder="Enter Template Name" minlength="1" maxlength="50" focus="true"
                   [(ngModel)]="templateObj.name" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }">
               </div>
               <small>
@@ -42,7 +42,7 @@
             </div>
             <div class="col-md-12 mt-2">
               <div class="form-group">
-                <label>Tags</label><br />
+                <label>Tags <small>(Press enter to create multiple tags)</small></label><br />
                 <p-chips [(ngModel)]="templateObj.tags" name="tags" id="tags" [tabindex]="2"></p-chips>
               </div>
             </div>
@@ -71,27 +71,22 @@
                   <div>Upload PDF file</div>
                 </div>
               </small>
+              <img *ngIf="imageUrl" style="width: 100px; height: 100px;" [src]="imageUrl" />
             </div>
 
             <div class="col-md-12 mt-2">
               <div class="form-group">
-                <label>Description</label><span class="text-danger">*</span>
+                <label>Description</label>
                 <textarea class="form-control" id="desc" name="desc" #desc="ngModel" rows="3" type="text"
-                  autocomplete="off" required [tabindex]="4" placeholder="Enter Description" minlength="1"
-                  maxlength="100" [(ngModel)]="templateObj.desc"></textarea>
+                  autocomplete="off" [tabindex]="4" placeholder="Enter Description" minlength="1" maxlength="100"
+                  [(ngModel)]="templateObj.desc"></textarea>
               </div>
-              <small>
-                <div *ngIf="f.submitted && desc.invalid" class="text-danger">
-                  <div *ngIf="desc.errors.required">Description is required</div>
-                </div>
-              </small>
             </div>
-
           </div>
           <div class="row">
             <div class="col-md-12 text-center">
-              <button class="btn btn-success btn-lg mt-2 pl-5 pr-5" type="submit" [disabled]="global.loader"
-                [tabindex]="5" translate="">Next
+              <button class="btn btn-success btn-lg mt-2 pl-5 pr-5" type="submit" [disabled]="canSubmit" [tabindex]="5"
+                translate="">Next
                 &nbsp;<i class="fa fa-arrow-right"></i>
               </button>
             </div>

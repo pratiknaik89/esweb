@@ -13,7 +13,6 @@
 //   "cloudinary_url": "https://res.cloudinary.com/djuzgpzo8/image/upload/"
 // };
 export const environment = {
-
   production: true,
   "api_root": "http://localhost:8000/api",
   "upload_folder": "uploaddoc",
@@ -21,3 +20,12 @@ export const environment = {
   "document_path": "http://localhost:8000/documents",
   "cloudinary_url": "https://res.cloudinary.com/djuzgpzo8/image/upload/"
 };
+// export const environment = {
+//   production: true,
+//   "api_root": "http://34.225.212.119/elevatePhp/public/index1.php/api",
+//   "upload_folder": "uploaddoc",
+//   "directUpload": "upload",
+//   "document_path": "http://34.225.212.119/elevatePhp/public/index1.php/documents",
+//   "cloudinary_url": "https://res.cloudinary.com/djuzgpzo8/image/upload/"
+// };
+

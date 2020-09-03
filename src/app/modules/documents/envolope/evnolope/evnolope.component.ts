@@ -8,7 +8,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { TemplateService } from '../../../../service/template.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 
-
 @Component({
   selector: 'app-evnolope',
   templateUrl: './evnolope.component.html',
@@ -137,6 +136,7 @@ export class EvnolopeComponent implements OnInit {
     if (this.onColclickid == item.id) {
       return;
     }
+
     this.buttons = [
       {
         'id': 'edit', 'color': 'white', 'bg': 'primary', 'text': 'Edit Envelope', 'icon': 'pencil', 'shortcut': 'ctrl+shift+a',
@@ -182,6 +182,9 @@ export class EvnolopeComponent implements OnInit {
         ;
       //this.uniqueRecepientheadList=this.uniqueRecepientheadList.unique();
 
+      this.uniqueRecepientheadList = this.uniqueRecepientheadList.concat(this.global.makeJSON(element.recepienthead)
+      );
+      //this.uniqueRecepientheadList=this.uniqueRecepientheadList.unique();
     });
 
     this.uniqueRecepientheadList = this.uniqueRecepientheadList.filter(function (item, index, inputArray) {
@@ -200,7 +203,6 @@ export class EvnolopeComponent implements OnInit {
 
   }
   bindDocuments(envid) {
-
     this.documentsDeatilList = [];
     this.envlope.getEnvolope({
       'operate': 'binddocforgrid',

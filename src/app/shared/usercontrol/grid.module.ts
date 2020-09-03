@@ -11,12 +11,14 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { TableModule } from 'primeng/table';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CheckboxModule } from 'primeng/checkbox';
+import { GriddocComponent } from './griddoc/griddoc.component';
 
 @NgModule({
   declarations: [
     AdvanceSearchComponent,
     // FocusFormDirective, 
-    GridComponent],
+    GridComponent,
+    GriddocComponent],
   imports: [
     CommonModule,
     FormsModule,
