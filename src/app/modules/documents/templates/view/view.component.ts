@@ -78,8 +78,10 @@ export class ViewComponent implements OnInit {
     this.documentsDeatilList = [];
     data.forEach(element => {
 
-      element.src = (element.src == null || element.src == '' || element.src == undefined) ? null :
-      this.filePath + element.src;
+
+      
+      element.src =  (element.src == '' || element.src != null || element.src != undefined) ? (this.filePath + 'template/thumbnail/' + element.src.split('/')[1].replace('.pdf', '.jpeg')) : null;
+
 
      // element.src = this.filePath + element.src;
       this.documentsDeatilList.push(element);
