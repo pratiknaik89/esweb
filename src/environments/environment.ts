@@ -15,9 +15,9 @@
 export const environment = {
 
   production: true,
-  "api_root": "http://localhost:9003/api",
+  "api_root": "http://localhost:8000/api",
   "upload_folder": "uploaddoc",
   "directUpload": "upload",
-  "document_path": "http://localhost:9003/documents",
+  "document_path": "http://localhost:8000/documents",
   "cloudinary_url": "https://res.cloudinary.com/djuzgpzo8/image/upload/"
 };
