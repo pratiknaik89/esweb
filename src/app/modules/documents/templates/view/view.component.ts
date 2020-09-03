@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
-
+import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalService } from '../../../../service/global.service';
 import { TemplateService } from '../../../../service/template.service';
 @Component({
@@ -18,7 +18,7 @@ export class ViewComponent implements OnInit {
 
   sortOrder: number;
   filePath: any = '';
-  constructor(private template: TemplateService, private global: GlobalService,) { }
+  constructor(private template: TemplateService, private global: GlobalService,private router: Router,) { }
 
   ngOnInit(): void {
 
@@ -57,7 +57,7 @@ export class ViewComponent implements OnInit {
 
 
   bindTemplateGrid() {
-    debugger
+    
     this.template.getAllTemplate({
       operate: 'get'
     }).subscribe((data: any) => {
@@ -71,7 +71,7 @@ export class ViewComponent implements OnInit {
   }
 
   makedocumentsDeatilList(data) {
-    debugger
+    
     if (data.length <= 0) {
       return;
     }
@@ -89,7 +89,7 @@ export class ViewComponent implements OnInit {
   }
 
 //   searchTemplate() {
-//     debugger
+//     
 //     let tempList = this.documentsDeatilList ;
 //     this.documentsDeatilList =[];
 //     this.documentsDeatilList = tempList.find((a) => {
@@ -123,5 +123,12 @@ export class ViewComponent implements OnInit {
       this.bindTemplateGrid();
     }
 
+  }
+
+
+  editTemplate(item){
+    this.router.navigate(['/documents/templates/'+item.id +'/recipient']);
+
+    // http://localhost:4200/#/documents/templates/7305267e-edae-11ea-8aa5-029cd58f3b70/recipient
   }
 }

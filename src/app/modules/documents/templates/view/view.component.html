@@ -94,7 +94,7 @@
         <ng-template let-item pTemplate="gridItem">
 
             <div class="col-md-3 mb-2 mt-2">
-                <app-docthumb [item]="item"></app-docthumb>
+                <app-docthumb [item]="item" (onEdit)="editTemplate($event)"></app-docthumb>
 
                 <!-- <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
                     <img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60">
