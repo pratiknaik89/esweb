@@ -20,6 +20,10 @@ export class DocThumbComponent implements OnInit {
 
 
     }
+
+    edit(item){
+        this.onEdit.emit(item);
+    }
 }
 
 
