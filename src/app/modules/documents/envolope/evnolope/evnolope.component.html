@@ -60,32 +60,41 @@
         <div class="d-flex p-2" style="justify-content: center;">
             <span class="p-input-icon-left">
 
-                <input style="width: 80%;" type="text"(input) ="searchTemplates()" pInputText [(ngModel)]="searchtemplatestring"
-                    placeholder="Search Template"> <i class="pi pi-search" (click)="searchTemplates()"></i>
+                <input style="width: 80%;" type="text" (input)="searchTemplates()" pInputText
+                    [(ngModel)]="searchtemplatestring" placeholder="Search Template"> <i class="pi pi-search"
+                    (click)="searchTemplates()"></i>
 
             </span>
 
         </div>
 
         <div class="row">
+            
+            <div class=" col-md-12 text-center mt-4" *ngIf="noTemplatefound">
+                    <h4>No Template found!</h4>
+            </div>
             <!--  ml-4 -->
-            <div class="col-md-3 mb-3" *ngFor="let item of templateList;let i=index">
+            <div *ngFor="let item of templateList;let i=index">
+               
+                <div class="col-md-3 mb-3" *ngIf="item.show">
+                    <div class="templatecontainer" >
+                        <input [(ngModel)]="item.checked" size="16" id="parent{{i}}" input type="checkbox"
+                            name="parent{{i}}" />
+                        <div class="template-wrap">
+                            <img class="doc-thumb-container" [src]="urlHandle(item.src)">
+                            <!-- <pdf-viewer [src]="urlHandle(item.thumbnail)" [render-text]="true"></pdf-viewer> -->
+                        </div>
 
-                <div class="templatecontainer">
-                    <input [(ngModel)]="item.checked" size="16" id="parent{{i}}" input type="checkbox"
-                        name="parent{{i}}" />
-                    <div class="template-wrap">
-                        <img class="doc-thumb-container" [src]="urlHandle(item.src)">
-                        <!-- <pdf-viewer [src]="urlHandle(item.thumbnail)" [render-text]="true"></pdf-viewer> -->
+
+
+                        <div class="doc-name-wrap mt-5">
+                            <div>{{item.name}}</div>
+                        </div>
+
                     </div>
-
-
-
-                    <div class="doc-name-wrap mt-5">
-                        <div>{{item.name}}</div>
-                    </div>
-
                 </div>
+
+
 
 
 
@@ -99,7 +108,7 @@
             Cancel</button>
         <button class="btn text-white btn-success btn-sm" type="submit" (click)="addTemplate()"><i
                 class="fa fa-plus"></i>&nbsp;
-            Save</button>
+            Add</button>
     </div>
 </ng-template>
 
@@ -120,9 +129,10 @@
                             (click)="searchEnvolope()"></i>
 
                     </span> -->
-                    <input type="text" [(ngModel)]="searchstring" (input)="searchEnvolope()"
-                    class="form-control" pInputText placeholder="Search Envelope">
-                   <span class="ui-inputgroup-addon input-icon"><i class="pi pi-search" (click)="searchEnvolope()"></i></span>
+                    <input type="text" [(ngModel)]="searchstring" (input)="searchEnvolope()" class="form-control"
+                        pInputText placeholder="Search Envelope">
+                    <span class="ui-inputgroup-addon input-icon"><i class="pi pi-search"
+                            (click)="searchEnvolope()"></i></span>
 
                 </div>
 
@@ -156,13 +166,14 @@
     <!-- <div class="row"> -->
     <!-- <div class="col-md-10"> -->
 
-        
+
     <div class="main-content">
         <div class="props">
             <h5>Keys</h5>
-            <span class="badge badge-secondary badge mr-2 pr-2 pl-2" *ngFor="let item of uniqueRecepientheadList" style="height: auto;">
+            <span class="badge badge-secondary badge mr-2 pr-2 pl-2" *ngFor="let item of uniqueRecepientheadList"
+                style="height: auto;">
                 {{item.id}}</span>
-            
+
         </div>
         <div *ngIf="documentsDeatilList.length <= 0" id="show">No Document Avaliable! Please select Envelope!</div>
 
