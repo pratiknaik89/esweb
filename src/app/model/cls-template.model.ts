@@ -5,14 +5,14 @@ export class ClsTemplate {
     name: string;
     desc: string;
     tags: string[];
-    recipienthead: ClsRecipientType[];
+    recipienthead: Array<object>;
     docurl: string;
     dataref: object;
     actv: boolean;
 
     constructor(id?: string, name: string = "", desc: string = "",
         tags: string[] = [], docurl: string = "",
-        recipienthead: ClsRecipientType[] = [new ClsRecipientType("1", "Signer"), new ClsRecipientType("2", "Receive Carbon Copy")],
+        recipienthead: Array<object> = [{ id: "Doctor", rectype: "1" }, { id: "Patient", rectype: "2" }],
         actv: boolean = true) {
         this.id = id;
         this.name = name;

@@ -74,7 +74,7 @@ export class EditorComponent implements OnInit {
     }).subscribe((data: any) => {
       if (data.resultKey == 1) {
         let objTemp: ClsTemplate = data.resultValue[0];
-        this.recipients = objTemp.recipienthead.map(a => a.id);
+        this.recipients = objTemp.recipienthead.map(a => a["id"]);
         this.getTempFileUrl(objTemp.docurl, objTemp.dataref);
       }
     });
