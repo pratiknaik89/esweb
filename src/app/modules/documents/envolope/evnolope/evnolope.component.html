@@ -16,7 +16,7 @@
 </ol>
 <ng-template #template>
     <div class="modal-header">
-        <h4 class="modal-title">Envlope</h4>
+        <h4 class="modal-title">Envelope</h4>
         <button type="button" class="close" (click)="closeModal()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -26,12 +26,12 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <label>Envlope Name</label><span class="text-danger">*</span>
+                        <label>Envelope Name</label><span class="text-danger">*</span>
                         <input class="form-control" id="envname" name="envname" #envname="ngModel" type="text"
                             [(ngModel)]="form.envname" autocomplete="off" required tabindex="2"
-                            placeholder="Envlope Name" minlength="1" maxlength="50">
+                            placeholder="Envelope Name" minlength="1" maxlength="50">
                         <div *ngIf="f.submitted && envname.invalid" class="text-danger">
-                            <div *ngIf="envname.errors.required" data-tab="1">Envlope Name is required
+                            <div *ngIf="envname.errors.required" data-tab="1">Envelope Name is required
                             </div>
                         </div>
                     </div>
@@ -186,7 +186,7 @@
 
 
 
-                    <app-docthumb [item]="item"></app-docthumb>
+                    <app-docthumb [item]="item" (onEdit)="editTemplate($event)"></app-docthumb>
 
                 </div>
             </div>
