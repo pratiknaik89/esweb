@@ -47,31 +47,38 @@
               </div>
             </div>
             <div class="col-md-12 mt-2">
-              <p-fileUpload [multiple]="false" styleClass="newfileUpload" id="filepdf" name="filepdf" [tabindex]="3"
-                [url]="upload_url" mode="advanced" #pdfUpload maxFileSize="{{uploadMaxFilesize}}" required
-                (onSelect)="selectFile($event,pdfUpload)" (onUpload)="onFileUpload($event,pdfUpload)"
-                (onBeforeSend)="onFileBeforeUpload($event)" (onProgress)="onFileUploadProgress($event,pdfUpload)"
-                auto="true" [chooseLabel]="'Upload PDF'" accept="application/pdf">
-                <ng-template pTemplate="toolbar">
-                  <div class="text-danger d-block text-center">*Only PDF file allowed</div>
-                </ng-template>
-                <ng-template pTemplate="content">
-                  <div style="height: 100px;" class="upload-container">
-                    <div class="row">
-                      <div class="col-md-12 text-center mt-3">
-                        <img src="/assets/img/brand/upload.png" style="width: 50px;height: auto;">
-                        <span class="d-block text-center mt-4">Drop file here</span>
+              <div class="row">
+                <div class="col-md-9" [ngClass]="{'col-md-12': (imageUrl.length == 0)}" *ngIf="!route.snapshot.paramMap.has('id')">
+                  <p-fileUpload [multiple]="false" styleClass="newfileUpload" id="filepdf" name="filepdf" [tabindex]="3"
+                  [url]="upload_url" mode="advanced" #pdfUpload maxFileSize="{{uploadMaxFilesize}}" required
+                  (onSelect)="selectFile($event,pdfUpload)" (onUpload)="onFileUpload($event,pdfUpload)"
+                  (onBeforeSend)="onFileBeforeUpload($event)" (onProgress)="onFileUploadProgress($event,pdfUpload)"
+                  auto="true" [chooseLabel]="'Upload PDF'" accept="application/pdf">
+                  <ng-template pTemplate="toolbar">
+                    <div class="text-danger d-block text-center">*Only PDF file allowed</div>
+                  </ng-template>
+                  <ng-template pTemplate="content">
+                    <div style="height: 100px;" class="upload-container">
+                      <div class="row">
+                        <div class="col-md-12 text-center mt-3">
+                          <img src="/assets/img/brand/upload.png" style="width: 50px;height: auto;">
+                          <span class="d-block text-center mt-4">Drop file here</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </ng-template>
-              </p-fileUpload>
+                  </ng-template>
+                  </p-fileUpload>
+                </div>
+                <div class="col-md-3">
+                  <img *ngIf="imageUrl" style="width: 100px; height: 100px;" [src]="imageUrl" />
+                </div>
+              </div>
               <small>
                 <div *ngIf="f.submitted && templateObj.docurl == ''" class="text-danger">
                   <div>Upload PDF file</div>
                 </div>
               </small>
-              <img *ngIf="imageUrl" style="width: 100px; height: 100px;" [src]="imageUrl" />
+              
             </div>
 
             <div class="col-md-12 mt-2">

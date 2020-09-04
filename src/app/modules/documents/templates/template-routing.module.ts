@@ -29,6 +29,17 @@ const routes: Routes = [
             canActivate: [Prerequisite],
           },
           {
+            path: ':id/edit',
+            component: AddComponent,
+
+            data: {
+              title: 'Update',
+              code: 'tempupdate',
+
+            },
+            canActivate: [Prerequisite],
+          },
+          {
             path: 'view',
             component: ViewComponent,
 
