@@ -163,7 +163,7 @@ searchTemplate(){
 
 
   editTemplate(item){
-    this.router.navigate(['/documents/templates/'+item.id +'/recipient']);
+    this.router.navigate(['/documents/templates/'+item.id +'/edit']);
 
     // http://localhost:4200/#/documents/templates/7305267e-edae-11ea-8aa5-029cd58f3b70/recipient
   }
