@@ -1,6 +1,6 @@
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../../service/global.service';
 import { ToastService } from '../../../../service/toast-service';
 import { TranslateService } from '@ngx-translate/core';
@@ -22,12 +22,13 @@ export class AddComponent implements OnInit {
 
   uploadMaxFilesize: any = 5000000;
   imageUrl: string = "";
+  bucketPath: string = "https://bucket-cmp" + this.global.getCompany() + ".s3.us-east-2.amazonaws.com/";
 
   canSubmit: boolean;
   @ViewChild("f") ngform: NgForm;
   constructor(private router: Router, private global: GlobalService,
     private translate: TranslateService, private message: ToastService,
-    private template: TemplateService) {
+    private template: TemplateService, private route: ActivatedRoute,) {
   }
 
   ngDoCheck(): void {
@@ -44,6 +45,10 @@ export class AddComponent implements OnInit {
     this.templateObj = new ClsTemplate();
     this.upload_url = this.global.getConfig().api_root + '/company(' + this.global.getCompany() + ')/uploadpdf';
     // this.getAllTemplate();
+
+    if (this.route.snapshot.paramMap.has('id'))
+      this.getTemplateById(this.route.snapshot.paramMap.get('id'));
+
   }
   enableRecipient() {
     this.router.navigate(['/documents/templates/' + this.templateObj.id + '/recipient']);
@@ -81,7 +86,7 @@ export class AddComponent implements OnInit {
     if (res.resultKey === 1) {
       fileUpload.chooseLabel = "File Uploaded";
       this.templateObj.docurl = res.resultValue.path;
-      this.imageUrl = "https://bucket-cmp" + this.global.getCompany() + ".s3.us-east-2.amazonaws.com/" + res.resultValue.imagePath;
+      this.imageUrl = this.bucketPath + res.resultValue.imagePath;
     } else {
       this.templateObj.docurl = "";
     }
@@ -97,6 +102,20 @@ export class AddComponent implements OnInit {
   //     }
   //   });
   // }
+
+  getTemplateById(id) {
+    this.template.getTemplateById({
+      operate: 'get',
+      id: id
+    }).subscribe((data: any) => {
+      if (data.resultKey == 1) {
+        this.templateObj = <ClsTemplate>data.resultValue[0];
+        let imgPath = this.templateObj.docurl.split("/")[1];
+        imgPath = imgPath.substr(0, imgPath.lastIndexOf(".")) + ".jpeg";
+        this.imageUrl = this.bucketPath + "template/thumbnail/" + imgPath;
+      }
+    });
+  }
 
   validation() {
     if (this.templateObj.docurl.trim() == "") {

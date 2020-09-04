@@ -15,7 +15,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class EditorComponent implements OnInit {
   sub: Subscription;
-  recipients: string[] = ["All", "Doctor", "Patients"];
+  recipients: string[] = [];
+  templateDtl: ClsTemplate;
   buttons: any = [];
 
   @ViewChild('docsign') editor: iDocsigneditorComponent
@@ -26,11 +27,11 @@ export class EditorComponent implements OnInit {
     private global: GlobalService,
     private message: ToastService,
     private translate: TranslateService) {
+    this.templateDtl = new ClsTemplate();
   }
 
   ngOnInit(): void {
     $('body').addClass('sidebar-minimized');
-
     this.getTemplateById(this.route.snapshot.paramMap.get('id'));
     this.buttons = [
       {
@@ -73,9 +74,9 @@ export class EditorComponent implements OnInit {
       id: id
     }).subscribe((data: any) => {
       if (data.resultKey == 1) {
-        let objTemp: ClsTemplate = data.resultValue[0];
-        this.recipients = objTemp.recipienthead.map(a => a["id"]);
-        this.getTempFileUrl(objTemp.docurl, objTemp.dataref);
+        this.templateDtl = <ClsTemplate>data.resultValue[0];
+        this.recipients = this.templateDtl.recipienthead.map(a => a["id"]);
+        this.getTempFileUrl(this.templateDtl.docurl, this.templateDtl.dataref);
       }
     });
   }
