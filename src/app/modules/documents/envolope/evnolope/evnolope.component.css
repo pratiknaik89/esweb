@@ -288,3 +288,10 @@
 }
 
 
+.checkedcls .templatecontainer {
+  background: #ffe507a1;
+  
+}
+.templatecontainer{
+cursor: pointer;
+}

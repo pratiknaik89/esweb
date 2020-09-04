@@ -5,7 +5,7 @@
     <li class="breadcrumb-item active" *ngIf="selectedenvelope.id">&nbsp;<span
             tabindex="0">{{selectedenvelope.name}}</span></li>
     &nbsp;&nbsp; <li>
-        <span class="badge badge-success badge" style="height: auto;">{{onColclickid}}</span>
+
 
     </li>
 
@@ -16,7 +16,7 @@
 </ol>
 <ng-template #template>
     <div class="modal-header">
-        <h4 class="modal-title">Envlope</h4>
+        <h4 class="modal-title">Envelope</h4>
         <button type="button" class="close" (click)="closeModal()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -26,12 +26,12 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <label>Envlope Name</label><span class="text-danger">*</span>
+                        <label>Envelope Name</label><span class="text-danger">*</span>
                         <input class="form-control" id="envname" name="envname" #envname="ngModel" type="text"
                             [(ngModel)]="form.envname" autocomplete="off" required tabindex="2"
-                            placeholder="Envlope Name" minlength="1" maxlength="50">
+                            placeholder="Envelope Name" minlength="1" maxlength="50">
                         <div *ngIf="f.submitted && envname.invalid" class="text-danger">
-                            <div *ngIf="envname.errors.required" data-tab="1">Envlope Name is required
+                            <div *ngIf="envname.errors.required" data-tab="1">Envelope Name is required
                             </div>
                         </div>
                     </div>
@@ -56,28 +56,37 @@
         </button>
     </div>
     <div class="modal-body ">
-        <h4 class="modal-title text-center mt-2">Templates</h4>
+        <!-- <h4 class="modal-title text-center mt-2">Templates</h4> -->
         <div class="d-flex p-2" style="justify-content: center;">
-            <span class="p-input-icon-left">
+            <!-- <span class="p-input-icon-left">
 
                 <input style="width: 80%;" type="text" (input)="searchTemplates()" pInputText
                     [(ngModel)]="searchtemplatestring" placeholder="Search Template"> <i class="pi pi-search"
                     (click)="searchTemplates()"></i>
 
-            </span>
+            </span> -->
+
+            <div class="ui-inputgroup" style="width: 100%;">
+
+                <input type="text" [(ngModel)]="searchtemplatestring" (input)="searchTemplates()" class="form-control"
+                    pInputText placeholder="Search Template">
+                <span class="ui-inputgroup-addon input-icon"><i class="pi pi-search"
+                        (click)="searchTemplates()"></i></span>
+            </div>
 
         </div>
 
         <div class="row">
-            
+
             <div class=" col-md-12 text-center mt-4" *ngIf="noTemplatefound">
-                    <h4>No Template found!</h4>
+                <h4>No Template found!</h4>
             </div>
             <!--  ml-4 -->
             <div *ngFor="let item of templateList;let i=index">
-               
-                <div class="col-md-3 mb-3" *ngIf="item.show">
-                    <div class="templatecontainer" >
+
+                <div class="col-md-3 mb-3" *ngIf="item.show" [ngClass]="{'checkedcls': item.checked}">
+                    <div class="templatecontainer" (click)="onTemplateSelected
+                    (item)">
                         <input [(ngModel)]="item.checked" size="16" id="parent{{i}}" input type="checkbox"
                             name="parent{{i}}" />
                         <div class="template-wrap">
@@ -118,8 +127,8 @@
         <div class="content-wrapper">
             <div class="action-bar">
                 <div class="d-flex p-2" style="justify-content: center;">
-                    <button class="btn btn-success btn-xs" type="button" (click)="open()"><i class="icon-plus"></i> Add
-                        New Envelope</button>
+                    <button class="btn btn-success btn-xs" type="button" (click)="open(true)"><i class="icon-plus"></i>
+                        Add New Envelope</button>
                 </div>
                 <div class="d-flex p-2" style="justify-content: center;">
                     <!-- <span class="p-input-icon-left">
@@ -129,11 +138,19 @@
                             (click)="searchEnvolope()"></i>
 
                     </span> -->
-                    <input type="text" [(ngModel)]="searchstring" (input)="searchEnvolope()" class="form-control"
+                    <!-- <input type="text" [(ngModel)]="searchstring" (input)="searchEnvolope()" class="form-control"
                         pInputText placeholder="Search Envelope">
                     <span class="ui-inputgroup-addon input-icon"><i class="pi pi-search"
-                            (click)="searchEnvolope()"></i></span>
+                            (click)="searchEnvolope()"></i></span> -->
 
+
+                    <div class="ui-inputgroup" style="width: 100%;">
+
+                        <input type="text" [(ngModel)]="searchstring" (input)="searchEnvolope()" class="form-control"
+                            pInputText placeholder="Search Envelope">
+                        <span class="ui-inputgroup-addon input-icon"><i class="pi pi-search"
+                                (click)="searchEnvolope()"></i></span>
+                    </div>
                 </div>
 
             </div>
@@ -144,16 +161,18 @@
                 <p-progressSpinner [style]="{width: '50px', height: '50px'}"></p-progressSpinner>
             </div>
             <!--  -->
-
+            <!-- <p-menu #menu [popup]="true" [model]="items"></p-menu> -->
             <div class="scroll-content">
+
                 <div *ngFor="let item of envelopeList ;let i=index;"
                     [ngClass]="{'eactive': selectedenvelope.id == item.id}" class="envelope mb-0 d-flex"
                     (click)="onColumnClick(item)">
                     <i class="fa fa-envelope align-self-center mr-1"></i>
-                    <span style="flex:1">{{item.name}}</span>
-                    <button type="button" style="background-color: transparent;" class="align-self-end  border-0"
-                        label="" (click)="menu.toggle($event);"><i class="fa fa-ellipsis-v"></i></button>
+                    <span class="align-self-center" style="flex:1;line-height: 1;font-size: 13px;">{{item.name}}</span>
+                    <!-- <button type="button" style="background-color: transparent;" class="align-self-end  border-0"
+                        label="" (click)="menu.toggle($event);"><i class="fa fa-ellipsis-v"></i></button> -->
                 </div>
+
             </div>
 
         </div>
@@ -169,13 +188,32 @@
 
     <div class="main-content">
         <div class="props">
-            <h5>Keys</h5>
-            <span class="badge badge-secondary badge mr-2 pr-2 pl-2" *ngFor="let item of uniqueRecepientheadList"
-                style="height: auto;">
-                {{item.id}}</span>
+            <p class="mt-0 mb-0" *ngIf="onColclickid"><small>Envelope Id : </small><span
+                    class="badge badge-success badge" style="height: auto;">{{onColclickid}}</span></p>
+            <p class="mt-0 mb-0" *ngIf="uniqueRecepientheadList.length > 0">
+                <small>Keys : </small> <span class="badge badge-secondary badge mr-2 pr-2 pl-2"
+                    *ngFor="let item of uniqueRecepientheadList" style="height: auto;">
+                    {{item.id}}</span>
+            </p>
 
         </div>
-        <div *ngIf="documentsDeatilList.length <= 0" id="show">No Document Avaliable! Please select Envelope!</div>
+        <div *ngIf="!isloading && onColclickid && documentsDeatilList.length <= 0" class="d-block text-center bg-white p-5" id="show">
+            <div class="d-block text-center"><i class="fa  fa-file-text-o fa-3x"></i></div>
+            No Document Avaliable!
+            <div class="d-block text-center">
+                <button class="btn btn-success btn-sm mt-2" (click)="buttonClicks('add')" type="button" translate=""><i class="icon-plus"></i> Add
+                    Templates In Envelope</button>
+            </div>
+
+        </div>
+
+
+        <div *ngIf="!onColclickid" id="show" class="d-block text-center bg-white p-5">
+
+            <div class="d-block text-center"><i class="fa fa-hand-pointer-o fa-3x"></i></div>
+            Please select Envelope!
+
+        </div>
 
 
         <div class="content-wrapper">
@@ -262,5 +300,5 @@
 
     </div> -->
 
-    <p-menu #menu [popup]="true" [model]="items"></p-menu>
+
 </div>

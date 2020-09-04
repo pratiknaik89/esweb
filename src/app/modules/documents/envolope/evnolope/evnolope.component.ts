@@ -22,12 +22,15 @@ export class EvnolopeComponent implements OnInit {
   loader: boolean = false;
   showDocpannel: boolean = false;
   uniqueRecepientheadList: any = [];
+  RecepientheadList: any = [];
+
   buttons = [];
   form: any = {
     id: null,
     envname: ''
   }
   isedit: boolean = false;
+  isloading = false;
   onColclickid: any = '';
   searchstring: any = '';
   modalRef: any;
@@ -36,7 +39,7 @@ export class EvnolopeComponent implements OnInit {
   srcurl: any = '';
   searchtemplatestring: any = '';
   temptemplateList: any = [];
-  noTemplatefound:boolean=false;
+  noTemplatefound: boolean = false;
   constructor(private envlope: EnvolopeService, private global: GlobalService, private message: ToastService, private translate: TranslateService, private template: TemplateService, private modalService: BsModalService) {
 
 
@@ -78,7 +81,7 @@ export class EvnolopeComponent implements OnInit {
   showDocspinner: boolean = false;
   ngOnInit(): void {
 
-    this.srcurl = "https://bucket-cmp2.s3.us-east-2.amazonaws.com/template/sdlc_1598598923.pdf";
+    this.srcurl = "";
     this.filePath = "https://bucket-cmp" + this.global.getCompany() + ".s3.us-east-2.amazonaws.com/";
     console.log(this.filePath);
     // this.getAllTemplate();
@@ -121,6 +124,10 @@ export class EvnolopeComponent implements OnInit {
     }
   }
 
+  onTemplateSelected(item){
+    item.checked = !item.checked;
+  }
+
   bindEnvelope() {
 
     this.envelopeList = [];
@@ -151,7 +158,7 @@ export class EvnolopeComponent implements OnInit {
         'disabled': false, 'access': true
       },
       {
-        'id': 'add', 'color': 'white', 'bg': 'success', 'text': 'Add Templates In Evelope', 'icon': 'plus', 'shortcut': 'ctrl+shift+a',
+        'id': 'add', 'color': 'white', 'bg': 'success', 'text': 'Add Templates In Envelope', 'icon': 'plus', 'shortcut': 'ctrl+shift+a',
         'disabled': false, 'access': true
       }
     ];
@@ -183,6 +190,7 @@ export class EvnolopeComponent implements OnInit {
     }
     this.documentsDeatilList = [];
     this.uniqueRecepientheadList = []
+    this.RecepientheadList = []
     gridList.forEach(element => {
 
       element.src = (element.src == null || element.src == '' || element.src == undefined) ? null :
@@ -190,7 +198,7 @@ export class EvnolopeComponent implements OnInit {
 
       this.documentsDeatilList.push(element);
       let data = JSON.parse(element.recipienthead);
-      this.uniqueRecepientheadList = this.uniqueRecepientheadList.concat(data)
+      this.RecepientheadList = this.RecepientheadList.concat(data)
         ;
       //this.uniqueRecepientheadList=this.uniqueRecepientheadList.unique();
 
@@ -199,9 +207,24 @@ export class EvnolopeComponent implements OnInit {
       //this.uniqueRecepientheadList=this.uniqueRecepientheadList.unique();
     });
 
-    this.uniqueRecepientheadList = this.uniqueRecepientheadList.filter(function (item, index, inputArray) {
-      return inputArray.indexOf(item) == index;
-    });
+    // this.uniqueRecepientheadList = this.uniqueRecepientheadList.filter(function (item, index, inputArray) {
+    //   return inputArray.indexOf(item) == index;
+    // });
+
+    for (let i = 0; i < this.RecepientheadList.length; i++) {
+      const element = this.RecepientheadList[i];
+      if (!element.id) continue;
+      if (!this.uniqueRecepientheadList.find(a => {
+        return a.id == element.id
+      })) {
+
+        this.uniqueRecepientheadList.push(element);
+      }
+
+      // if(this.uniqueRecepientheadList.indexOf(element.id) == -1){
+      //   this.uniqueRecepientheadList.push(element);
+      // }
+    }
     this.showDocspinner = false;
     console.log(this.uniqueRecepientheadList);
     // gridList.forEach(element => {
@@ -215,6 +238,7 @@ export class EvnolopeComponent implements OnInit {
 
   }
   bindDocuments(envid) {
+    this.isloading = true;
     this.documentsDeatilList = [];
     this.envlope.getEnvolope({
       'operate': 'binddocforgrid',
@@ -222,19 +246,32 @@ export class EvnolopeComponent implements OnInit {
     }).subscribe((data: any) => {
       if (data.resultKey === 1) {
         this.showDocspinner = true;
+
         // this.documentList = data.resultValue;
         this.makeDocgrid(data.resultValue);
+        this.isloading = false;
       } else {
-
+        this.isloading = false;
       }
+    }, () => {
+      this.isloading = false;
     })
 
+  }
+
+  focus() {
+    setTimeout(() => {
+      $('#envname').focus();
+    }, 300);
   }
 
   open() {
     if (this.isedit == false) {
       this.form.id = null;
+      this.form.envname = '';
+
     }
+    this.focus();
     this.modalRef = this.global.showPopup(this.popupContainer);
   }
 
@@ -291,7 +328,7 @@ export class EvnolopeComponent implements OnInit {
 
         this.form.envname = '';
         //this.envelopeList.push();
-       // this.bindEnvelope();
+        // this.bindEnvelope();
 
         this.closeModal();
 
@@ -342,10 +379,10 @@ export class EvnolopeComponent implements OnInit {
   }
 
 
- 
-countArray=[];
+
+  countArray = [];
   searchTemplates() {
-    this.countArray=[];
+    this.countArray = [];
     // if (this.searchtemplatestring == '' || this.searchtemplatestring == undefined || this.searchtemplatestring == null) {
     //   this.templateList = []
     //   this.noEnvmsg = '';
@@ -356,30 +393,30 @@ countArray=[];
 
     if (this.searchtemplatestring != '' || this.searchtemplatestring != undefined || this.searchtemplatestring != null) { }
     let temptemplate = this.temptemplateList;
-   
-     this.noTemplatefound= false;
-   // this.templateList = [];
-   for (let index = 0; index < this.templateList.length; index++) {
-     const element = this.templateList[index];
-     let name = element.name.toLowerCase();
-      
-     // name.includes(this.searchtemplatestring.toLowerCase());
-     if(!name.includes(this.searchtemplatestring.toLowerCase())){
-       element.show=false;
-       this.countArray.push(1);
-      
-     }
-     else {
-      element.show=true;
-  
-      
-     }
-   }
-   if(this.countArray.length > 1){
-     this.noTemplatefound = true;
-   }
- 
-    
+
+    this.noTemplatefound = false;
+    // this.templateList = [];
+    for (let index = 0; index < this.templateList.length; index++) {
+      const element = this.templateList[index];
+      let name = element.name.toLowerCase();
+
+      // name.includes(this.searchtemplatestring.toLowerCase());
+      if (!name.includes(this.searchtemplatestring.toLowerCase())) {
+        element.show = false;
+        this.countArray.push(1);
+
+      }
+      else {
+        element.show = true;
+
+
+      }
+    }
+    if (this.countArray.length > 1) {
+      this.noTemplatefound = true;
+    }
+
+
   }
 
   // searchEnvolope() {
@@ -524,41 +561,41 @@ countArray=[];
   }
 
   makeTemplateDate(templateList) {
-//     debugger
-//     let newArray = [];
-//     let idArray = [];
-//     let finalArray = [];
-//     templateList.forEach(element => {
-//       if(element.checked==true){
-//       idArray.push(element);
-//     }
-//     });
+    //     debugger
+    //     let newArray = [];
+    //     let idArray = [];
+    //     let finalArray = [];
+    //     templateList.forEach(element => {
+    //       if(element.checked==true){
+    //       idArray.push(element);
+    //     }
+    //     });
 
 
 
-//     newArray = this.temptemplateList;
-// let tempNewArray=[];
-// tempNewArray= idArray;
+    //     newArray = this.temptemplateList;
+    // let tempNewArray=[];
+    // tempNewArray= idArray;
 
-//     for (let index = 0; index < newArray.length; index++) {
-//       const element = newArray[index];
-//       idArray.forEach(element1 => {
-//         if (element.id != element1.id && element.checked==true){
-//           finalArray.push(element);
-//       }
-//       });
-//     }
+    //     for (let index = 0; index < newArray.length; index++) {
+    //       const element = newArray[index];
+    //       idArray.forEach(element1 => {
+    //         if (element.id != element1.id && element.checked==true){
+    //           finalArray.push(element);
+    //       }
+    //       });
+    //     }
 
-//     // templateList.forEach(element => {
-//     //   newArray.push(element);
-//     // });
+    //     // templateList.forEach(element => {
+    //     //   newArray.push(element);
+    //     // });
 
 
-//     // tempNewArray.forEach(element => {
-//     //   if (element.checked == true) {
-//     //     finalArray.push(element.id);
-//     //   }
-//     // });
+    //     // tempNewArray.forEach(element => {
+    //     //   if (element.checked == true) {
+    //     //     finalArray.push(element.id);
+    //     //   }
+    //     // });
 
 
 
