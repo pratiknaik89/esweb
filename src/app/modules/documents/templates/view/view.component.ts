@@ -10,6 +10,7 @@ import { TemplateService } from '../../../../service/template.service';
 })
 export class ViewComponent implements OnInit {
   documentsDeatilList: any = [];
+  tempdocumentsDeatilList:any=[];
   sortOptions: SelectItem[];
   searchstring: any = '';
   sortKey: string;
@@ -18,8 +19,9 @@ export class ViewComponent implements OnInit {
 
   sortOrder: number;
   filePath: any = '';
+  noTemplatefound: boolean=false;
   constructor(private template: TemplateService, private global: GlobalService,private router: Router,) { }
-
+  buttons:any=[];
   ngOnInit(): void {
 
     this.filePath = "https://bucket-cmp" + this.global.getCompany() + ".s3.us-east-2.amazonaws.com/";
@@ -55,7 +57,9 @@ export class ViewComponent implements OnInit {
     //   { id: 6, name: "Document 1", src: "/assets/img/img1.png" }];
   }
 
-
+  buttonClicks(event){
+    
+  }
   bindTemplateGrid() {
     
     this.template.getAllTemplate({
@@ -78,11 +82,14 @@ export class ViewComponent implements OnInit {
     this.documentsDeatilList = [];
     data.forEach(element => {
 
-      element.src = (element.src == null || element.src == '' || element.src == undefined) ? null :
-      this.filePath + element.src;
+
+      
+      element.src =  (element.src == '' || element.src != null || element.src != undefined) ? (this.filePath + 'template/thumbnail/' + element.src.split('/')[1].replace('.pdf', '.jpeg')) : null;
+
 
      // element.src = this.filePath + element.src;
       this.documentsDeatilList.push(element);
+      this.tempdocumentsDeatilList.push(element);
     });
 
     console.log(this.documentsDeatilList);
@@ -99,23 +106,52 @@ export class ViewComponent implements OnInit {
    
 //     })
 //   }
-  searchTemplate() {
 
-    if (this.searchstring == '') {
-      return;
-    }
-    this.template.getTemplate({
-      "operate": 'searchtemplate',
-      "keyword": this.searchstring
-    }).subscribe((data: any) => {
-      if (data.resultKey == 1) {
+countArray:any=[];
+searchTemplate(){
+  debugger
+  if (this.searchstring != '' || this.searchstring != undefined || this.searchstring != null) { }
+  let temptemplate = this.documentsDeatilList;
+ 
+   this.noTemplatefound= false;
+ // this.templateList = [];
+ for (let index = 0; index < this.documentsDeatilList.length; index++) {
+   const element = this.documentsDeatilList[index];
+   let name = element.name.toLowerCase();
+    
+   // name.includes(this.searchtemplatestring.toLowerCase());
+   if(!name.includes(this.searchstring.toLowerCase())){
+     element.show=false;
+     this.countArray.push(1);
+    
+   }
+   else {
+    element.show=true;
 
-        this.makedocumentsDeatilList(data.resultValue);
+    
+   }
+ }
+ if(this.countArray.length > 1){
+  this.noTemplatefound = true;
+}
+}
+  // searchTemplate() {
 
-        // this.templateList = data.resultValue;
-      }
-    });
-  }
+  //   if (this.searchstring == '') {
+  //     return;
+  //   }
+  //   this.template.getTemplate({
+  //     "operate": 'searchtemplate',
+  //     "keyword": this.searchstring
+  //   }).subscribe((data: any) => {
+  //     if (data.resultKey == 1) {
+
+  //       this.makedocumentsDeatilList(data.resultValue);
+
+  //       // this.templateList = data.resultValue;
+  //     }
+  //   });
+  // }
 
 
   checkisEmpty() {

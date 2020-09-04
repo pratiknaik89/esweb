@@ -18,7 +18,7 @@ export class EditorComponent implements OnInit {
   recipients: string[] = [];
   templateDtl: ClsTemplate;
   buttons: any = [];
-
+  options:any='';
   @ViewChild('docsign') editor: iDocsigneditorComponent
 
   constructor(private route: ActivatedRoute,
@@ -67,7 +67,12 @@ export class EditorComponent implements OnInit {
         break;
     }
   }
+  onObjectSelected(event){
 
+  }
+  onObjectDeselected(event){
+
+  }
   getTemplateById(id) {
     this.template.getTemplateById({
       operate: 'get',
