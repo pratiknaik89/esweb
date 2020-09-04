@@ -13,6 +13,7 @@ export class ViewComponent implements OnInit {
   @ViewChild('grid') grid: GridComponent;
   @ViewChild('form') form: AddComponent;
   isfav = false;
+  gridStyle:any='';
   constructor(private global: GlobalService) { }
 
   ngOnInit(): void {

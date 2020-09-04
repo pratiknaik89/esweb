@@ -84,6 +84,9 @@ export class DocStatusViewComponent implements OnInit {
         this.section = s;
         this.showSections(s);
     }
+    buttonClicks(event){
+
+    }
     showSections(status) {
 
 

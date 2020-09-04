@@ -21,7 +21,7 @@ export class ViewComponent implements OnInit {
   filePath: any = '';
   noTemplatefound: boolean=false;
   constructor(private template: TemplateService, private global: GlobalService,private router: Router,) { }
-
+  buttons:any=[];
   ngOnInit(): void {
 
     this.filePath = "https://bucket-cmp" + this.global.getCompany() + ".s3.us-east-2.amazonaws.com/";
@@ -57,7 +57,9 @@ export class ViewComponent implements OnInit {
     //   { id: 6, name: "Document 1", src: "/assets/img/img1.png" }];
   }
 
-
+  buttonClicks(event){
+    
+  }
   bindTemplateGrid() {
     
     this.template.getAllTemplate({
