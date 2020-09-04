@@ -33,7 +33,7 @@ const routes: Routes = [
             component: AddComponent,
 
             data: {
-              title: 'Update',
+              title: 'Edit',
               code: 'tempupdate',
 
             },
