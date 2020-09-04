@@ -7,7 +7,7 @@ import { ToastService } from '../../../../service/toast-service';
 import { TranslateService } from '@ngx-translate/core';
 import { TemplateService } from '../../../../service/template.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
-
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-evnolope',
   templateUrl: './evnolope.component.html',
@@ -40,7 +40,7 @@ export class EvnolopeComponent implements OnInit {
   searchtemplatestring: any = '';
   temptemplateList: any = [];
   noTemplatefound: boolean = false;
-  constructor(private envlope: EnvolopeService, private global: GlobalService, private message: ToastService, private translate: TranslateService, private template: TemplateService, private modalService: BsModalService) {
+  constructor(private envelope: EnvolopeService, private global: GlobalService, private message: ToastService, private translate: TranslateService, private template: TemplateService, private modalService: BsModalService, private router: Router) {
 
 
     this.items = [{
@@ -124,7 +124,7 @@ export class EvnolopeComponent implements OnInit {
     }
   }
 
-  onTemplateSelected(item){
+  onTemplateSelected(item) {
     item.checked = !item.checked;
   }
 
@@ -133,7 +133,7 @@ export class EvnolopeComponent implements OnInit {
     this.envelopeList = [];
     this.tempEnvlopeList = [];
     this.showLoader = true;
-    this.envlope.getEnvolope({
+    this.envelope.getEnvolope({
       'operate': 'bindenv'
     }).subscribe((data: any) => {
       if (data.resultKey === 1) {
@@ -200,11 +200,11 @@ export class EvnolopeComponent implements OnInit {
       let data = JSON.parse(element.recipienthead);
       this.RecepientheadList = this.RecepientheadList.concat(data)
         ;
-      //this.uniqueRecepientheadList=this.uniqueRecepientheadList.unique();
+
 
       // this.uniqueRecepientheadList = this.uniqueRecepientheadList.concat(this.global.makeJSON(element.recepienthead)
       // );
-      //this.uniqueRecepientheadList=this.uniqueRecepientheadList.unique();
+
     });
 
     // this.uniqueRecepientheadList = this.uniqueRecepientheadList.filter(function (item, index, inputArray) {
@@ -240,7 +240,7 @@ export class EvnolopeComponent implements OnInit {
   bindDocuments(envid) {
     this.isloading = true;
     this.documentsDeatilList = [];
-    this.envlope.getEnvolope({
+    this.envelope.getEnvolope({
       'operate': 'binddocforgrid',
       'envid': envid
     }).subscribe((data: any) => {
@@ -298,7 +298,7 @@ export class EvnolopeComponent implements OnInit {
 
   save() {
 
-    this.envlope.SaveEnvolope({
+    this.envelope.SaveEnvolope({
       "id": this.form.id,
       "envname": this.form.envname,
       "comapnyid": this.global.getCompany(),
@@ -380,9 +380,10 @@ export class EvnolopeComponent implements OnInit {
 
 
 
-  countArray = [];
+ count:any=0;
   searchTemplates() {
-    this.countArray = [];
+    debugger
+    this.count=0;
     // if (this.searchtemplatestring == '' || this.searchtemplatestring == undefined || this.searchtemplatestring == null) {
     //   this.templateList = []
     //   this.noEnvmsg = '';
@@ -394,27 +395,28 @@ export class EvnolopeComponent implements OnInit {
     if (this.searchtemplatestring != '' || this.searchtemplatestring != undefined || this.searchtemplatestring != null) { }
     let temptemplate = this.temptemplateList;
 
-    this.noTemplatefound = false;
-    // this.templateList = [];
-    for (let index = 0; index < this.templateList.length; index++) {
-      const element = this.templateList[index];
-      let name = element.name.toLowerCase();
+     this.noTemplatefound= false;
+   // this.templateList = [];
+   for (let index = 0; index < this.templateList.length; index++) {
+     const element = this.templateList[index];
+     let name = element.name.toLowerCase();
 
-      // name.includes(this.searchtemplatestring.toLowerCase());
-      if (!name.includes(this.searchtemplatestring.toLowerCase())) {
-        element.show = false;
-        this.countArray.push(1);
-
-      }
-      else {
-        element.show = true;
+     // name.includes(this.searchtemplatestring.toLowerCase());
+     if(!name.includes(this.searchtemplatestring.toLowerCase())){
+       element.show=false;
 
 
-      }
-    }
-    if (this.countArray.length > 1) {
-      this.noTemplatefound = true;
-    }
+
+
+     }
+     else {
+
+      element.show=true;
+
+
+     }
+   }
+
 
 
   }
@@ -461,7 +463,7 @@ export class EvnolopeComponent implements OnInit {
   edit(id) {
     this.isedit = true;
 
-    this.envlope.getEnvolope({
+    this.envelope.getEnvolope({
       'operate': 'edit',
       'id': this.onColclickid
 
@@ -534,7 +536,7 @@ export class EvnolopeComponent implements OnInit {
     let data = this.makeTemplateDate(this.templateList);
 
     console.log(this.templateList);
-    this.envlope.SaveEnvolope({
+    this.envelope.SaveEnvolope({
       "id": this.onColclickid,
       "operate": "addtemplates",
       "comapnyid": this.global.getCompany(),
@@ -607,5 +609,11 @@ export class EvnolopeComponent implements OnInit {
       }
     });
     return finalArray;
+  }
+
+  editTemplate(item) {
+    this.router.navigate(['/documents/templates/' + item.id + '/edit']);
+
+    // http://localhost:4200/#/documents/templates/7305267e-edae-11ea-8aa5-029cd58f3b70/recipient
   }
 }
