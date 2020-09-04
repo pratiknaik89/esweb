@@ -34,6 +34,9 @@ export class EvnolopeComponent implements OnInit {
   noEnvmsg: any = '';
   showLoader: boolean = false;
   srcurl: any = '';
+  searchtemplatestring: any = '';
+  temptemplateList: any = [];
+  noTemplatefound:boolean=false;
   constructor(private envlope: EnvolopeService, private global: GlobalService, private message: ToastService, private translate: TranslateService, private template: TemplateService, private modalService: BsModalService) {
 
 
@@ -108,7 +111,7 @@ export class EvnolopeComponent implements OnInit {
         break;
       case 'add':
         this.templateList = [];
-        this.temptemplateList=[];
+        this.temptemplateList = [];
         this.getAllTemplate();
 
         this.open1();
@@ -119,7 +122,7 @@ export class EvnolopeComponent implements OnInit {
   }
 
   bindEnvelope() {
-    
+
     this.envelopeList = [];
     this.tempEnvlopeList = [];
     this.showLoader = true;
@@ -137,6 +140,7 @@ export class EvnolopeComponent implements OnInit {
   }
 
   onColumnClick(item) {
+    debugger
     if (this.onColclickid == item.id) {
       return;
     }
@@ -172,16 +176,17 @@ export class EvnolopeComponent implements OnInit {
 
 
   makeDocgrid(gridList) {
-    
+
     if (gridList.length == 0) {
       this.showDocspinner = false;
       return;
     }
     this.documentsDeatilList = [];
+    this.uniqueRecepientheadList = []
     gridList.forEach(element => {
 
       element.src = (element.src == null || element.src == '' || element.src == undefined) ? null :
-        this.filePath + 'template/thumbnail/'+element.src.split('/')[1].replace('.pdf','.jpeg');
+        this.filePath + 'template/thumbnail/' + element.src.split('/')[1].replace('.pdf', '.jpeg');
 
       this.documentsDeatilList.push(element);
       let data = JSON.parse(element.recipienthead);
@@ -239,7 +244,7 @@ export class EvnolopeComponent implements OnInit {
   }
 
   closeModal() {
-    
+
 
     //  this.clear();
     if (this.modalRef) {
@@ -255,7 +260,7 @@ export class EvnolopeComponent implements OnInit {
   }
 
   save() {
-    
+
     this.envlope.SaveEnvolope({
       "id": this.form.id,
       "envname": this.form.envname,
@@ -266,24 +271,27 @@ export class EvnolopeComponent implements OnInit {
         this.message.show('Success', 'Saved successfully', 'success', this.translate);
         this.searchstring = '';
         this.isedit = false;
-        // if (this.form.id == null) {
-        //   let data = {
-        //     id: res.resultValue.msg,
-        //     name: this.form.envname,
-        //     comapnyid: this.global.getCompany()
-        //   }
-        //   this.envelopeList.push(data);
-        // } else {
-        //   this.envelopeList.forEach(element => {
-        //     if (element.id == this.form.id) {
-        //       element.name = this.form.envname;
-        //     }
-        //   });
-        // }
+        debugger
+        if (this.form.id == null) {
+          let data = {
+            id: res.resultValue.msg,
+            name: this.form.envname,
+            comapnyid: this.global.getCompany()
+          }
+          this.envelopeList.push(data);
+        } else {
+          this.envelopeList.forEach(element => {
+            if (element.id == this.form.id) {
+              element.name = this.form.envname;
+
+
+            }
+          });
+        }
 
         this.form.envname = '';
         //this.envelopeList.push();
-        this.bindEnvelope();
+       // this.bindEnvelope();
 
         this.closeModal();
 
@@ -308,7 +316,7 @@ export class EvnolopeComponent implements OnInit {
     }
     if (this.searchstring != '' || this.searchstring != undefined || this.searchstring != null) {
       this.showLoader = true;
-      
+
       let tempEnvlist = this.tempEnvlopeList;
       this.envelopeList = [];
 
@@ -316,7 +324,7 @@ export class EvnolopeComponent implements OnInit {
         let name = a.name.toLowerCase();
         return name.includes(this.searchstring.toLowerCase());
       });
-      
+
       if (values.length >= 0) {
 
         this.showLoader = false;
@@ -334,36 +342,44 @@ export class EvnolopeComponent implements OnInit {
   }
 
 
-  searchtemplatestring:any='';
-  temptemplateList:any=[];
-  
-  searchTemplates(){
-    debugger
-    if (this.searchtemplatestring == '' || this.searchtemplatestring == undefined || this.searchtemplatestring == null) {
-      this.templateList = []
-      this.noEnvmsg = '';
-      this.templateList = this.temptemplateList;
-      //  this.bindEnvelope();
-      return;
-    }
+ 
+countArray=[];
+  searchTemplates() {
+    this.countArray=[];
+    // if (this.searchtemplatestring == '' || this.searchtemplatestring == undefined || this.searchtemplatestring == null) {
+    //   this.templateList = []
+    //   this.noEnvmsg = '';
+    //   this.templateList = this.temptemplateList;
+    //   //  this.bindEnvelope();
+    //   return;
+    // }
 
-    if (this.searchtemplatestring != '' || this.searchtemplatestring != undefined || this.searchtemplatestring != null) {}
+    if (this.searchtemplatestring != '' || this.searchtemplatestring != undefined || this.searchtemplatestring != null) { }
     let temptemplate = this.temptemplateList;
-this.templateList=[];
-    let values = temptemplate.filter((a) => {
-      let name = a.name.toLowerCase();
-      return name.includes(this.searchtemplatestring.toLowerCase());
-    });
+   
+     this.noTemplatefound= false;
+   // this.templateList = [];
+   for (let index = 0; index < this.templateList.length; index++) {
+     const element = this.templateList[index];
+     let name = element.name.toLowerCase();
+      
+     // name.includes(this.searchtemplatestring.toLowerCase());
+     if(!name.includes(this.searchtemplatestring.toLowerCase())){
+       element.show=false;
+       this.countArray.push(1);
+      
+     }
+     else {
+      element.show=true;
+  
+      
+     }
+   }
+   if(this.countArray.length > 1){
+     this.noTemplatefound = true;
+   }
+ 
     
-    if (values.length >= 0) {
-
-     
-      values.forEach(element => {
-        this.templateList.push(element);
-      });
-    } else {
-     
-    }
   }
 
   // searchEnvolope() {
@@ -440,7 +456,7 @@ this.templateList=[];
 
 
   getAllTemplate() {
-    
+
     this.template.getAllTemplate({
       operate: 'get'
     }).subscribe((data: any) => {
@@ -458,7 +474,7 @@ this.templateList=[];
   createTemplateData(data) {
 
     this.templateList = data;
-    this.temptemplateList=data;
+    this.temptemplateList = data;
     console.log(this.documentsDeatilList);
 
     let flag = this.templateList.filter((a) => {
@@ -471,12 +487,13 @@ this.templateList=[];
   }
 
   urlHandle(srcurl) {
-   
-    return (srcurl == '' || srcurl != null || srcurl != undefined) ?  (this.filePath + 'template/thumbnail/'+srcurl.split('/')[1].replace('.pdf','.jpeg') ): null;
+
+    return (srcurl == '' || srcurl != null || srcurl != undefined) ? (this.filePath + 'template/thumbnail/' + srcurl.split('/')[1].replace('.pdf', '.jpeg')) : null;
 
   }
 
   addTemplate() {
+    debugger
     let data = this.makeTemplateDate(this.templateList);
 
     console.log(this.templateList);
@@ -507,6 +524,45 @@ this.templateList=[];
   }
 
   makeTemplateDate(templateList) {
+//     debugger
+//     let newArray = [];
+//     let idArray = [];
+//     let finalArray = [];
+//     templateList.forEach(element => {
+//       if(element.checked==true){
+//       idArray.push(element);
+//     }
+//     });
+
+
+
+//     newArray = this.temptemplateList;
+// let tempNewArray=[];
+// tempNewArray= idArray;
+
+//     for (let index = 0; index < newArray.length; index++) {
+//       const element = newArray[index];
+//       idArray.forEach(element1 => {
+//         if (element.id != element1.id && element.checked==true){
+//           finalArray.push(element);
+//       }
+//       });
+//     }
+
+//     // templateList.forEach(element => {
+//     //   newArray.push(element);
+//     // });
+
+
+//     // tempNewArray.forEach(element => {
+//     //   if (element.checked == true) {
+//     //     finalArray.push(element.id);
+//     //   }
+//     // });
+
+
+
+
     let finalArray = [];
     templateList.forEach(element => {
       if (element.checked == true) {
