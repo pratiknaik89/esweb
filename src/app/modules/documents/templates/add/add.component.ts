@@ -28,7 +28,7 @@ export class AddComponent implements OnInit {
   @ViewChild("f") ngform: NgForm;
   constructor(private router: Router, private global: GlobalService,
     private translate: TranslateService, private message: ToastService,
-    private template: TemplateService, private route: ActivatedRoute,) {
+    private template: TemplateService, public route: ActivatedRoute,) {
   }
 
   ngDoCheck(): void {
