@@ -6,68 +6,69 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./view.com.scss']
 })
 export class DocStatusViewComponent implements OnInit {
+    showLoader = false
     buttons = [];
     section = 'all';
     items = [];
-    itemss = [{
-        'color': 'warning',
-        'icon': 'warning',
-        'status': 'Pending',
-        'subject': 'This is Subject title',
-        'to': 'pratik@ideas2ech.com',
-        'last_changed': '2020-01-01 11:20 AM'
-    },
-    {
-        'color': 'success',
-        'icon': 'check',
-        'status': 'Completed',
-        'subject': 'This is Subject title',
-        'to': 'pratik@ideas2ech.com',
-        'last_changed': '2020-01-01 11:20 AM'
-    },
-    {
-        'color': 'warning',
-        'icon': 'warning',
-        'status': 'Pending',
-        'subject': 'This is Subject title',
-        'to': 'pratik@ideas2ech.com',
-        'last_changed': '2020-01-01 11:20 AM'
-    },
-    {
-        'color': 'info',
-        'icon': 'send',
-        'status': 'Sent',
-        'subject': 'This is Subject title',
-        'to': 'pratik@ideas2ech.com',
-        'last_changed': '2020-01-01 11:20 AM'
-    },
-    {
-        'color': 'warning',
-        'icon': 'warning',
-        'status': 'Pending',
-        'subject': 'This is Subject title',
-        'to': 'pratik@ideas2ech.com',
-        'last_changed': '2020-01-01 11:20 AM'
-    },
-    {
-        'color': 'success',
-        'icon': 'check',
-        'status': 'Completed',
-        'subject': 'This is Subject title',
-        'to': 'pratik@ideas2ech.com',
-        'last_changed': '2020-01-01 11:20 AM'
-    },
-    {
-        'color': 'primary',
-        'icon': 'pencil',
-        'status': 'Draft',
-        'subject': 'This is Subject title',
-        'to': 'pratik@ideas2ech.com',
-        'last_changed': '2020-01-01 11:20 AM'
-    }
-
+    itemss = [
+        {
+            'color': 'warning',
+            'icon': 'warning',
+            'status': 'Pending',
+            'subject': 'This is Subject title',
+            'to': 'pratik@ideas2ech.com',
+            'last_changed': '2020-01-01 11:20 AM'
+        },
+        {
+            'color': 'success',
+            'icon': 'check',
+            'status': 'Completed',
+            'subject': 'This is Subject title',
+            'to': 'pratik@ideas2ech.com',
+            'last_changed': '2020-01-01 11:20 AM'
+        },
+        {
+            'color': 'warning',
+            'icon': 'warning',
+            'status': 'Pending',
+            'subject': 'This is Subject title',
+            'to': 'pratik@ideas2ech.com',
+            'last_changed': '2020-01-01 11:20 AM'
+        },
+        {
+            'color': 'info',
+            'icon': 'send',
+            'status': 'Sent',
+            'subject': 'This is Subject title',
+            'to': 'pratik@ideas2ech.com',
+            'last_changed': '2020-01-01 11:20 AM'
+        },
+        {
+            'color': 'warning',
+            'icon': 'warning',
+            'status': 'Pending',
+            'subject': 'This is Subject title',
+            'to': 'pratik@ideas2ech.com',
+            'last_changed': '2020-01-01 11:20 AM'
+        },
+        {
+            'color': 'success',
+            'icon': 'check',
+            'status': 'Completed',
+            'subject': 'This is Subject title',
+            'to': 'pratik@ideas2ech.com',
+            'last_changed': '2020-01-01 11:20 AM'
+        },
+        {
+            'color': 'primary',
+            'icon': 'pencil',
+            'status': 'Draft',
+            'subject': 'This is Subject title',
+            'to': 'pratik@ideas2ech.com',
+            'last_changed': '2020-01-01 11:20 AM'
+        }
     ]
-    constructor() {
+    constructor(private status: StatusService) {
 
         this.buttons = [
             // {
@@ -84,24 +85,32 @@ export class DocStatusViewComponent implements OnInit {
         this.section = s;
         this.showSections(s);
     }
-    buttonClicks(event){
+    buttonClicks(event) {
 
     }
     showSections(status) {
+        this.status.list({}).subscribe((data: any) => {
+            if (data.resultKey === 1) {
+                this.items = data.resultValue[0];
+                this.showLoader = false;
+            } else {
+                this.showLoader = false;
+            }
+        })
 
-
-        if (status != 'all') {
-            this.items = this.itemss.filter(a => {
-                return a.status.toLowerCase() == status
-            })
-        } else {
-            this.items = this.itemss;
-        }
+        // if (status != 'all') {
+        //     this.items = this.itemss.filter(a => {
+        //         return a.status.toLowerCase() == status
+        //     })
+        // } else {
+        //     this.items = this.itemss;
+        // }
 
     }
 
     ngOnInit(): void {
         this.showSections('all');
+
     }
 }
 
@@ -111,6 +120,7 @@ import { Routes, Router, RouterModule } from '@angular/router';
 import { Prerequisite } from '../../../service/prerequisite';
 import { SharedModule } from '../../../shared/shared.module';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { StatusService } from '../../../service/statusview.service';
 
 const routes: Routes = [
     {

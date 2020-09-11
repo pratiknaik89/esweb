@@ -17,7 +17,7 @@ import { NgForm } from '@angular/forms';
 })
 export class AddComponent implements OnInit {
   upload_url: any = '';
-
+  template_heading = 'New Template'
   templateObj: ClsTemplate;
 
   uploadMaxFilesize: any = 5000000;
@@ -46,8 +46,10 @@ export class AddComponent implements OnInit {
     this.upload_url = this.global.getConfig().api_root + '/company(' + this.global.getCompany() + ')/uploadpdf';
     // this.getAllTemplate();
 
-    if (this.route.snapshot.paramMap.has('id'))
+    if (this.route.snapshot.paramMap.has('id')){
+      this.template_heading = "Edit Template"
       this.getTemplateById(this.route.snapshot.paramMap.get('id'));
+    }
 
   }
   enableRecipient() {
