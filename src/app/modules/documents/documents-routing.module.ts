@@ -17,6 +17,7 @@ const routes: Routes = [
           title: ''
         },
         children: [
+
           {
             path: 'view',
             loadChildren: () => import('./statusview/view.com').then(m => m.DocStatusViewModule),
@@ -46,7 +47,10 @@ const routes: Routes = [
             },
             canActivate: [Prerequisite],
           },
-
+          {
+            path: 'sender',
+            loadChildren: () => import('./sender/sender.comp').then(m => m.SenderModule),
+          }
 
         ]
       }
