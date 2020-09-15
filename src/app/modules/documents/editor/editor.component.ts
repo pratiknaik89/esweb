@@ -81,6 +81,7 @@ export class EditorComponent implements OnInit {
       if (data.resultKey == 1) {
         this.templateDtl = <ClsTemplate>data.resultValue[0];
         this.recipients = this.templateDtl.recipienthead.map(a => a["id"]);
+        this.editor.setRecipients(this.recipients);
         this.getTempFileUrl(this.templateDtl.docurl, this.templateDtl.dataref);
       }
     });
