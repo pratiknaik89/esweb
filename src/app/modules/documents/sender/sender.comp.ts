@@ -8,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./sender.comp.scss']
 })
 export class SenderComponent implements OnInit {
-    type = "doc";
+    type = "temp";
+    response = "";
     temp_env_id = ""
     buttons = [];
     Fields = [];
@@ -101,8 +102,9 @@ export class SenderComponent implements OnInit {
 
         this.sender.sendData(data).subscribe(d => {
             console.log(d)
+            this.response = d;
         }, (er) => {
-
+            this.response = er;
         })
     }
 
