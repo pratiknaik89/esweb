@@ -6,11 +6,15 @@ import { DataService } from './dataservice-service';
 })
 export class SenderService {
 
-    constructor(private dataservice: DataService){
-        
+    constructor(private dataservice: DataService) {
+
     }
 
     sendData(req: any) {
         return this.dataservice.postHttpData('/sendmail', req);
+    }
+
+    prefillData(req: any) {
+        return this.dataservice.getHttpData('/prefillsender', req);
     }
 }

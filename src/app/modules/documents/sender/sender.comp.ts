@@ -18,10 +18,31 @@ export class SenderComponent implements OnInit {
         "name": "",
         "email": ""
     }];
-    constructor(private sender: SenderService) {
-
+    constructor(private sender: SenderService, private route: ActivatedRoute) {
+        let id = this.route.snapshot.params.id;
+        let type = this.route.snapshot.params.type;
+        if (id && type) {
+            console.log(id, type)
+            this.getPrefillData(id, type);
+        }
 
     }
+
+    getPrefillData(id, type) {
+        var data = {
+            "type": type,
+            "id": id
+        }
+
+        this.sender.sendData(data).subscribe(d => {
+            console.log(d)
+
+        }, (er) => {
+
+        })
+    }
+
+
     buttonClicks(e) {
         this.sendData();
     }
@@ -113,7 +134,7 @@ export class SenderComponent implements OnInit {
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../../shared/shared.module';
-import { RouterModule, Routes } from '@angular/router';
+import { ActivatedRoute, RouterModule, Routes } from '@angular/router';
 import { Prerequisite } from '../../../service/prerequisite';
 import { CardModule } from 'primeng/card';
 import { RadioButtonModule } from 'primeng/radiobutton';
@@ -131,6 +152,16 @@ const routes: Routes = [
                 children: [
                     {
                         path: '',
+                        component: SenderComponent,
+                        data: {
+                            title: 'Send',
+                            code: 'sender',
+                            //    role: 'di'
+                        },
+                        canActivate: [Prerequisite],
+                    },
+                    {
+                        path: ':type/:id',
                         component: SenderComponent,
                         data: {
                             title: 'Send',
