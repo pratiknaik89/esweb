@@ -54,7 +54,7 @@ export class SenderComponent implements OnInit {
         })
     }
 
-    onAddProperty() {
+    onAddProperty(a) {
         this.Fields.push({
             "prop": "",
             "value": ""
