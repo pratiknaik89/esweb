@@ -13,6 +13,8 @@ export class SenderComponent implements OnInit {
     temp_env_id = ""
     buttons = [];
     Fields = [];
+    success : boolean =false;
+
     Recipients = [{
         "key": "",
         "name": "",
@@ -103,7 +105,10 @@ export class SenderComponent implements OnInit {
         this.sender.sendData(data).subscribe(d => {
             console.log(d)
             this.response = d;
+            this.success= true;
+
         }, (er) => {
+            this.success= false;
             this.response = er;
         })
     }
