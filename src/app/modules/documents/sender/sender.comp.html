@@ -131,8 +131,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4" *ngIf="success" >
+
+            <div style=" height: 300px;text-align: center;">
             <h5>Response</h5>
-            {{response | json}}
+       
+            <img src="./assets/img/comp.png" alt="" style=" height: 100px;">
         </div>
+             {{response | json}}
+    </div>
     </div>
