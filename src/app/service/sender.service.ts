@@ -15,6 +15,6 @@ export class SenderService {
     }
 
     prefillData(req: any) {
-        return this.dataservice.getHttpData('/prefillsender', req);
+        return this.dataservice.getHttpData('/document/prefillsender', req);
     }
 }

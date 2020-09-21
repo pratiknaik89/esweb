@@ -21,8 +21,10 @@ export class SenderComponent implements OnInit {
         "email": ""
     }];
     constructor(private sender: SenderService, private route: ActivatedRoute) {
+        
         let id = this.route.snapshot.params.id;
         let type = this.route.snapshot.params.type;
+        debugger
         if (id && type) {
             console.log(id, type)
             this.getPrefillData(id, type);
@@ -31,13 +33,16 @@ export class SenderComponent implements OnInit {
     }
 
     getPrefillData(id, type) {
+        
         var data = {
             "type": type,
             "id": id
+            
         }
 
-        this.sender.sendData(data).subscribe(d => {
+        this.sender.prefillData(data).subscribe(d => {
             console.log(d)
+            this.Recipients =d.resultValue
 
         }, (er) => {
 
