@@ -10,6 +10,7 @@ export class DocStatusViewComponent implements OnInit {
     buttons = [];
     section = 'all';
     items = [];
+    tempItems = [];
     itemss = [
         {
             'color': 'warning',
@@ -81,6 +82,25 @@ export class DocStatusViewComponent implements OnInit {
             // }
         ];
     }
+    searchString: any = '';
+    searchData() {
+        debugger
+        if (this.searchString.length == 0) {
+            this.items = this.tempItems;
+        }
+        let searchResult = this.items.filter((a) => {
+            let sub = a.subject.toLowerCase();
+            let search = this.searchString.toLowerCase();
+            return sub.includes(search);
+        })
+            ;
+        if (searchResult != undefined) {
+            this.items = [];
+            searchResult.forEach(element => {
+                this.items.push(element);
+            });
+        }
+    }
     onLeftClick(s) {
         this.section = s;
         this.showSections(s);
@@ -92,6 +112,7 @@ export class DocStatusViewComponent implements OnInit {
         this.status.list({}).subscribe((data: any) => {
             if (data.resultKey === 1) {
                 this.items = data.resultValue[0];
+                this.tempItems = data.resultValue[0];
                 this.showLoader = false;
             } else {
                 this.showLoader = false;

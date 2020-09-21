@@ -53,7 +53,7 @@
             <div class="d-flex" style="flex: 1;">
                 <h2 style="flex: 1;">ALL</h2>
                 <div>
-                    <input placeholder="Type here to search...">
+                    <input placeholder="Type here to search..." (input)="searchData()" [(ngModel)]="searchString">
                 </div>
             </div>
 
@@ -80,15 +80,17 @@
                     </tr>
 
                 </thead>
-                <tbody>
+                <tbody >
                     <tr *ngFor="let item of items">
+                       
                         <td class="doc_checkbox">
                             <input type="checkbox" class="">
                         </td>
                         <td class="doc_icon">
-                            <i class="fa fa-{{item.icon}} text-{{item.color}}"></i>
+                            <i class=" {{item.type=='e' ? 'fa fa-envelope-o': 'fa fa-file-pdf-o'}}"></i>
                         </td>
                         <td class="doc_title">
+                          
                             <span class="subject_title">{{item.subject}}</span>
                             <!-- <span class="subtext">To : {{item.to}}</span> -->
                         </td>
@@ -102,6 +104,7 @@
                             <button class="btn btn-xs btn-primary">Action <i class="fa fa-arrow-down"></i></button>
 
                         </td>
+                        
                     </tr>
                 </tbody>
                 <tfoot *ngIf="items.length == 0">
