@@ -24,7 +24,7 @@ export class SenderComponent implements OnInit {
 
         let id = this.route.snapshot.params.id;
         let type = this.route.snapshot.params.type;
-        debugger
+        
         if (id && type) {
             console.log(id, type)
             this.getPrefillData(id, type);
