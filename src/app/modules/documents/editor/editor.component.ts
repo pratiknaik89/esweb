@@ -19,7 +19,7 @@ export class EditorComponent implements OnInit {
   recipients: string[] = [];
   templateDtl: ClsTemplate;
   buttons: any = [];
-  options:any='';
+  options: any = '';
   @ViewChild('docsign') editor: iDocsigneditorComponent
 
   constructor(private route: ActivatedRoute,
@@ -37,6 +37,10 @@ export class EditorComponent implements OnInit {
     this.buttons = [
       {
         'id': 'finish', 'color': 'white', 'bg': 'success', 'text': 'Finish', 'icon': 'check', 'shortcut': 'ctrl+shift+a',
+        'disabled': false, 'access': true
+      },
+      {
+        'id': 'finishnsend', 'color': 'white', 'bg': 'warning', 'text': 'Finish & Send', 'icon': ' fa fa-send', 'shortcut': 'ctrl+shift+a',
         'disabled': false, 'access': true
       }
     ];
@@ -64,14 +68,17 @@ export class EditorComponent implements OnInit {
       case 'finish':
         this.saveRecipient();
         break;
+      case 'finishnsend':
+        this.saveRecipient(true);
+        break;
       default:
         break;
     }
   }
-  onObjectSelected(event){
+  onObjectSelected(event) {
 
   }
-  onObjectDeselected(event){
+  onObjectDeselected(event) {
 
   }
   getTemplateById(id) {
@@ -101,18 +108,23 @@ export class EditorComponent implements OnInit {
     });
   }
 
-  saveRecipient() {
+  saveRecipient(issend = false) {
+    let tempid = this.route.snapshot.paramMap.get('id');
     this.template.saveDocRef({
       operate: 'update',
       data: {
-        templateid: this.route.snapshot.paramMap.get('id'),
+        templateid: tempid,
         dataref: this.editor.getData()
       },
       userid: this.global.getUser().id
     }).subscribe((data: any) => {
       if (data.resultKey == 1) {
-        console.log(data.resultValue);
-        this.router.navigate(['/documents/templates/view']);
+        // console.log(data.resultValue);
+        if (issend) {
+          this.router.navigate(['/se/templates/view']);
+        } else {
+          this.router.navigate(['/documents/sender/' + 'd/' + tempid]);
+        }
       } else {
         this.message.show('error', data.resultValue.msg, 'error', this.translate);
       }
