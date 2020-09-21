@@ -4,6 +4,7 @@ import { TemplateService } from '../../../service/template.service';
 import { Subscription } from 'rxjs';
 import { ClsTemplate } from '../../../model/cls-template.model';
 import { iDocsigneditorComponent } from 'esigndoccontrol';
+//import { iDocsigneditorComponent } from '/Users/pratiknaik/Work/i2t/DocEditor/idoceditor/dist/esigndoccontrol';
 import { GlobalService } from '../../../service/global.service';
 import { ToastService } from '../../../service/toast-service';
 import { TranslateService } from '@ngx-translate/core';
