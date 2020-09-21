@@ -121,9 +121,10 @@ export class EditorComponent implements OnInit {
       if (data.resultKey == 1) {
         // console.log(data.resultValue);
         if (issend) {
-          this.router.navigate(['/se/templates/view']);
-        } else {
           this.router.navigate(['/documents/sender/' + 'd/' + tempid]);
+        } else {
+
+          this.router.navigate(['/documents/templates/view']);
         }
       } else {
         this.message.show('error', data.resultValue.msg, 'error', this.translate);
