@@ -13,7 +13,7 @@ export class SenderComponent implements OnInit {
     temp_env_id = ""
     buttons = [];
     Fields = [];
-    success : boolean =false;
+    success: boolean = false;
 
     Recipients = [{
         "key": "",
@@ -21,7 +21,7 @@ export class SenderComponent implements OnInit {
         "email": ""
     }];
     constructor(private sender: SenderService, private route: ActivatedRoute) {
-        
+
         let id = this.route.snapshot.params.id;
         let type = this.route.snapshot.params.type;
         debugger
@@ -33,19 +33,24 @@ export class SenderComponent implements OnInit {
     }
 
     getPrefillData(id, type) {
-        
+        this.temp_env_id = id;
+        if (type === 'e') {
+            this.type = "env"
+        } else if (type === 'd') {
+            this.type = "temp"
+        }
         var data = {
             "type": type,
             "id": id
-            
+
         }
 
         this.sender.prefillData(data).subscribe(d => {
             console.log(d)
-            this.Recipients =d.resultValue
+            this.Recipients = d.resultValue
 
         }, (er) => {
-
+            
         })
     }
 
@@ -131,10 +136,10 @@ export class SenderComponent implements OnInit {
         this.sender.sendData(data).subscribe(d => {
             console.log(d)
             this.response = d;
-            this.success= true;
+            this.success = true;
 
         }, (er) => {
-            this.success= false;
+            this.success = false;
             this.response = er;
         })
     }
