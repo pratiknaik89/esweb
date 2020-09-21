@@ -119,6 +119,11 @@ export class EvnolopeComponent implements OnInit {
 
         this.open1();
         break;
+        case 'send':
+          this.router.navigate(['/documents/sender/e/'+this.onColclickid  ]);
+  
+          //    this.open();
+          break;
       default:
         break;
     }
@@ -159,6 +164,10 @@ export class EvnolopeComponent implements OnInit {
       },
       {
         'id': 'add', 'color': 'white', 'bg': 'success', 'text': 'Add Templates In Envelope', 'icon': 'plus', 'shortcut': 'ctrl+shift+a',
+        'disabled': false, 'access': true
+      },
+      {
+        'id': 'send', 'color': 'white', 'bg': 'danger', 'text': 'Send', 'icon': 'fa fa-send', 'shortcut': 'ctrl+shift+a',
         'disabled': false, 'access': true
       }
     ];
