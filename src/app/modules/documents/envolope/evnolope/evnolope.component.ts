@@ -167,7 +167,7 @@ export class EvnolopeComponent implements OnInit {
         'disabled': false, 'access': true
       },
       {
-        'id': 'send', 'color': 'white', 'bg': 'danger', 'text': 'Send', 'icon': 'fa fa-send', 'shortcut': 'ctrl+shift+a',
+        'id': 'send', 'color': 'white', 'bg': 'danger', 'text': 'Send', 'icon': ' fa fa-send', 'shortcut': 'ctrl+shift+a',
         'disabled': false, 'access': true
       }
     ];
