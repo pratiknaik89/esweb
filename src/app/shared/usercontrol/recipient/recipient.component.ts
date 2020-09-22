@@ -19,6 +19,7 @@ import { RecControlComponent } from './control/rec-control.comp';
 export class RecipientComponent implements OnInit {
 
   tRecipient: ClsTRecipientDtl;
+  tRecipientTemp: ClsTRecipientDtl;
   recipientType: Array<ClsRecipientType>;
   @ViewChild('f') ngForm: NgForm;
 
@@ -63,6 +64,7 @@ export class RecipientComponent implements OnInit {
       if (data.resultKey == 1) {
         if (data.resultValue.length) {
           this.tRecipient = data.resultValue.map(a => new ClsTRecipientDtl(a.id, a.subject, a.emailbody, a.keeporder, a.recipienthead))[0];
+          this.tRecipientTemp = { ...this.tRecipient };
         }
         // this.tRecipient.emailbody = <string>data.resultValue[0]["emailbody"];
         // this.tRecipient.subject = <string>data.resultValue[0]["subject"];
@@ -96,18 +98,22 @@ export class RecipientComponent implements OnInit {
 
   saveRecipient() {
     if (this.validation()) {
-      this.template.saveRecipient({
-        operate: 'update',
-        data: this.tRecipient,
-        userid: this.global.getUser().id
-      }).subscribe((data: any) => {
-        if (data.resultKey == 1) {
-          console.log(data.resultValue);
-          this.router.navigate(['/documents/templates/' + this.tRecipient.templateid + '/editor']);
-        } else {
-          this.message.show('error', data.resultValue.msg, 'error', this.translate);
-        }
-      });
+      if (this.isModelChange()) {
+        this.template.saveRecipient({
+          operate: 'update',
+          data: this.tRecipient,
+          userid: this.global.getUser().id
+        }).subscribe((data: any) => {
+          if (data.resultKey == 1) {
+            console.log(data.resultValue);
+            this.router.navigate(['/documents/templates/' + this.tRecipient.templateid + '/editor']);
+          } else {
+            this.message.show('error', data.resultValue.msg, 'error', this.translate);
+          }
+        });
+      } else {
+        this.router.navigate(['/documents/templates/' + this.tRecipient.templateid + '/editor']);
+      }
     }
   }
 
@@ -126,14 +132,16 @@ export class RecipientComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    console.log(2);
     if (event.previousContainer !== event.container) {
       transferArrayItem(event.previousContainer.data, event.container.data,
         event.previousIndex, event.currentIndex)
     } else {
       moveItemInArray(this.tRecipient.recipienthead, event.previousIndex, event.currentIndex);
     }
-    console.log(this.tRecipient.recipienthead);
+  }
+
+  isModelChange() {
+    return JSON.stringify(this.tRecipient) === JSON.stringify(this.tRecipientTemp);
   }
 
 }

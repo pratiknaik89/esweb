@@ -9,7 +9,6 @@ import { TemplateService } from '../../../../service/template.service';
 import { ClsTemplate } from '../../../../model/cls-template.model';
 import { NgForm } from '@angular/forms';
 
-
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
@@ -19,6 +18,7 @@ export class AddComponent implements OnInit {
   upload_url: any = '';
   template_heading = 'New Template'
   templateObj: ClsTemplate;
+  templateObjTemp: ClsTemplate;
 
   uploadMaxFilesize: any = 5000000;
   imageUrl: string = "";
@@ -46,7 +46,7 @@ export class AddComponent implements OnInit {
     this.upload_url = this.global.getConfig().api_root + '/company(' + this.global.getCompany() + ')/uploadpdf';
     // this.getAllTemplate();
 
-    if (this.route.snapshot.paramMap.has('id')){
+    if (this.route.snapshot.paramMap.has('id')) {
       this.template_heading = "Edit Template"
       this.getTemplateById(this.route.snapshot.paramMap.get('id'));
     }
@@ -112,6 +112,7 @@ export class AddComponent implements OnInit {
     }).subscribe((data: any) => {
       if (data.resultKey == 1) {
         this.templateObj = <ClsTemplate>data.resultValue[0];
+        this.templateObjTemp = { ...this.templateObj };
         let imgPath = this.templateObj.docurl.split("/")[1];
         imgPath = imgPath.substr(0, imgPath.lastIndexOf(".")) + ".jpeg";
         this.imageUrl = this.bucketPath + "template/thumbnail/" + imgPath;
@@ -129,19 +130,26 @@ export class AddComponent implements OnInit {
 
   saveTemplate() {
     if (this.validation()) {
-      this.template.saveTemplate({
-        operate: 'create',
-        data: this.templateObj,
-        userid: this.global.getUser().id
-      }).subscribe((data: any) => {
-        if (data.resultKey == 1) {
-          this.templateObj.id = data.resultValue.msg;
-          this.enableRecipient();
-        } else {
-          this.message.show('error', data.resultValue.msg, 'error', this.translate);
-        }
-      });
+      if (this.isModelChange()) {
+        this.template.saveTemplate({
+          operate: 'create',
+          data: this.templateObj,
+          userid: this.global.getUser().id
+        }).subscribe((data: any) => {
+          if (data.resultKey == 1) {
+            this.templateObj.id = data.resultValue.msg;
+            this.enableRecipient();
+          } else {
+            this.message.show('error', data.resultValue.msg, 'error', this.translate);
+          }
+        });
+      } else {
+        this.enableRecipient();
+      }
     }
   }
 
+  isModelChange() {
+    return JSON.stringify(this.templateObj) === JSON.stringify(this.templateObjTemp);
+  }
 }

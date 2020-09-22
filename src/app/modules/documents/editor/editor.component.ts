@@ -102,7 +102,6 @@ export class EditorComponent implements OnInit {
       filename: filepath.substring(filepath.lastIndexOf("/") + 1)
     }).subscribe((data: any) => {
       if (data.resultKey == 1) {
-        console.log(data.resultValue);
         this.editor.setData(data.resultValue, dataref);
       }
     });
@@ -119,7 +118,6 @@ export class EditorComponent implements OnInit {
       userid: this.global.getUser().id
     }).subscribe((data: any) => {
       if (data.resultKey == 1) {
-        // console.log(data.resultValue);
         if (issend) {
           this.router.navigate(['/documents/sender/' + 'd/' + tempid]);
         } else {
