@@ -10,6 +10,7 @@
     </li>
 </ol>
 <div class="fixed-content p-0">
+    <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
     <p-dataView #dv [value]="documentsDeatilList" layout="grid" [paginator]="true" [rows]="20" paginatorPosition="both"
         filterBy="brand" styleClass="doctemplate" [sortField]="sortField" [sortOrder]="sortOrder">
         <p-header>
@@ -93,11 +94,11 @@
                 </div>
             </div> -->
         </ng-template>
-      
+     
         <ng-template let-item pTemplate="gridItem">
 
             <div class="col-md-3 mb-2 mt-2" *ngIf="item.show">
-                <app-docthumb [item]="item" (onEdit)="editTemplate($event)"></app-docthumb>
+                <app-docthumb [item]="item" (onEdit)="editTemplate($event)" (onDelete)="deleteTemplate($event)"></app-docthumb>
 
                 <!-- <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
                     <img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60">
@@ -109,7 +110,7 @@
 
         </ng-template>
     </p-dataView>
-
+   
     <!-- <div class="row">
         <div class="col-md-3 mb-3" *ngFor="let item of documentsDeatilList">
 

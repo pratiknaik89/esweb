@@ -3,10 +3,12 @@ import { SelectItem } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalService } from '../../../../service/global.service';
 import { TemplateService } from '../../../../service/template.service';
+import { ConfirmationService } from 'primeng/api';
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
-  styleUrls: ['./view.component.css']
+  styleUrls: ['./view.component.css'],
+  providers :[ConfirmationService]
 })
 export class ViewComponent implements OnInit {
   documentsDeatilList: any = [];
@@ -16,14 +18,14 @@ export class ViewComponent implements OnInit {
   sortKey: string;
 
   sortField: string;
-
+cmpid:any='';
   sortOrder: number;
   filePath: any = '';
   noTemplatefound: boolean=false;
-  constructor(private template: TemplateService, private global: GlobalService,private router: Router,) { }
+  constructor(private template: TemplateService, private global: GlobalService,private router: Router,private confirmationService: ConfirmationService) { }
   buttons:any=[];
   ngOnInit(): void {
-
+this.cmpid=this.global.getCompany();
     this.filePath = "https://bucket-cmp" + this.global.getCompany() + ".s3.us-east-2.amazonaws.com/";
     this.sortOptions = [
       { label: 'Newest First', value: '!year' },
@@ -167,4 +169,35 @@ searchTemplate(){
 
     // http://localhost:4200/#/documents/templates/7305267e-edae-11ea-8aa5-029cd58f3b70/recipient
   }
+
+  deleteTemplate(item){
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this template?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+     
+        this.template.getTemplate({
+          "operate":'delete',
+          "id":item.id,
+          "cmpid":this.cmpid
+    
+        }).subscribe((data:any)=>{
+          if(data.resultKey == 1){
+            this.documentsDeatilList.forEach(element => {
+               
+              if(element.id == item.id){
+                this.documentsDeatilList.splice(this.documentsDeatilList.indexOf(element),1);
+              }
+            });
+          }
+        })
+      
+      },
+      reject: () => {
+       
+      }
+    });
+  }
+  
 }
