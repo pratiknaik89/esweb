@@ -1,7 +1,7 @@
 
 
 import { Component, OnInit } from '@angular/core';
-
+import { TranslateService } from '@ngx-translate/core';
 @Component({
     selector: 'app-sender',
     templateUrl: './sender.comp.html',
@@ -15,16 +15,16 @@ export class SenderComponent implements OnInit {
     Fields = [];
     success: boolean = false;
 
-    Recipients = [{
+    Recipients: any = [{
         "key": "",
         "name": "",
         "email": ""
     }];
-    constructor(private sender: SenderService, private route: ActivatedRoute) {
+    constructor(private sender: SenderService, private route: ActivatedRoute, private message: ToastService, private translate: TranslateService,) {
 
         let id = this.route.snapshot.params.id;
         let type = this.route.snapshot.params.type;
-        
+
         if (id && type) {
             console.log(id, type)
             this.getPrefillData(id, type);
@@ -50,7 +50,7 @@ export class SenderComponent implements OnInit {
             this.Recipients = d.resultValue
 
         }, (er) => {
-            
+
         })
     }
 
@@ -58,12 +58,32 @@ export class SenderComponent implements OnInit {
     buttonClicks(e) {
         this.sendData();
     }
-    onAddRecipeint(e) {
+    onAddRecipeint(e, i) {
+        
         this.Recipients.push({
             "key": "",
             "name": "",
             "email": ""
         })
+
+
+    }
+
+    checkRecipients() {
+        let res;
+        const unique = [...new Set(this.Recipients.map(item => item.key))];
+        if (unique.length != this.Recipients.length) {
+            res = false;
+            this.message.show('error', "Duplicate Key", 'error', this.translate);
+            return;
+        } else if (unique.indexOf("") != -1) {
+            res = false;
+            this.message.show('error', "Fill the data", 'error', this.translate);
+            return;
+        } else {
+            res = true;
+        }
+        return res;
     }
 
     onAddProperty(a) {
@@ -78,6 +98,7 @@ export class SenderComponent implements OnInit {
     }
 
     onRemove(e, i) {
+        debugger
         this.Recipients.splice(i, 1);
     }
 
@@ -117,8 +138,12 @@ export class SenderComponent implements OnInit {
     }
 
     sendData() {
-
-        var data = {
+        let flag;
+        flag = this.checkRecipients();
+        if (!flag) {
+            return;
+        }
+  var data = {
             "operate": "create",
             "data": {
                 "recepient": this.getRecipeients(),
@@ -154,6 +179,7 @@ import { Prerequisite } from '../../../service/prerequisite';
 import { CardModule } from 'primeng/card';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SenderService } from '../../../service/sender.service';
+import { ToastService } from '../../../service/toast-service';
 
 const routes: Routes = [
     {
