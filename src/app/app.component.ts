@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-
+import { Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
+import { GlobalService } from '../app/service/global.service';
 
 @Component({
   // tslint:disable-next-line
@@ -8,11 +8,26 @@ import { Router, NavigationEnd } from '@angular/router';
   template: '<router-outlet></router-outlet>'
 })
 export class AppComponent implements OnInit {
-  constructor(private router: Router) { }
+  constructor(private global: GlobalService, private router: Router) { }
 
   ngOnInit() {
-    this.router.events.subscribe((evt) => {
-      if (!(evt instanceof NavigationEnd)) {
+    this.router.events.subscribe((event: Event) => {
+      switch (true) {
+        case event instanceof NavigationStart: {
+          this.global.showLoader();
+          break;
+        }
+        case event instanceof NavigationEnd:
+        case event instanceof NavigationCancel:
+        case event instanceof NavigationError: {
+          this.global.hideLoader();
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+      if (!(event instanceof NavigationEnd)) {
         return;
       }
       window.scrollTo(0, 0);
