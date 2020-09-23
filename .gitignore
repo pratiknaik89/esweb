@@ -11,3 +11,4 @@ documents
 /bower_components/
 /node_modules/
 src/environments/environment.ts
+/dist/
