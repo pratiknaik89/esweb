@@ -1214,4 +1214,9 @@ border-bottom: 0;
 body .ui-dataview .ui-dataview-content{
   background-color: transparent;
 }
-  
+p-confirmdialog .ui-dialog{
+  position: unset;
+  top: unset;
+  left: unset;
+z-index: 1111;
+}
