@@ -13,7 +13,7 @@ import { RecipientModule } from '../../../shared/usercontrol/recipient/recipient
 import { DragDropModule } from 'primeng/dragdrop';
 import { DataViewModule } from 'primeng/dataview';
 import { DocThumbModule } from '../../../shared/usercontrol/docthumb/docthumb.com';
-
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 @NgModule({
   declarations: [AddComponent, ViewComponent, EdittemplateComponent],
   imports: [
@@ -26,7 +26,9 @@ import { DocThumbModule } from '../../../shared/usercontrol/docthumb/docthumb.co
     DragDropModule,
     DataViewModule,
     DocThumbModule,
-    ChipsModule
+    ChipsModule,
+    ConfirmDialogModule
+   
   ]
 })
 export class TemplatesModule { }
