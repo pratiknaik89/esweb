@@ -21,19 +21,30 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
+ 
     <form name="form" #f="ngForm" novalidate (ngSubmit)="f.form.valid && save()">
+      
         <div class="modal-body modal-lg">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">
                         <label>Envelope Name</label><span class="text-danger">*</span>
-                        <input class="form-control" id="envname" name="envname" #envname="ngModel" type="text"
+                        <input (input)="generateKey()" class="form-control" id="envname" name="envname" #envname="ngModel" type="text"
                             [(ngModel)]="form.envname" autocomplete="off" required tabindex="2"
                             placeholder="Envelope Name" minlength="1" maxlength="50">
                         <div *ngIf="f.submitted && envname.invalid" class="text-danger">
                             <div *ngIf="envname.errors.required" data-tab="1">Envelope Name is required
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>Key</label> >
+                        <input class="form-control" readonly id="key" name="key" #key="ngModel" type="text"
+                            [(ngModel)]="form.key" autocomplete="off"   tabindex="2"
+                            placeholder="Envelope Name" minlength="1" maxlength="50">
+                        
                     </div>
                 </div>
             </div>
@@ -224,7 +235,8 @@
 
 
 
-                    <app-docthumb [item]="item" (onEdit)="editTemplate($event)"></app-docthumb>
+                    <app-docthumb [item]="item" (onEdit)="editTemplate($event)" (onDelete)="deleteTemplate($event)"></app-docthumb>
+                   
 
                 </div>
             </div>
@@ -302,3 +314,4 @@
 
 
 </div>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

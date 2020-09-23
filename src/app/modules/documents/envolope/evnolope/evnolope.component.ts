@@ -8,10 +8,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { TemplateService } from '../../../../service/template.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
 @Component({
   selector: 'app-evnolope',
   templateUrl: './evnolope.component.html',
-  styleUrls: ['./evnolope.component.css']
+  styleUrls: ['./evnolope.component.css'],
+  providers:[ConfirmationService]
 })
 export class EvnolopeComponent implements OnInit {
   @ViewChild('actionbar', { static: false }) actionbar: ActionBarComponent;
@@ -23,11 +25,12 @@ export class EvnolopeComponent implements OnInit {
   showDocpannel: boolean = false;
   uniqueRecepientheadList: any = [];
   RecepientheadList: any = [];
-
+   cmpid:any='';
   buttons = [];
   form: any = {
     id: null,
-    envname: ''
+    envname: '',
+    key:''
   }
   isedit: boolean = false;
   isloading = false;
@@ -40,7 +43,7 @@ export class EvnolopeComponent implements OnInit {
   searchtemplatestring: any = '';
   temptemplateList: any = [];
   noTemplatefound: boolean = false;
-  constructor(private envelope: EnvolopeService, private global: GlobalService, private message: ToastService, private translate: TranslateService, private template: TemplateService, private modalService: BsModalService, private router: Router) {
+  constructor(private envelope: EnvolopeService, private global: GlobalService, private message: ToastService, private translate: TranslateService, private template: TemplateService, private modalService: BsModalService, private router: Router,private confirmationService: ConfirmationService) {
 
 
     this.items = [{
@@ -80,7 +83,7 @@ export class EvnolopeComponent implements OnInit {
   filePath: any = '';
   showDocspinner: boolean = false;
   ngOnInit(): void {
-
+    this.cmpid=this.global.getCompany();
     this.srcurl = "";
     this.filePath = "https://bucket-cmp" + this.global.getCompany() + ".s3.us-east-2.amazonaws.com/";
     console.log(this.filePath);
@@ -151,12 +154,7 @@ export class EvnolopeComponent implements OnInit {
     })
   }
 
-  onColumnClick(item) {
-    debugger
-    if (this.onColclickid == item.id) {
-      return;
-    }
-
+  enableButtons(){
     this.buttons = [
       {
         'id': 'edit', 'color': 'white', 'bg': 'primary', 'text': 'Edit Envelope', 'icon': 'pencil', 'shortcut': 'ctrl+shift+a',
@@ -171,6 +169,14 @@ export class EvnolopeComponent implements OnInit {
         'disabled': false, 'access': true
       }
     ];
+  }
+  onColumnClick(item) {
+    debugger
+    if (this.onColclickid == item.id) {
+      return;
+    }
+this.enableButtons();
+  
     this.onColclickid = item.id;
 
     // this.documentsDeatilList = [
@@ -306,14 +312,16 @@ export class EvnolopeComponent implements OnInit {
   }
 
   save() {
-
+let _selectedenvelope;
     this.envelope.SaveEnvolope({
       "id": this.form.id,
       "envname": this.form.envname,
+      "key":this.form.key,
       "comapnyid": this.global.getCompany(),
 
     }).subscribe((res: any) => {
       if (res.resultKey == 1) {
+        this.onColclickid=res.resultValue.msg;
         this.message.show('Success', 'Saved successfully', 'success', this.translate);
         this.searchstring = '';
         this.isedit = false;
@@ -324,15 +332,21 @@ export class EvnolopeComponent implements OnInit {
             name: this.form.envname,
             comapnyid: this.global.getCompany()
           }
+       
           this.envelopeList.push(data);
+          this.selectedenvelope=data;
+          this.enableButtons();
         } else {
           this.envelopeList.forEach(element => {
             if (element.id == this.form.id) {
+              _selectedenvelope=element;
               element.name = this.form.envname;
 
 
             }
           });
+          this.selectedenvelope=_selectedenvelope;
+          this.enableButtons();
         }
 
         this.form.envname = '';
@@ -481,6 +495,7 @@ export class EvnolopeComponent implements OnInit {
 
         this.form.id = res.resultValue[0].id;
         this.form.envname = res.resultValue[0].name;
+        this.form.key=res.resultValue[0].key != null ? res.resultValue[0].key : res.resultValue[0].name.toLowerCase().split(/[ ,]+/).join('_');;
         this.open();
 
       } else {
@@ -624,5 +639,46 @@ export class EvnolopeComponent implements OnInit {
     this.router.navigate(['/documents/templates/' + item.id + '/edit']);
 
     // http://localhost:4200/#/documents/templates/7305267e-edae-11ea-8aa5-029cd58f3b70/recipient
+  }
+  
+  deleteTemplate(item){
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this template?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+     
+        this.template.getTemplate({
+          "operate":'delete',
+          "id":item.id,
+          "cmpid":this.cmpid
+    
+        }).subscribe((data:any)=>{
+          if(data.resultKey == 1){
+            this.documentsDeatilList.forEach(element => {
+               
+              if(element.id == item.id){
+                this.documentsDeatilList.splice(this.documentsDeatilList.indexOf(element),1);
+              }
+            });
+          }
+        })
+      
+      },
+      reject: () => {
+       
+      }
+    });
+  }
+
+  generateKey(){
+    debugger
+    if(this.form.envname.length <=0 ){
+      this.form.key='';
+    }else{ 
+    var tempKey;
+    tempKey=this.form.envname.toLowerCase();
+    this.form.key=tempKey.split(/[ ,]+/).join('_');
+  }
   }
 }

@@ -12,6 +12,7 @@ import {CheckboxModule} from 'primeng/checkbox';
 import { DocThumbModule } from '../../../shared/usercontrol/docthumb/docthumb.com';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {SafePipe} from '../../../pipes/SafePipe.pipe';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 // const routes: Routes = [
 //   {
 //     path: '',
@@ -48,7 +49,8 @@ import {SafePipe} from '../../../pipes/SafePipe.pipe';
     MenuModule,
     DocThumbModule,
     CheckboxModule,
-    PdfViewerModule
+    PdfViewerModule,
+    ConfirmDialogModule
 
   ]
 })
