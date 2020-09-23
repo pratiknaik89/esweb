@@ -10,6 +10,7 @@
     "experimentalDecorators": true,
     "module": "esnext",
     "target": "es5",
+    "downlevelIteration": true,
     "resolveJsonModule": true,
     "types": [ "jquery"],
     "typeRoots": [
