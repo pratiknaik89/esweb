@@ -14,7 +14,7 @@
         <div class="content-wrapper">
             <div class="action-bar">
                 <div class="d-flex p-2" style="justify-content: center;">
-                    <button class="btn btn-success btn-xs"><i class="icon-plus"></i> Create New</button>
+                    <button class="btn btn-success btn-xs"><i class="icon-plus"></i> New</button>
                 </div>
 
 
@@ -29,17 +29,14 @@
                         <i class="fa fa-warning"></i>
                         <span class="ml-1">Pending</span>
                     </a>
-                    <a (click)="onLeftClick('sent')" [ngClass]="{'active': section == 'sent'}">
-                        <i class="fa fa-send"></i>
-                        <span class="ml-1">Sent</span>
-                    </a>
-                    <a (click)="onLeftClick('draft')" [ngClass]="{'active': section == 'draft'}">
-                        <i class="fa fa-pencil"></i>
-                        <span class="ml-1">Drafts</span>
-                    </a>
+                     
                     <a (click)="onLeftClick('deleted')" [ngClass]="{'active': section == 'deleted'}">
                         <i class="fa fa-trash"></i>
                         <span class="ml-1">Deleted</span>
+                    </a>
+                    <a (click)="onLeftClick('canceled')" [ngClass]="{'active': section == 'deleted'}">
+                        <i class="fa fa-trash"></i>
+                        <span class="ml-1">Cnceled</span>
                     </a>
                 </ul>
             </div>
