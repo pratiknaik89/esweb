@@ -98,7 +98,6 @@ export class RecipientComponent implements OnInit {
   }
 
   saveRecipient() {
-    debugger;
     if (this.validation()) {
       if (this.isModelChange()) {
         this.template.saveRecipient({
