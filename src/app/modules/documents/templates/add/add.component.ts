@@ -43,6 +43,7 @@ export class AddComponent implements OnInit {
 
   ngOnInit(): void {
     this.templateObj = new ClsTemplate();
+    this.templateObjTemp = new ClsTemplate();
     this.upload_url = this.global.getConfig().api_root + '/company(' + this.global.getCompany() + ')/uploadpdf';
     // this.getAllTemplate();
 
@@ -129,6 +130,7 @@ export class AddComponent implements OnInit {
   }
 
   saveTemplate() {
+     
     if (this.validation()) {
       if (this.isModelChange()) {
         this.template.saveTemplate({
@@ -137,6 +139,7 @@ export class AddComponent implements OnInit {
           userid: this.global.getUser().id
         }).subscribe((data: any) => {
           if (data.resultKey == 1) {
+             
             this.templateObj.id = data.resultValue.msg;
             this.enableRecipient();
           } else {
@@ -148,8 +151,8 @@ export class AddComponent implements OnInit {
       }
     }
   }
-
   isModelChange() {
-    return JSON.stringify(this.templateObj) === JSON.stringify(this.templateObjTemp);
+    return !(JSON.stringify(this.templateObj) === JSON.stringify(this.templateObjTemp));
   }
+  
 }
