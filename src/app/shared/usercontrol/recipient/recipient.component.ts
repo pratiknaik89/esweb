@@ -98,6 +98,7 @@ export class RecipientComponent implements OnInit {
   }
 
   saveRecipient() {
+    debugger;
     if (this.validation()) {
       if (this.isModelChange()) {
         this.template.saveRecipient({
@@ -142,7 +143,7 @@ export class RecipientComponent implements OnInit {
   }
 
   isModelChange() {
-    return JSON.stringify(this.tRecipient) === JSON.stringify(this.tRecipientTemp);
+    return !(JSON.stringify(this.tRecipient) === JSON.stringify(this.tRecipientTemp));
   }
 
 }
