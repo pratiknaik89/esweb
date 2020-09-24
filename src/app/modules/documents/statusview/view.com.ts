@@ -6,71 +6,12 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./view.com.scss']
 })
 export class DocStatusViewComponent implements OnInit {
-    showLoader = false
     buttons = [];
     section = 'all';
     items = [];
     tempItems = [];
-    itemss = [
-        {
-            'color': 'warning',
-            'icon': 'warning',
-            'status': 'Pending',
-            'subject': 'This is Subject title',
-            'to': 'pratik@ideas2ech.com',
-            'last_changed': '2020-01-01 11:20 AM'
-        },
-        {
-            'color': 'success',
-            'icon': 'check',
-            'status': 'Completed',
-            'subject': 'This is Subject title',
-            'to': 'pratik@ideas2ech.com',
-            'last_changed': '2020-01-01 11:20 AM'
-        },
-        {
-            'color': 'warning',
-            'icon': 'warning',
-            'status': 'Pending',
-            'subject': 'This is Subject title',
-            'to': 'pratik@ideas2ech.com',
-            'last_changed': '2020-01-01 11:20 AM'
-        },
-        {
-            'color': 'info',
-            'icon': 'send',
-            'status': 'Sent',
-            'subject': 'This is Subject title',
-            'to': 'pratik@ideas2ech.com',
-            'last_changed': '2020-01-01 11:20 AM'
-        },
-        {
-            'color': 'warning',
-            'icon': 'warning',
-            'status': 'Pending',
-            'subject': 'This is Subject title',
-            'to': 'pratik@ideas2ech.com',
-            'last_changed': '2020-01-01 11:20 AM'
-        },
-        {
-            'color': 'success',
-            'icon': 'check',
-            'status': 'Completed',
-            'subject': 'This is Subject title',
-            'to': 'pratik@ideas2ech.com',
-            'last_changed': '2020-01-01 11:20 AM'
-        },
-        {
-            'color': 'primary',
-            'icon': 'pencil',
-            'status': 'Draft',
-            'subject': 'This is Subject title',
-            'to': 'pratik@ideas2ech.com',
-            'last_changed': '2020-01-01 11:20 AM'
-        }
-    ]
-    constructor(private status: StatusService) {
 
+    constructor(private status: StatusService) {
         this.buttons = [
             // {
             //     'id': 'edit', 'color': 'white', 'bg': 'primary', 'text': 'Edit Envelope', 'icon': 'pencil', 'shortcut': 'ctrl+shift+a',
@@ -82,9 +23,13 @@ export class DocStatusViewComponent implements OnInit {
             // }
         ];
     }
+
+    ngOnInit(): void {
+        this.getAllEnvLinkData();
+    }
+
     searchString: any = '';
     searchData() {
-        debugger
         if (this.searchString.length == 0) {
             this.items = this.tempItems;
         }
@@ -92,16 +37,9 @@ export class DocStatusViewComponent implements OnInit {
         let tempResults = this.tempItems.filter((a) => {
             let sub = a.subject.toLowerCase();
             let search = this.searchString.toLowerCase();
-            return sub.includes(search);     
-        })
+            return sub.includes(search);
+        });
 
-
-        // let searchResult = this.items.filter((a) => {
-        //     let sub = a.subject.toLowerCase();
-        //     let search = this.searchString.toLowerCase();
-        //     return sub.includes(search);
-        // })
-        //     ;
         if (tempResults != undefined) {
             this.items = [];
             tempResults.forEach(element => {
@@ -117,30 +55,32 @@ export class DocStatusViewComponent implements OnInit {
 
     }
     showSections(status) {
+        switch (status) {
+            case "all":
+                this.tempItems = [...this.items];
+                break;
+            case "pending":
+                break;
+            case "deleted":
+                break;
+            case "canceled":
+                break;
+            default:
+                break;
+        }
+    }
+
+    getAllEnvLinkData() {
         this.status.list({}).subscribe((data: any) => {
             if (data.resultKey === 1) {
                 this.items = data.resultValue[0];
-                this.tempItems = data.resultValue[0];
-                this.showLoader = false;
+                this.showSections('all');
             } else {
-                this.showLoader = false;
+                //Error
             }
-        })
-
-        // if (status != 'all') {
-        //     this.items = this.itemss.filter(a => {
-        //         return a.status.toLowerCase() == status
-        //     })
-        // } else {
-        //     this.items = this.itemss;
-        // }
-
+        });
     }
 
-    ngOnInit(): void {
-        this.showSections('all');
-
-    }
 }
 
 import { NgModule } from '@angular/core';
