@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TemplateService } from '../../../service/template.service';
 import { Subscription } from 'rxjs';
 import { ClsTemplate } from '../../../model/cls-template.model';
-import { iDocsigneditorComponent } from 'esigndoccontrol';
-//import { iDocsigneditorComponent } from '/Users/pratiknaik/Work/i2t/DocEditor/idoceditor/dist/esigndoccontrol';
+//import { iDocsigneditorComponent } from 'esigndoccontrol';
+import { iDocsigneditorComponent } from '/Users/pratiknaik/Work/i2t/DocEditor/idoceditor/dist/esigndoccontrol';
 import { GlobalService } from '../../../service/global.service';
 import { ToastService } from '../../../service/toast-service';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,6 +20,7 @@ export class EditorComponent implements OnInit {
   templateDtl: ClsTemplate;
   buttons: any = [];
   options: any = '';
+  drid: any = ''
   @ViewChild('docsign') editor: iDocsigneditorComponent
 
   constructor(private route: ActivatedRoute,
@@ -33,15 +34,24 @@ export class EditorComponent implements OnInit {
 
   ngOnInit(): void {
     $('body').addClass('sidebar-minimized');
+    this.drid = this.route.snapshot.paramMap.get('id');
     this.getTemplateById(this.route.snapshot.paramMap.get('id'));
     this.buttons = [
       {
-        'id': 'finish', 'color': 'white', 'bg': 'success', 'text': 'Finish', 'icon': 'check', 'shortcut': 'ctrl+shift+a',
+        'id': 'back', 'color': 'white', 'bg': 'info', 'text': 'Back', 'icon': ' fa fa-chevron-left', 'shortcut': 'ctrl+shift+a',
         'disabled': false, 'access': true
       },
       {
-        'id': 'finishnsend', 'color': 'white', 'bg': 'warning', 'text': 'Finish & Send', 'icon': ' fa fa-send', 'shortcut': 'ctrl+shift+a',
+        'id': 'cancel', 'color': 'white', 'bg': 'danger', 'text': 'Cancel', 'icon': ' fa fa-undo', 'shortcut': 'ctrl+shift+a',
         'disabled': false, 'access': true
+      },
+      {
+        'id': 'finish', 'color': 'white', 'bg': 'success', 'text': 'Finish', 'icon': 'check', 'shortcut': 'ctrl+shift+a',
+        'disabled': true, 'access': true
+      },
+      {
+        'id': 'finishnsend', 'color': 'white', 'bg': 'warning', 'text': 'Finish & Send', 'icon': ' fa fa-send', 'shortcut': 'ctrl+shift+a',
+        'disabled': true, 'access': true
       }
     ];
     // this.sub = this.route
@@ -71,6 +81,10 @@ export class EditorComponent implements OnInit {
       case 'finishnsend':
         this.saveRecipient(true);
         break;
+      case 'cancel':
+        this.router.navigate(['/documents/templates/view']);
+      case 'back':
+        this.router.navigate(['/documents/templates/' + this.drid + '/recipient']);
       default:
         break;
     }
@@ -80,6 +94,12 @@ export class EditorComponent implements OnInit {
   }
   onObjectDeselected(event) {
 
+  }
+
+  onDocLoadComplete(e){
+    
+    this.buttons[2].disabled = false;
+    this.buttons[3].disabled = false;
   }
   getTemplateById(id) {
     this.template.getTemplateById({
@@ -138,6 +158,8 @@ export class EditorComponent implements OnInit {
     //Add 'implements OnDestroy' to the class.
 
   }
+
+
 
 
 }

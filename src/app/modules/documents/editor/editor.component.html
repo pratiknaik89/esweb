@@ -1,6 +1,6 @@
 <ol class="breadcrumb">
   <app-breadcrumb></app-breadcrumb>
-  <li class="breadcrumb-item active" *ngIf="templateDtl.id"><span class="badge badge-success badge" style="height: auto;">{{templateDtl.name}}</span></li>
+  <li class="breadcrumb-item active" *ngIf="templateDtl.id">&nbsp;<span style="height: auto;font-weight: bold;">{{templateDtl.name}}</span></li>
 
   <span style="text-transform: capitalize;padding-left: 5px;"> </span>
 
@@ -10,6 +10,8 @@
 </ol>
 <div class="fixed-content p-0">
   <i-docsigneditor #docsign [offlineSaving]="false" [reduceHeight]="155" (onObjectSelected)="onObjectSelected($event)"
-    (onObjectDeselected)="onObjectDeselected($event)" [zoom]="0.8" [toolbarBg]="'#e7edee'" [options]="options"
+    (onObjectDeselected)="onObjectDeselected($event)" 
+    [zoom]="0.8" [toolbarBg]="'#e7edee'" [options]="options"
+    (onLoadCompleted)="onDocLoadComplete($event)"
     ></i-docsigneditor>
 </div>
