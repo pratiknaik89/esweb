@@ -88,15 +88,23 @@ export class DocStatusViewComponent implements OnInit {
         if (this.searchString.length == 0) {
             this.items = this.tempItems;
         }
-        let searchResult = this.items.filter((a) => {
+
+        let tempResults = this.tempItems.filter((a) => {
             let sub = a.subject.toLowerCase();
             let search = this.searchString.toLowerCase();
-            return sub.includes(search);
+            return sub.includes(search);     
         })
-            ;
-        if (searchResult != undefined) {
+
+
+        // let searchResult = this.items.filter((a) => {
+        //     let sub = a.subject.toLowerCase();
+        //     let search = this.searchString.toLowerCase();
+        //     return sub.includes(search);
+        // })
+        //     ;
+        if (tempResults != undefined) {
             this.items = [];
-            searchResult.forEach(element => {
+            tempResults.forEach(element => {
                 this.items.push(element);
             });
         }
