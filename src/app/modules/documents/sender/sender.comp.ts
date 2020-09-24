@@ -58,8 +58,8 @@ export class SenderComponent implements OnInit {
     buttonClicks(e) {
         this.sendData();
     }
-    onAddRecipeint(e, i) {
-        
+    onAddRecipeint(e) {
+
         this.Recipients.push({
             "key": "",
             "name": "",
@@ -143,7 +143,7 @@ export class SenderComponent implements OnInit {
         if (!flag) {
             return;
         }
-  var data = {
+        var data = {
             "operate": "create",
             "data": {
                 "recepient": this.getRecipeients(),
