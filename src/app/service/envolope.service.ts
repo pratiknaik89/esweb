@@ -19,6 +19,9 @@ export class EnvolopeService {
 SaveEnvolope(req: any) {
     return this.dataservice.postHttpData('/envolope', req);
 }
+bindTemplateByEnvlope(req:any){
+  return this.dataservice.getHttpData('/statusview', req);
+}
 
 }
 
