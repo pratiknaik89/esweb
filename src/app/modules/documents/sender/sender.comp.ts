@@ -153,7 +153,7 @@ export class SenderComponent implements OnInit {
         }
 
         if (this.type == 'temp') {
-            data.data['tmplateid'] = this.temp_env_id;
+            data.data['templateid'] = this.temp_env_id;
         } else {
             data.data['envelopeid'] = this.temp_env_id;
         }
