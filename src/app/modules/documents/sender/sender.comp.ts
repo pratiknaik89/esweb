@@ -72,11 +72,19 @@ export class SenderComponent implements OnInit {
     checkRecipients() {
         let res;
         const unique = [...new Set(this.Recipients.map(item => item.key))];
+        const uniqueEmail = [...new Set(this.Recipients.map(item => item.email))];
         if (unique.length != this.Recipients.length) {
             res = false;
             this.message.show('error', "Duplicate Key", 'error', this.translate);
             return;
-        } else if (unique.indexOf("") != -1) {
+        }
+        else if(uniqueEmail.length != this.Recipients.length){
+            res = false;
+            this.message.show('error', "Duplicate Email", 'error', this.translate);
+            return;
+        }
+        
+        else if (unique.indexOf("") != -1) {
             res = false;
             this.message.show('error', "Fill the data", 'error', this.translate);
             return;
@@ -98,7 +106,7 @@ export class SenderComponent implements OnInit {
     }
 
     onRemove(e, i) {
-        debugger
+        
         this.Recipients.splice(i, 1);
     }
 
