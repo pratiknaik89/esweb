@@ -16,7 +16,7 @@ export class ViewComponent implements OnInit {
   sortOptions: SelectItem[];
   searchstring: any = '';
   sortKey: string;
-
+  config:any=[];
   sortField: string;
 cmpid:any='';
   sortOrder: number;
@@ -25,8 +25,9 @@ cmpid:any='';
   constructor(private template: TemplateService, private global: GlobalService,private router: Router,private confirmationService: ConfirmationService) { }
   buttons:any=[];
   ngOnInit(): void {
+    this.config=this.global.getConfig();
 this.cmpid=this.global.getCompany();
-    this.filePath = "https://bucket-cmp" + this.global.getCompany() + ".s3.us-east-2.amazonaws.com/";
+this.filePath = "https://"+this.config.AWS_BUCKET_PREFIX+"cmp"+this.global.getCompany() + ".s3.us-east-2.amazonaws.com/";
     this.sortOptions = [
       { label: 'Newest First', value: '!year' },
       { label: 'Oldest First', value: 'year' },

@@ -81,12 +81,17 @@ export class EvnolopeComponent implements OnInit {
   envelopeList = [];
   tempEnvlopeList = [];
   filePath: any = '';
+  config:any=[];
   showDocspinner: boolean = false;
   ngOnInit(): void {
+     
+    this.config=this.global.getConfig();
+ 
     this.cmpid=this.global.getCompany();
     this.srcurl = "";
-    this.filePath = "https://bucket-cmp" + this.global.getCompany() + ".s3.us-east-2.amazonaws.com/";
-    console.log(this.filePath);
+    this.filePath = "https://"+this.config.AWS_BUCKET_PREFIX+"cmp"+this.global.getCompany() + ".s3.us-east-2.amazonaws.com/";
+    
+    console.log("filepath",this.filePath);
     // this.getAllTemplate();
     //   this.templateList = [
     //     { id: 1, name: "Template 1", src: "/assets/img/img1.png" },
