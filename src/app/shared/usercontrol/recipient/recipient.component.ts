@@ -65,7 +65,7 @@ export class RecipientComponent implements OnInit {
       if (data.resultKey == 1) {
         if (data.resultValue.length) {
           this.tRecipient = data.resultValue.map(a => new ClsTRecipientDtl(a.id, a.subject, a.emailbody, a.keeporder, a.recipienthead))[0];
-          this.tRecipientTemp = { ...this.tRecipient };
+          this.tRecipientTemp = JSON.parse(JSON.stringify(this.tRecipient));
         }
         // this.tRecipient.emailbody = <string>data.resultValue[0]["emailbody"];
         // this.tRecipient.subject = <string>data.resultValue[0]["subject"];
