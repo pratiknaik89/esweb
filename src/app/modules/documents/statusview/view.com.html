@@ -61,39 +61,52 @@
             [totalRecords]="totalRecords">
             <ng-template pTemplate="header">
                 <tr>
-                    <th>Name</th>
-                    <th>Total Documents</th>
-                    <th>Completed Documents</th>
-                    <th>Status</th>
-                    <th>Last Updated</th>
+                    <th></th>
+                    <th style="width: 100px;">Status</th>
+                    <th style="width: 160px;">Last Updated</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                 <tr>
                     <td [ngSwitch]="rowData.level">
-                        <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-                        <i *ngSwitchCase="1" class="{{rowData.type=='e' ? 'fa fa-envelope-o': 'fa fa-file-pdf-o'}}"></i>
-                        <span *ngSwitchCase="1">{{rowData.name}}</span>
-                        <span *ngSwitchCase="2">{{rowData.subject}}</span>
-                        <span *ngSwitchCase="3">{{rowData.key}}</span>
-                    </td>
-                    <td [ngSwitch]="rowData.level">
-                        <span *ngSwitchCase="1">{{rowData.doc_no}}</span>
-                        <span *ngSwitchCase="2">{{rowData.isorder}}</span>
-                        <span *ngSwitchCase="3">{{rowData.email}}</span>
-                    </td>
-                    <td [ngSwitch]="rowData.level">
-                        <span *ngSwitchCase="1">{{rowData.com_no}}</span>
-                        <div *ngSwitchCase="2">
-                            <div *ngIf="rowData.finaldocurl" class="d-flex p-2" style="justify-content: center;">
-                                <a [href]="documentUrl(rowData.finaldocurl)" target="_new">Download</a>
+                        <div style="display: flex;align-items: flex-start;">
+                            <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                            <div style="width: 100%;" *ngSwitchCase="1">
+                                <i class="{{rowData.doc_no - rowData.com_no == 0 ? 'fa fa-check-circle text-success':'fa fa-clock-o text-warning'}}"></i>
+                                <i class="{{rowData.type=='e' ? 'fa fa-envelope-o text-primary': 'fa fa-file-pdf-o text-danger'}} "></i>
+                                <span style="font-weight: 600;">{{rowData.name}}</span>
+                                <!-- <span>{{rowData.doc_no}}</span>
+                                <span>{{rowData.com_no}}</span> -->
+
+                                <!-- <div class="prog">
+                                    <div [style.width]="(rowData.com_no*100/rowData.doc_no)+'%'"
+                                        [style.background-color]="(rowData.doc_no-rowData.com_no) == 0?'#91ff90':'orange'">
+                                    </div>
+                                </div> -->
                             </div>
-                            <span *ngIf="rowData.finaldocurl == null">Under process</span>
+
+
+                            <div *ngSwitchCase="2" style="display: flex;">
+                                <span style="flex: 1;">{{rowData.subject}}</span>
+                                <!-- <span>{{rowData.isorder}}</span> -->
+                                <div class="ml-2" style="width: 100px;">
+                                    <div *ngIf="rowData.finaldocurl" class="d-flex p-0"
+                                        style="justify-content: center;">
+                                        <a [href]="documentUrl(rowData.finaldocurl)" target="_new"><i
+                                                class="fa fa-file-pdf-o text-danger"></i> Download</a>
+                                    </div>
+                                    <span *ngIf="rowData.finaldocurl == null">Under process</span>
+                                </div>
+                            </div>
+                            <div *ngSwitchCase="3">
+                                <span class="badge bg-success">{{rowData.key}}</span>&nbsp;
+                                <span>{{rowData.email}}</span>
+                                <!-- <span>{{rowData.notifystatus}}</span> -->
+                            </div>
                         </div>
-                        <span *ngSwitchCase="3">{{rowData.notifystatus}}</span>
                     </td>
-                    <td>{{rowData.status}}</td>
-                    <td>{{rowData.lastupdated | date: 'dd/MM/yyyy hh:mm a'}}</td>
+                    <td style="width: 100px;">{{rowData.status}}</td>
+                    <td style="width: 160px;">{{rowData.lastupdated | date: 'dd/MM/yyyy hh:mm a'}}</td>
                 </tr>
             </ng-template>
         </p-treeTable>
