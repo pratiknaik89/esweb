@@ -45,7 +45,9 @@
               "node_modules/esigndoccontrol/resources/js/jquery-ui.min.js",
               "node_modules/esigndoccontrol/resources/js/jquery.contextMenu.min.js",
               "node_modules/esigndoccontrol/resources/js/jquery.ui.position.min.js",
+              "node_modules/esigndoccontrol/resources/js/plugins.js",
               "node_modules/quill/dist/quill.js"
+              
             ]
           },
           "configurations": {
