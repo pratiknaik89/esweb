@@ -122,12 +122,19 @@ export class EditorComponent implements OnInit {
       filename: filepath.substring(filepath.lastIndexOf("/") + 1)
     }).subscribe((data: any) => {
       if (data.resultKey == 1) {
+        debugger
         this.editor.setData(data.resultValue, dataref);
       }
     });
   }
 
   saveRecipient(issend = false) {
+    debugger
+    if(!this.editor.validate()){
+      this.message.show('Validation', 'Please correct issues','error', null)
+      return
+    }
+
     let tempid = this.route.snapshot.paramMap.get('id');
     this.template.saveDocRef({
       operate: 'update',
