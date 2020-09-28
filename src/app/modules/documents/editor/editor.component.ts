@@ -129,7 +129,7 @@ export class EditorComponent implements OnInit {
   }
 
   saveRecipient(issend = false) {
-    debugger
+  
     if(!this.editor.validate()){
       this.message.show('Validation', 'Please correct issues','error', null)
       return
@@ -142,7 +142,8 @@ export class EditorComponent implements OnInit {
         templateid: tempid,
         dataref: this.editor.getData()
       },
-      userid: this.global.getUser().id
+      userid: this.global.getUser().id,
+      fields: this.editor.getAllPropsBinding()
     }).subscribe((data: any) => {
       if (data.resultKey == 1) {
         if (issend) {
