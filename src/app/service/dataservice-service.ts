@@ -54,7 +54,7 @@ export class DataService {
         const params = $.param(objData);
         const cmp = this.global.getCompany();
         this.totalReq++;
-        console.log("Add", this.totalReq);
+        //console.log("Add", this.totalReq);
         return this.http.get(this.config.api_root + '/company(' + cmp + ')' + reqURL + '?' + params, this.httpOptions)
             .pipe(map((x: any) => {
                 if (x && x.errorCode && x.errorCode == 401) {
@@ -70,7 +70,7 @@ export class DataService {
             .pipe(finalize(() => {
                 // console.log('loaded');
                 this.totalReq--;
-                console.log("Sub", this.totalReq);
+                //console.log("Sub", this.totalReq);
                 // if (this.totalReq == 0) {
                 this.global.hideLoader();
                 // }
@@ -114,7 +114,7 @@ export class DataService {
         }
 
         this.totalReq++;
-        console.log("Add", this.totalReq);
+        //console.log("Add", this.totalReq);
         return this.http.post(this.config.api_root + cmp + reqURL, objData, this.httpOptions)
             .pipe(map((x: any) => {
                 if (x && x.errorCode && x.errorCode == 401) {
@@ -130,7 +130,7 @@ export class DataService {
             .pipe(finalize(() => {
                 // console.log('loaded');
                 this.totalReq--;
-                console.log("Sub", this.totalReq);
+                //console.log("Sub", this.totalReq);
                 // if (this.totalReq == 0) {
                 this.global.hideLoader();
                 // }

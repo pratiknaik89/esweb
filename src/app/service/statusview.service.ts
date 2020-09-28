@@ -9,8 +9,16 @@ export class StatusService {
 
     }
 
-    list(req:any){
+    list(req: any) {
         return this.dataService.getHttpData('/document/list', req);
+    }
+
+    getDocLinkByEnvId(req: any) {
+        return this.dataService.getHttpData('/document/getdoclinkbyenvid', req);
+    }
+
+    getRecpLinkByEnvDocId(req: any) {
+        return this.dataService.getHttpData('/document/getrecplinkbyenvdocid', req);
     }
 
 }
