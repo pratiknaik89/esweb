@@ -1,6 +1,6 @@
 {
   "name": "@coreui/coreui-free-angular-admin-template",
-  "version": "2.9.0",
+  "version": "2.9.1",
   "description": "CoreUI Free Angular 2+ Admin Template",
   "author": {
     "name": "Łukasz Holeczek",
@@ -31,14 +31,15 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "awsbuild": "ng build --prod --aot --named-chunks --build-optimizer --vendor-chunk --output-hashing all --extract-css true --base-href /",
-    "aws-deploy": "npm run awsbuild && aws s3 rm s3://elevateweb --recursive && aws s3 sync dist/ s3://elevateweb",
-    "aws-deploy-stag": "npm run awsbuild && aws s3 rm s3://elevateweb --recursive && aws s3 sync dist/ s3://elevateweb"
+    "awsbuilduat": "ng build --uat --aot --named-chunks --build-optimizer --vendor-chunk --output-hashing all --extract-css true --base-href /",
+    "aws-deploy-uat": "npm install && npm run awsbuilduat && aws s3 rm s3://elevateweb --recursive --profile elevateuat && aws s3 sync dist/ s3://elevateweb --profile elevateuat",
+    "awsbuildprod": "ng build --prod --aot --named-chunks --build-optimizer --vendor-chunk --output-hashing all --extract-css true --base-href /",
+    "aws-deploy-live": "npm install && npm run awsbuildprod && aws s3 rm s3://elevate-esign-web --recursive --profile elevatelive && aws s3 sync dist/ s3://elevate-esign-web --profile elevatelive"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "^9.1.12",
-    "@angular/cdk": "^9.2.0",
+    "@angular/cdk": "^9.2.4",
     "@angular/common": "^9.1.12",
     "@angular/compiler": "^9.1.12",
     "@angular/core": "^9.1.12",
