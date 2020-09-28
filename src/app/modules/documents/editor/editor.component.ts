@@ -122,14 +122,15 @@ export class EditorComponent implements OnInit {
       filename: filepath.substring(filepath.lastIndexOf("/") + 1)
     }).subscribe((data: any) => {
       if (data.resultKey == 1) {
-        debugger
+        
         this.editor.setData(data.resultValue, dataref);
       }
     });
   }
 
   saveRecipient(issend = false) {
-  
+    
+     
     if(!this.editor.validate()){
       this.message.show('Validation', 'Please correct issues','error', null)
       return
