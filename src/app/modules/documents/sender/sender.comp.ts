@@ -46,8 +46,14 @@ export class SenderComponent implements OnInit {
         }
 
         this.sender.prefillData(data).subscribe(d => {
-            console.log(d)
-            this.Recipients = d.resultValue.recipienthead;
+            this.Recipients = d.resultValue.recipienthead.map(a => {
+                return {
+                    "key": a,
+                    "name": "",
+                    "email": ""
+                }
+            });
+            this.FieldLst = d.resultValue.fields;
 
         }, (er) => {
 
