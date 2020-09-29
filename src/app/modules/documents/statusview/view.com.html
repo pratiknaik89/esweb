@@ -72,24 +72,17 @@
                         <div style="display: flex;align-items: flex-start;">
                             <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                             <div style="width: 100%;" *ngSwitchCase="1">
-                                <i class="mr-1 {{rowData.doc_no - rowData.com_no == 0 ? 'fa fa-check-circle text-success':'fa fa-clock-o text-warning'}}"></i>
-                                <i class="mr-1 {{rowData.type=='e' ? 'fa fa-envelope-o text-primary': 'fa fa-file-pdf-o text-danger'}} "></i>
+                                <i
+                                    class="mr-1 {{rowData.doc_no - rowData.com_no == 0 ? 'fa fa-check-circle text-success':'fa fa-clock-o text-warning'}}"></i>
+                                <i
+                                    class="mr-1 {{rowData.type=='e' ? 'fa fa-envelope-o text-primary': 'fa fa-file-pdf-o text-danger'}}"></i>
                                 <span style="font-weight: 600;">{{rowData.name}}</span>
-                                <!-- <span>{{rowData.doc_no}}</span>
-                                <span>{{rowData.com_no}}</span> -->
-
-                                <!-- <div class="prog">
-                                    <div [style.width]="(rowData.com_no*100/rowData.doc_no)+'%'"
-                                        [style.background-color]="(rowData.doc_no-rowData.com_no) == 0?'#91ff90':'orange'">
-                                    </div>
-                                </div> -->
                             </div>
 
-
                             <div *ngSwitchCase="2" style="display: flex;">
-                                <i class="mr-1 {{rowData.status == 'completed' ? 'fa fa-check-circle text-success':'fa fa-clock-o text-warning'}}"></i>
+                                <i
+                                    class="mr-1 {{rowData.status == 'completed' ? 'fa fa-check-circle text-success':'fa fa-clock-o text-warning'}}"></i>
                                 <span style="flex: 1;">{{rowData.subject}}</span>
-                                <!-- <span>{{rowData.isorder}}</span> -->
                                 <div class="ml-2" style="width: 100px;">
                                     <div *ngIf="rowData.finaldocurl" class="d-flex p-0"
                                         style="justify-content: center;">
@@ -99,76 +92,30 @@
                                     <span *ngIf="rowData.finaldocurl == null">Under process</span>
                                 </div>
                             </div>
+
                             <div *ngSwitchCase="3">
-                                <i class="mr-1 {{rowData.status == 'completed' ? 'fa fa-check-circle text-success':'fa fa-clock-o text-warning'}}"></i>
+                                <i
+                                    class="mr-1 {{rowData.status == 'completed' ? 'fa fa-check-circle text-success':'fa fa-clock-o text-warning'}}"></i>
                                 <span class="badge bg-success">{{rowData.key}}</span>&nbsp;
                                 <span>{{rowData.email}}</span>
-                                <!-- <span>{{rowData.notifystatus}}</span> -->
+                                <i *ngIf="rowData.type == 2" class="mr-1 fa fa-cc text-primary" aria-hidden="true"></i>
                             </div>
                         </div>
                     </td>
-                    <td style="width: 100px;">{{rowData.status}}</td>
-                    <td style="width: 160px;">{{rowData.lastupdated | date: 'dd/MM/yyyy hh:mm a'}}</td>
+                    <td style="width: 100px;" [ngSwitch]="rowData.level">
+                        <div style="width: 100%;" *ngSwitchCase="3">{{rowData.type == 1 ? rowData.status : ""}}</div>
+                        <div style="width: 100%;" *ngSwitchDefault>{{rowData.status}}</div>
+                    </td>
+                    <td style="width: 160px;" [ngSwitch]="rowData.level">
+                        <div style="width: 100%;" *ngSwitchCase="3">
+                            <span *ngIf="rowData.type == 1">{{rowData.lastupdated | date: 'dd/MM/yyyy hh:mm a'}}</span>
+                        </div>
+                        <div style="width: 100%;" *ngSwitchDefault>{{rowData.lastupdated | date: 'dd/MM/yyyy hh:mm a'}}
+                        </div>
+                    </td>
                 </tr>
             </ng-template>
         </p-treeTable>
-
-        <!-- <div class="document_table_wapper">
-            <table class="document_table">
-                <thead>
-                    <tr>
-                        <th class="doc_checkbox"></th>
-                        <th class="doc_icon">
-
-                        </th>
-                        <th class="doc_title">
-                            <span>Subjet</span>
-                        </th>
-                        <th class="doc_status">
-                            <span>Status</span>
-                        </th>
-                        <th class="doc_date">
-                            <span>Last Changed</span>
-                        </th>
-                        <th class="doc_action"></th>
-                    </tr>
-
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of items">
-                        <td class="doc_checkbox">
-                            <input type="checkbox" class="">
-                        </td>
-                        <td class="doc_icon">
-                            <i class=" {{item.type=='e' ? 'fa fa-envelope-o': 'fa fa-file-pdf-o'}}"></i>
-                        </td>
-                        <td class="doc_title">
-                            <span class="subject_title">{{item.subject}}</span>
-                        </td>
-                        <td class="doc_status">
-                            <span>{{item.status}}</span>
-                        </td>
-                        <td class="doc_date">
-                            <span>{{item.last_changed}}</span>
-                        </td>
-                        <td class="doc_action">
-                            <button class="btn btn-xs btn-primary">Action <i class="fa fa-arrow-down"></i></button>
-
-                        </td>
-
-                    </tr>
-                </tbody>
-                <tfoot *ngIf="items.length == 0">
-                    <tr class="text-center">
-                        <td colspan="6">
-                            <h4>No data Available</h4>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-
-        </div> -->
-
     </div>
 
 </div>

@@ -179,7 +179,8 @@ export class DocStatusViewComponent implements OnInit {
                                 lastupdated: new Date(a.lastupdated),
                                 dmid: data.resultValue.params.dmid,
                                 drid: data.resultValue.params.drid,
-                                level: 3
+                                level: 3,
+                                type: a.type
                             }
                         }
                     });
