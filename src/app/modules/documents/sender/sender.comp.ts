@@ -13,6 +13,7 @@ export class SenderComponent implements OnInit {
     Fields = [];
     success: boolean = false;
     results: Array<string>;
+    FieldLst = [];
 
     Recipients: any = [{
         "key": "",
@@ -54,9 +55,7 @@ export class SenderComponent implements OnInit {
     }
 
     search(evt) {
-
-        this.results = ['moorthi', 'akmal', 'sameer', 'tushar'].filter(a => a.indexOf(evt.query) != -1)
-
+        this.results = this.FieldLst.filter(a => a.indexOf(evt.query) != -1)
     }
 
     buttonClicks(e) {
@@ -180,22 +179,22 @@ export class SenderComponent implements OnInit {
             this.response = er;
         })
     }
-    fields: any = []
+
     bindData(id, type) {
-
-         
-
         var data = {
             "type": type == "temp" ? "d" : "e",
             "id": id
-
         }
 
         this.sender.prefillData(data).subscribe(d => {
-             
-            this.Recipients = d.resultValue.recipienthead;
-            const unique = [...new Set(this.Recipients.map(item => item.key))];
-            this.fields = d.resultValue.fields;
+            this.Recipients = d.resultValue.recipienthead.map(a => {
+                return {
+                    "key": a,
+                    "name": "",
+                    "email": ""
+                }
+            });
+            this.FieldLst = d.resultValue.fields;
         }, (er) => {
 
         })
