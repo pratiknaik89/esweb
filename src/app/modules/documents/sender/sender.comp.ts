@@ -1,5 +1,3 @@
-
-
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 @Component({
@@ -14,6 +12,7 @@ export class SenderComponent implements OnInit {
     buttons = [];
     Fields = [];
     success: boolean = false;
+    results: Array<string>;
 
     Recipients: any = [{
         "key": "",
@@ -47,13 +46,18 @@ export class SenderComponent implements OnInit {
 
         this.sender.prefillData(data).subscribe(d => {
             console.log(d)
-            this.Recipients = d.resultValue
+            this.Recipients = d.resultValue.recipienthead;
 
         }, (er) => {
 
         })
     }
 
+    search(evt) {
+
+        this.results = ['moorthi', 'akmal', 'sameer', 'tushar'].filter(a => a.indexOf(evt.query) != -1)
+
+    }
 
     buttonClicks(e) {
         this.sendData();
@@ -78,12 +82,12 @@ export class SenderComponent implements OnInit {
             this.message.show('error', "Duplicate Key", 'error', this.translate);
             return;
         }
-        else if(uniqueEmail.length != this.Recipients.length){
+        else if (uniqueEmail.length != this.Recipients.length) {
             res = false;
             this.message.show('error', "Duplicate Email", 'error', this.translate);
             return;
         }
-        
+
         else if (unique.indexOf("") != -1) {
             res = false;
             this.message.show('error', "Fill the data", 'error', this.translate);
@@ -106,7 +110,7 @@ export class SenderComponent implements OnInit {
     }
 
     onRemove(e, i) {
-        
+
         this.Recipients.splice(i, 1);
     }
 
@@ -174,6 +178,26 @@ export class SenderComponent implements OnInit {
         }, (er) => {
             this.success = false;
             this.response = er;
+        })
+    }
+    fields: any = []
+    bindData(id, type) {
+
+         
+
+        var data = {
+            "type": type == "temp" ? "d" : "e",
+            "id": id
+
+        }
+
+        this.sender.prefillData(data).subscribe(d => {
+             
+            this.Recipients = d.resultValue.recipienthead;
+            const unique = [...new Set(this.Recipients.map(item => item.key))];
+            this.fields = d.resultValue.fields;
+        }, (er) => {
+
         })
     }
 

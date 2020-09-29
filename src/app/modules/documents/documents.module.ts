@@ -7,6 +7,7 @@ import { EditorComponent } from './editor/editor.component';
 import { iEditorModule } from "esigndoccontrol";
 //import { iEditorModule } from "/Users/pratiknaik/Work/i2t/DocEditor/idoceditor/dist/esigndoccontrol";
 import { SharedModule } from '../../shared/shared.module';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @NgModule({
   declarations: [EditorComponent],
@@ -14,7 +15,8 @@ import { SharedModule } from '../../shared/shared.module';
     CommonModule,
     DocumentsRoutingModule,
     iEditorModule,
-    SharedModule
+    SharedModule,
+    AutoCompleteModule
   ]
 })
 export class DocumentsModule { }
