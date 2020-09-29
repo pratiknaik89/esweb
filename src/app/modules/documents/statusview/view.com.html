@@ -72,8 +72,8 @@
                         <div style="display: flex;align-items: flex-start;">
                             <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                             <div style="width: 100%;" *ngSwitchCase="1">
-                                <i class="{{rowData.doc_no - rowData.com_no == 0 ? 'fa fa-check-circle text-success':'fa fa-clock-o text-warning'}}"></i>
-                                <i class="{{rowData.type=='e' ? 'fa fa-envelope-o text-primary': 'fa fa-file-pdf-o text-danger'}} "></i>
+                                <i class="mr-1 {{rowData.doc_no - rowData.com_no == 0 ? 'fa fa-check-circle text-success':'fa fa-clock-o text-warning'}}"></i>
+                                <i class="mr-1 {{rowData.type=='e' ? 'fa fa-envelope-o text-primary': 'fa fa-file-pdf-o text-danger'}} "></i>
                                 <span style="font-weight: 600;">{{rowData.name}}</span>
                                 <!-- <span>{{rowData.doc_no}}</span>
                                 <span>{{rowData.com_no}}</span> -->
@@ -87,6 +87,7 @@
 
 
                             <div *ngSwitchCase="2" style="display: flex;">
+                                <i class="mr-1 {{rowData.status == 'completed' ? 'fa fa-check-circle text-success':'fa fa-clock-o text-warning'}}"></i>
                                 <span style="flex: 1;">{{rowData.subject}}</span>
                                 <!-- <span>{{rowData.isorder}}</span> -->
                                 <div class="ml-2" style="width: 100px;">
@@ -99,6 +100,7 @@
                                 </div>
                             </div>
                             <div *ngSwitchCase="3">
+                                <i class="mr-1 {{rowData.status == 'completed' ? 'fa fa-check-circle text-success':'fa fa-clock-o text-warning'}}"></i>
                                 <span class="badge bg-success">{{rowData.key}}</span>&nbsp;
                                 <span>{{rowData.email}}</span>
                                 <!-- <span>{{rowData.notifystatus}}</span> -->
