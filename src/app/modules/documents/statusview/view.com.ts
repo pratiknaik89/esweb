@@ -102,23 +102,27 @@ export class DocStatusViewComponent implements OnInit {
     }
 
     processGridData(objData) {
-        this.items = objData.map(a => {
-            return {
-                data: {
-                    id: a.id,
-                    name: a.name,
-                    doc_no: a.doc_no,
-                    com_no: a.com_no,
-                    type: a.type,
-                    status: (a.doc_no == a.com_no) ? "completed" : "pending",
-                    active: a.active,
-                    delete: a.delete,
-                    lastupdated: new Date(a.lastupdated),
-                    level: 1
-                },
-                children: [{ data: { col1: "", col2: "", col3: "", col4: "", col5: "" } }]
-            };
-        });
+        if (objData.length == 0) {
+            this.items = [];
+        } else {
+            this.items = objData.map(a => {
+                return {
+                    data: {
+                        id: a.id,
+                        name: a.name,
+                        doc_no: a.doc_no,
+                        com_no: a.com_no,
+                        type: a.type,
+                        status: (a.doc_no == a.com_no) ? "completed" : "pending",
+                        active: a.active,
+                        delete: a.delete,
+                        lastupdated: new Date(a.lastupdated),
+                        level: 1
+                    },
+                    children: [{ data: { col1: "", col2: "", col3: "", col4: "", col5: "" } }]
+                };
+            });
+        }
 
         this.tempItems = [...this.items];
         this.totalRecords = this.tempItems.length;

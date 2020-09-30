@@ -57,8 +57,8 @@
             </div>
         </div>
         <p-treeTable [value]="tempItems" [lazy]="true" (onNodeExpand)="onNodeExpand($event)" [paginator]="true"
-            [rows]="10" [alwaysShowPaginator]="true" [rowsPerPageOptions]="[10,20,50,100]" (onPage)="onLazyLoad($event)"
-            [totalRecords]="totalRecords">
+            *ngIf="totalRecords > 0" [rows]="10" [alwaysShowPaginator]="true" [rowsPerPageOptions]="[10,20,50,100]"
+            (onPage)="onLazyLoad($event)" [totalRecords]="totalRecords">
             <ng-template pTemplate="header">
                 <tr>
                     <th></th>
@@ -116,6 +116,9 @@
                 </tr>
             </ng-template>
         </p-treeTable>
+        <div class="text-center" *ngIf="totalRecords == 0">
+            <h1>No record</h1>
+        </div>
     </div>
 
 </div>
