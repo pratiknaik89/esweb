@@ -49,7 +49,8 @@ export class ListComponent implements OnInit {
     this.global.setCompany({
       id: item.id,
       name: item.name,
-      logo: item.logo
+      logo: item.logo,
+      companycode:item.companycode
     });
     this.global.envUpdated();
     if (this.backUrl) {
