@@ -163,7 +163,7 @@ export class SenderComponent implements OnInit {
         var data = {
             "operate": "create",
             "data": {
-                "recepient": this.getRecipeients(),
+                "recipient": this.getRecipeients(),
                 "fields_map": this.getFields()
             },
             "userid": "5f74d3fa-06ac-11ea-9cac-6fc0c2648c68"
