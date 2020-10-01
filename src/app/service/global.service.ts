@@ -306,6 +306,11 @@ export class GlobalService {
         localStorage.setItem('compid', JSON.stringify(comp));
     }
 
+    public getCompanycode() {
+        let data:any = [];
+        data = JSON.parse(localStorage.getItem('compid'));
+        return data.companycode; 
+    }
     public getCompany(original?: boolean) {
         const _us1 = localStorage.getItem('compid');
         let _us: any = {};
