@@ -61,7 +61,7 @@ export class SenderComponent implements OnInit {
     }
 
     search(evt) {
-        this.results = this.FieldLst.filter(a => a.toString().indexOf(evt.query) != -1);
+        this.results = this.FieldLst.filter(a => a.toString().toLowerCase().indexOf(evt.query.toLowerCase()) != -1);
     }
 
     buttonClicks(e) {
@@ -204,6 +204,10 @@ export class SenderComponent implements OnInit {
         }, (er) => {
 
         })
+    }
+
+    addAllFields(){
+
     }
 
 }
