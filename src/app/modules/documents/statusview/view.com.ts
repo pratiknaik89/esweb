@@ -10,6 +10,7 @@ import { GlobalService } from '../../../service/global.service';
 export class DocStatusViewComponent implements OnInit {
     buttons = [];
     section = 'all';
+    sectionIcon = 'fa-circle'
     items: any[] = [];
     tempItems: TreeNode[] = [];
     downloadapi: string;
@@ -39,7 +40,9 @@ export class DocStatusViewComponent implements OnInit {
         this.totalRecords = this.tempItems.length;
     }
 
-    onLeftClick(s) {
+    onLeftClick(s, icon) {
+
+        this.sectionIcon = icon;
         this.section = s;
         this.tempItems = this.filterData();
         this.totalRecords = this.tempItems.length;

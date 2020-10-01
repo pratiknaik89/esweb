@@ -206,7 +206,31 @@ export class SenderComponent implements OnInit {
         })
     }
 
-    addAllFields(){
+    addAllFields() {
+        this.Fields = []
+        for (let i = 0; i < this.FieldLst.length; i++) {
+            
+            const element = this.FieldLst[i];
+            this.Fields.push({
+                "prop": element,
+                "value": ""
+            })
+        }
+        //this.Fields = this.results;
+    }
+
+    selectedField(e, item) {
+        const isthere = this.Fields.filter(a => {
+            return a.prop == e;
+        })
+        if (isthere && isthere.length > 1) {
+            this.message.show("Duplicate", "Already in list", "warning", null)
+            item.prop ="";
+            item.value ="";
+            return
+        }
+        
+        console.log(e, item);
 
     }
 

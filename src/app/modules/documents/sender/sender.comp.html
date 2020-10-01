@@ -29,13 +29,13 @@
                 <div class="col-md-6 mb-2">
                     <div class="form-group" *ngIf="type == 'temp'">
                         <label for="">Template Id</label>
-                        <input type="text" (input)="bindData(this.temp_env_id,this.type)" [(ngModel)]="temp_env_id" placeholder="Enter valid template id" name="temp"
-                            class="form-control">
+                        <input type="text" (input)="bindData(this.temp_env_id,this.type)" [(ngModel)]="temp_env_id"
+                            placeholder="Enter valid template id" name="temp" class="form-control">
                     </div>
                     <div class="form-group" *ngIf="type == 'env'">
                         <label for="">Envelope Id</label>
-                        <input type="text" (input)="bindData(this.temp_env_id,this.type)" [(ngModel)]="temp_env_id" placeholder="Enter valid Envelope id" name="env"
-                            class="form-control">
+                        <input type="text" (input)="bindData(this.temp_env_id,this.type)" [(ngModel)]="temp_env_id"
+                            placeholder="Enter valid Envelope id" name="env" class="form-control">
                     </div>
                 </div>
 
@@ -71,6 +71,7 @@
                         <div class="col-md-1" style="
                         display: flex;
                         align-items: center;
+                        justify-content: center;
                     ">
                             <button (click)="onRemove($event,i)" class="btn btn-danger btn-sm"><i
                                     class="fa fa-trash"></i></button>
@@ -90,16 +91,38 @@
 
                 <div class="col-md-12 mt-4">
 
-                    <h4>Fields Map <button  (click)="addAllFields()" class="btn btn-info btn-xs text-white"><i class="fa fa-eye"></i> Add All Fields</button></h4>
+                    <h4>Fields Map <button (click)="addAllFields()" class="btn btn-info btn-xs text-white"><i
+                                class="fa fa-eye"></i> Add All Fields</button></h4>
 
                 </div>
-                <div class="col-md-12" *ngFor="let item of Fields;let i = $index;">
+                <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="">Property</label>
-                                <p-autoComplete [(ngModel)]="item.prop" placeholder="Enter Property"
-                                    [suggestions]="results" (completeMethod)="search($event)" [forceSelection]="true">
+                                <label for="">Property</label></div>
+                        </div>
+                        <div class="col-md-1">
+                            =
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="">Value</label>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12" *ngFor="let item of Fields;let i = index;">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group p-1 " style="display: flex;">
+
+                                <span class="input-group-text input-addon" id="basic-addon1">{{i+1}}</span>
+
+                                <p-autoComplete inputClass="form-control" [(ngModel)]="item.prop"
+                                    placeholder="Enter Property" [suggestions]="results"
+                                    (onSelect)="selectedField($event,item)" (completeMethod)="search($event)"
+                                    [forceSelection]="false">
                                 </p-autoComplete>
                             </div>
                         </div>
@@ -108,16 +131,17 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="">Value</label>
+
                                 <input type="text" [(ngModel)]="item.value" placeholder="Enter Value" name="name{{i}}"
-                                    class="form-control">
+                                    class="form-control mt-1">
                             </div>
                         </div>
                         <div class="col-md-1" style="
                         display: flex;
                         align-items: center;
+                        justify-content: center;
                     ">
-                            <button (click)="onRemoveProperty($event , i)" class="btn btn-danger btn-sm m-1"><i
+                            <button (click)="onRemoveProperty($event , i)" class="btn btn-danger btn-sm"><i
                                     class="fa fa-trash"></i></button>
                         </div>
                     </div>
@@ -133,13 +157,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4" *ngIf="success" >
+        <div class="col-md-4" *ngIf="success">
 
             <div style=" height: 300px;text-align: center;">
-          
-       
-            <img src="./assets/img/comp.png" alt="" style=" height: 100px;">
+
+
+                <img src="./assets/img/comp.png" alt="" style=" height: 100px;">
+            </div>
+
         </div>
-            
-    </div>
     </div>
