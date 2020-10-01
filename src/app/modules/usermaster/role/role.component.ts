@@ -56,7 +56,7 @@ export class RoleComponent implements OnInit {
   }
   menues = [];
 
-
+  disButton:boolean = false;
   ngOnInit() {
 
     this.bindUser();
@@ -93,6 +93,7 @@ export class RoleComponent implements OnInit {
   }
   openModal(content: string) {
     if (this.modalService.getModalsCount() == 0) {
+      this.disButton=false;
       this.modalRef = this.modalService.show(content);
     }
   }
@@ -237,7 +238,7 @@ export class RoleComponent implements OnInit {
   save() {
 
     console.log(this.roledata);
-
+this.disButton=true;
     this.role.saveRole({
       'active': this.roledata.active,
       'id': this.roledata.id,
@@ -255,6 +256,7 @@ export class RoleComponent implements OnInit {
         if (data.resultKey == 1) {
           this.grid.RefreshGrid();
           this.message.show('done', 'Saved successfully', 'success', this.translate)
+          this.disButton=false;
           this.closeModal();
           // this.grid.insert({
           //   id: sdata.id,
@@ -271,9 +273,11 @@ export class RoleComponent implements OnInit {
      
       }
       else if(data.resultValue.errorcode != ''){
+        this.disButton=false;
         this.message.show('error', data.defaultError, 'warn', this.translate);
       }
       else if (data.resultKey == 0) {
+        this.disButton=false;
         this.message.show('error', data.defaultError, 'warn', this.translate);
       }
     });
