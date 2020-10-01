@@ -61,7 +61,7 @@ export class SenderComponent implements OnInit {
     }
 
     search(evt) {
-        this.results = this.FieldLst.filter(a => a.indexOf(evt.query) != -1)
+        this.results = this.FieldLst.filter(a => a.toString().indexOf(evt.query) != -1);
     }
 
     buttonClicks(e) {

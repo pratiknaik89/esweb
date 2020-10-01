@@ -50,7 +50,7 @@
 
         <div class="d-block p-4 bg-white" style="height: 80px;position: sticky;top:0;">
             <div class="d-flex" style="flex: 1;">
-                <h2 style="flex: 1;">ALL</h2>
+                <h2 class="text-uppercase" style="flex: 1;">{{section}}</h2>
                 <div>
                     <input placeholder="Type here to search..." (input)="searchData()" [(ngModel)]="searchString">
                 </div>
@@ -94,6 +94,8 @@
                             </div>
 
                             <div *ngSwitchCase="3">
+                                <i *ngIf="rowData.type != 2"
+                                    class="mr-1 {{rowData.status == 'completed' ? 'fa fa-check-circle text-success':'fa fa-clock-o text-warning'}}"></i>
                                 <i *ngIf="rowData.type == 2" class="mr-1 fa fa-cc text-primary" aria-hidden="true"></i>
                                 <span class="badge bg-success">{{rowData.key}}</span>&nbsp;
                                 <span>{{rowData.email}}</span>
