@@ -98,7 +98,7 @@
         <ng-template let-item pTemplate="gridItem">
 
             <div class="col-md-3 mb-2 mt-2" *ngIf="item.show">
-                <app-docthumb [item]="item" (onEdit)="editTemplate($event)" (onDelete)="deleteTemplate($event)"></app-docthumb>
+                <app-docthumb [item]="item" (onEdit)="editTemplate($event)" (onDelete)="deleteTemplate($event)" (onSend)="sendTemplate($event)"></app-docthumb>
 
                 <!-- <p-panel [header]="car.vin" [style]="{'text-align':'center'}">
                     <img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60">

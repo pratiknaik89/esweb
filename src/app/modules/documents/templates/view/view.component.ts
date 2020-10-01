@@ -200,5 +200,10 @@ searchTemplate(){
       }
     });
   }
+
+  sendTemplate(item){
+     
+    this.router.navigate(['/documents/sender/' + 'd/' + item.id]);
+  }
   
 }
