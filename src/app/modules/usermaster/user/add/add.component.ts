@@ -56,6 +56,7 @@ export class AddComponent implements OnInit {
     comapnyid: ''
 
   }
+  companycode:any='';
   isEdit: boolean = false;
   enableDis: boolean = false;
   countryList: any = [];
@@ -67,9 +68,9 @@ export class AddComponent implements OnInit {
   selectedDispensarystring: any = '';
   resetForm: any = {};
   ngOnInit() {
-
-   
-     this.bindRole();
+ 
+   this.companycode = this.global.getCompanycode();
+    // this.bindRole();
     this.bindUser();
     this.resetForm = JSON.stringify(this.form);
     this.bindCountries();
@@ -159,12 +160,14 @@ export class AddComponent implements OnInit {
     }
 
     if (action == 'add') {
+      this.companycode = this.global.getCompanycode();
       this.isEdit = false;
       this.enableDis = false;
       this.bindUser();
 
       this.form = JSON.parse(this.resetForm);
     } else {
+      this.companycode = this.global.getCompanycode();
       this.form = JSON.parse(this.resetForm);
       this.getEditRecord(params.id, (res) => {
 
