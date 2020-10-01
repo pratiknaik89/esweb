@@ -676,6 +676,11 @@ let _selectedenvelope;
     });
   }
 
+  sendTemplate(item){
+     
+    this.router.navigate(['/documents/sender/' + 'd/' + item.id]);
+  }
+
   generateKey(){
     debugger
     if(this.form.envname.length <=0 ){
