@@ -12,6 +12,7 @@ export class DocThumbComponent implements OnInit {
 
     @Output() onDelete: EventEmitter<any> = new EventEmitter();
     @Output() onEdit: EventEmitter<any> = new EventEmitter();
+    @Output() onSend: EventEmitter<any> = new EventEmitter();   
     @Output() onMenuItem: EventEmitter<any> = new EventEmitter();
 
     constructor() { }
@@ -26,6 +27,9 @@ export class DocThumbComponent implements OnInit {
     }
     delete(item){
         this.onDelete.emit(item);
+    }
+    send(item){
+        this.onSend.emit(item);
     }
 }
 
