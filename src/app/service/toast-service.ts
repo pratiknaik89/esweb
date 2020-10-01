@@ -22,11 +22,14 @@ export class ToastService {
         }
         else if (type === 'info') {
             this.message.info(msg, this.helper.translate(translate, title))
+        } else if (type === 'warn') {
+            this.message.warning(message,   title)
         }
 
     }
 
     public show(title, message, type, translate) {
+        debugger
         if (type === 'success') {
             this.message.success(message,  title)
         } else if (type === 'error') {
@@ -35,6 +38,8 @@ export class ToastService {
         }
         else if (type === 'areaex') {
             this.message.error(message,   title)
+        } else if (type === 'warn') {
+            this.message.warning(message,   title)
         }
     }
 
