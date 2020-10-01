@@ -12,7 +12,7 @@
           <div class="form-group">
             <label >User Type</label><span class="text-danger">*</span>
             <select class="form-control" 
-           
+            (change)="bindRole()"
             name="usertype" #usertype="ngModel" [(ngModel)]="form.usertype" tabindex="1"
           name="usertype" id="usertype" required>
               <option value="">Select User Type</option>
@@ -256,7 +256,17 @@
                 </div>
               </div>
       </div>
+      <div class="row">
+       
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Company Code</label>
+            <input class="form-control" id="companycode" name="companycode"  type="text" [(ngModel)]="companycode" readonly='true'
+            autocomplete="off" tabindex="9" placeholder="Company Code" minlength="1" maxlength="50">
+          </div>
+        </div>
 
+      </div>
 
       <div class="row">
        
