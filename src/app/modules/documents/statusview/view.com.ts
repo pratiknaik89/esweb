@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { GlobalService } from '../../../service/global.service';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
     selector: 'app-doc-view',
@@ -8,6 +9,8 @@ import { GlobalService } from '../../../service/global.service';
     styleUrls: ['./view.com.scss']
 })
 export class DocStatusViewComponent implements OnInit {
+    @ViewChild('template') popupContainer;
+    modalRef: BsModalRef;
     buttons = [];
     section = 'all';
     sectionIcon = 'fa-circle'
@@ -15,6 +18,8 @@ export class DocStatusViewComponent implements OnInit {
     tempItems: TreeNode[] = [];
     downloadapi: string;
     totalRecords: number = 0;
+    eventLogData: any[] = [];
+    eventLogForTemplate: string;
 
     constructor(private status: StatusService, private global: GlobalService) {
         this.buttons = [
@@ -27,6 +32,14 @@ export class DocStatusViewComponent implements OnInit {
             //     'disabled': false, 'access': true
             // }
         ];
+    }
+
+    openModal() {
+        this.modalRef = this.global.showPopup(this.popupContainer, { class: 'modal-xl' })
+    }
+
+    closeModal() {
+        this.modalRef.hide();
     }
 
     ngOnInit(): void {
@@ -51,7 +64,6 @@ export class DocStatusViewComponent implements OnInit {
     buttonClicks(event) {
 
     }
-
 
     filterData() {
         let objData;
@@ -86,7 +98,22 @@ export class DocStatusViewComponent implements OnInit {
         return objData;
     }
 
-
+    getEventLogByDrid(drid) {
+        this.status.getEventLogBydrid({ "drid": drid }).subscribe((data: any) => {
+            console.log(data);
+            if (data.resultKey === 1) {
+                for (let index = 0; index < data.resultValue.length; index++) {
+                    data.resultValue[index].createdon = new Date(data.resultValue[index].createdon);
+                }
+                this.eventLogData = data.resultValue;
+                this.eventLogForTemplate = "(" + this.eventLogData[0]["elname"] + ")";
+                this.openModal()
+            } else {
+                //Error
+                this.eventLogForTemplate = "";
+            }
+        });
+    }
 
     getAllEnvLinkData() {
         this.status.list({}).subscribe((data: any) => {

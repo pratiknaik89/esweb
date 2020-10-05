@@ -24,11 +24,13 @@
                         <i class="fa fa-circle"></i>
                         <span class="ml-1">All</span>
                     </a>
-                    <a (click)="onLeftClick('pending','fa-clock-o text-warning')" [ngClass]="{'active': section == 'pending'}">
+                    <a (click)="onLeftClick('pending','fa-clock-o text-warning')"
+                        [ngClass]="{'active': section == 'pending'}">
                         <i class="fa fa-clock-o text-warning"></i>
                         <span class="ml-1">Pending</span>
                     </a>
-                    <a (click)="onLeftClick('completed','fa-check-circle text-success')" [ngClass]="{'active': section == 'completed'}">
+                    <a (click)="onLeftClick('completed','fa-check-circle text-success')"
+                        [ngClass]="{'active': section == 'completed'}">
                         <i class="fa fa-check-circle text-success"></i>
                         <span class="ml-1">Completed</span>
                     </a>
@@ -36,7 +38,8 @@
                         <i class="fa fa-trash"></i>
                         <span class="ml-1">Deleted</span>
                     </a> -->
-                    <a (click)="onLeftClick('canceled','fa-times-circle text-danger')" [ngClass]="{'active': section == 'canceled'}">
+                    <a (click)="onLeftClick('canceled','fa-times-circle text-danger')"
+                        [ngClass]="{'active': section == 'canceled'}">
                         <i class="fa fa-times-circle text-danger"></i>
                         <span class="ml-1">Canceled</span>
                     </a>
@@ -91,6 +94,12 @@
                                     </div>
                                     <span *ngIf="rowData.finaldocurl == null">Under process</span>
                                 </div>
+                                <span style="flex: 1;">
+                                    <a (click)="getEventLogByDrid(rowData.id)" style="cursor: pointer;" placement="top"
+                                        ngbTooltip="Event Log">
+                                        <i class="fa fa-history text-primary"></i></a>
+                                </span>
+
                             </div>
 
                             <div *ngSwitchCase="3">
@@ -123,3 +132,36 @@
     </div>
 
 </div>
+
+<ng-template #template>
+    <form name="form">
+        <div class="modal-header">
+            <h5 class="modal-title">Event Log {{eventLogForTemplate}}</h5>
+            <button type="button" class="close" (click)=closeModal(); data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p-table [value]="eventLogData">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Event</th>
+                        <th>Option</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Event time</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-evt>
+                    <tr>
+                        <td>{{evt.evtname}}</td>
+                        <td>{{evt.optionname}}</td>
+                        <td>{{evt.email}}</td>
+                        <td>{{evt.status}}</td>
+                        <td>{{evt.createdon | date: 'dd/MM/yyyy hh:mm a'}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </form>
+</ng-template>
