@@ -21,4 +21,12 @@ export class StatusService {
         return this.dataService.getHttpData('/document/getrecplinkbyenvdocid', req);
     }
 
+    getEventLogBydmid(req: any) {
+        return this.dataService.getHttpData('/eventlog/geteventlogbydmid', req);
+    }
+
+    getEventLogBydrid(req: any) {
+        return this.dataService.getHttpData('/eventlog/geteventlogbydrid', req);
+    }
+
 }

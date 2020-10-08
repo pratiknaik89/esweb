@@ -96,8 +96,8 @@ export class EditorComponent implements OnInit {
 
   }
 
-  onDocLoadComplete(e){
-    
+  onDocLoadComplete(e) {
+
     this.buttons[2].disabled = false;
     this.buttons[3].disabled = false;
   }
@@ -108,7 +108,7 @@ export class EditorComponent implements OnInit {
     }).subscribe((data: any) => {
       if (data.resultKey == 1) {
         this.templateDtl = <ClsTemplate>data.resultValue[0];
-        this.recipients = this.templateDtl.recipienthead.map(a => a["id"]);
+        this.recipients = this.templateDtl.recipienthead.filter(a => a["rectype"] == 1).map(a => a["id"]);
         this.editor.setRecipients(this.recipients);
         this.getTempFileUrl(this.templateDtl.docurl, this.templateDtl.dataref);
       }
@@ -122,17 +122,17 @@ export class EditorComponent implements OnInit {
       filename: filepath.substring(filepath.lastIndexOf("/") + 1)
     }).subscribe((data: any) => {
       if (data.resultKey == 1) {
-        
+
         this.editor.setData(data.resultValue, dataref);
       }
     });
   }
 
   saveRecipient(issend = false) {
-    
-     
-    if(!this.editor.validate()){
-      this.message.show('Validation', 'Please correct issues','error', null)
+
+
+    if (!this.editor.validate()) {
+      this.message.show('Validation', 'Please correct issues', 'error', null)
       return
     }
 
