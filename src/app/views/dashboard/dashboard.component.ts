@@ -2,18 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { GlobalService } from '../../service/global.service';
-
+import { DashyboardService } from '../../service/dashboard.service';
 @Component({
   templateUrl: 'dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
 
   radioModel: string = 'Month';
-
-  constructor(private globalService: GlobalService) { }
+totalEnv:any='';
+totalTemplate:any='';
+completedTemp:any='';
+pendingTemplate:any='';
+  constructor(private globalService: GlobalService, private dashboard: DashyboardService) { }
 
   ngAfterViewInit(): void {
-  //  this.globalService.setShowActionBtn([]);
+    //  this.globalService.setShowActionBtn([]);
   }
 
   // lineChart1
@@ -383,13 +386,27 @@ export class DashboardComponent implements OnInit {
   public random(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
-
+  dashBoardDataList: any = [];
   ngOnInit(): void {
+    this.bindDash();
     // generate random values for mainChart
     for (let i = 0; i <= this.mainChartElements; i++) {
       this.mainChartData1.push(this.random(50, 200));
       this.mainChartData2.push(this.random(80, 100));
       this.mainChartData3.push(65);
     }
+  }
+  bindDash() {
+    debugger
+    this.dashboard.getDashboard({
+      "cmpid": this.globalService.getCompany(),
+    }).subscribe((data: any) => {
+      if (data.resultKey == 1) {debugger
+        this.totalEnv = data.resultValue[0]._envcount;
+        this.totalTemplate=data.resultValue[0]._templatecount;
+        this.pendingTemplate=data.resultValue[0]._prndingtempcount;
+        this.completedTemp=data.resultValue[0]._completetempcount;
+      }
+    })
   }
 }
