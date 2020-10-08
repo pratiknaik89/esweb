@@ -13,149 +13,151 @@
     <div class="row">
 
         <div class="col-md-8 bg-white p-3">
-            <div class="row">
-                <div class="col-md-12 mb-3">
+            <p-card>
+                <div class="row">
+                    <div class="col-md-12 mb-3">
 
-                    <p-radioButton name="group1" value="temp" label="Template" [(ngModel)]="type" inputId="temp">
-                    </p-radioButton>
+                        <p-radioButton name="group1" value="temp" label="Template" [(ngModel)]="type" inputId="temp">
+                        </p-radioButton>
 
-                    <p-radioButton name="group1" class="ml-4" value="env" label="Envelope" [(ngModel)]="type"
-                        inputId="env">
-                    </p-radioButton>
+                        <p-radioButton name="group1" class="ml-4" value="env" label="Envelope" [(ngModel)]="type"
+                            inputId="env">
+                        </p-radioButton>
 
 
 
-                </div>
-                <div class="col-md-6 mb-2">
-                    <div class="form-group" *ngIf="type == 'temp'">
-                        <label for="">Template Id</label>
-                        <input type="text" (input)="bindData(this.temp_env_id,this.type)" [(ngModel)]="temp_env_id"
-                            placeholder="Enter valid template id" name="temp" class="form-control">
                     </div>
-                    <div class="form-group" *ngIf="type == 'env'">
-                        <label for="">Envelope Id</label>
-                        <input type="text" (input)="bindData(this.temp_env_id,this.type)" [(ngModel)]="temp_env_id"
-                            placeholder="Enter valid Envelope id" name="env" class="form-control">
+                    <div class="col-md-6 mb-2">
+                        <div class="form-group" *ngIf="type == 'temp'">
+                            <label for="">Template Id</label>
+                            <input type="text" (input)="bindData(this.temp_env_id,this.type)" [(ngModel)]="temp_env_id"
+                                placeholder="Enter valid template id" name="temp" class="form-control">
+                        </div>
+                        <div class="form-group" *ngIf="type == 'env'">
+                            <label for="">Envelope Id</label>
+                            <input type="text" (input)="bindData(this.temp_env_id,this.type)" [(ngModel)]="temp_env_id"
+                                placeholder="Enter valid Envelope id" name="env" class="form-control">
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-md-12">
+                    <div class="col-md-12">
 
-                    <h4>Recipients</h4>
+                        <h4>Recipients</h4>
 
-                </div>
-                <div class="col-md-12" *ngFor="let item of Recipients;index as i">
-                    <!-- let i = $index; -->
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="">Key</label>
-                                <input type="text" [(ngModel)]="item.key" placeholder="Enter Key" name="key{{i}}"
-                                    class="form-control">
+                    </div>
+                    <div class="col-md-12" *ngFor="let item of Recipients;index as i">
+                        <!-- let i = $index; -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="">Key</label>
+                                    <input type="text" [(ngModel)]="item.key" placeholder="Enter Key" name="key{{i}}"
+                                        class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="">Name</label>
-                                <input type="text" [(ngModel)]="item.name" placeholder="Enter Name" name="name{{i}}"
-                                    class="form-control">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Name</label>
+                                    <input type="text" [(ngModel)]="item.name" placeholder="Enter Name" name="name{{i}}"
+                                        class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="">Email</label>
-                                <input type="text" [(ngModel)]="item.email" placeholder="Enter Email" name="email{{i}}"
-                                    class="form-control">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Email</label>
+                                    <input type="text" [(ngModel)]="item.email" placeholder="Enter Email"
+                                        name="email{{i}}" class="form-control">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-1" style="
+                            <div class="col-md-1" style="
                         display: flex;
                         align-items: center;
                         justify-content: center;
                     ">
-                            <button (click)="onRemove($event,i)" class="btn btn-danger btn-sm"><i
-                                    class="fa fa-trash"></i></button>
+                                <button (click)="onRemove($event,i)" class="btn btn-danger btn-sm"><i
+                                        class="fa fa-trash"></i></button>
+                            </div>
                         </div>
+
                     </div>
-
-                </div>
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-6 mt-3">
-                            <button (click)="onAddRecipeint($event)"
-                                class="btn btn-success btn-sm d-block mt-2 pl-5 pr-5"><i class="fa fa-plus"></i> Add
-                                More..</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12 mt-4">
-
-                    <h4>Fields Map <button (click)="addAllFields()" class="btn btn-info btn-xs text-white"><i
-                                class="fa fa-eye"></i> Add All Fields</button></h4>
-
-                </div>
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="">Property</label></div>
-                        </div>
-                        <div class="col-md-1">
-                            =
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="">Value</label>
-
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6 mt-3">
+                                <button (click)="onAddRecipeint($event)"
+                                    class="btn btn-success btn-sm d-block mt-2 pl-5 pr-5"><i class="fa fa-plus"></i> Add
+                                    More..</button>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-12" *ngFor="let item of Fields;let i = index;">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group p-1 " style="display: flex;">
 
-                                <span class="input-group-text input-addon" id="basic-addon1">{{i+1}}</span>
+                    <div class="col-md-12 mt-4">
 
-                                <p-autoComplete inputClass="form-control" [(ngModel)]="item.prop"
-                                    placeholder="Enter Property" [suggestions]="results"
-                                    (onSelect)="selectedField($event,item)" (completeMethod)="search($event)"
-                                    [forceSelection]="false">
-                                </p-autoComplete>
+                        <h4>Fields Map <button (click)="addAllFields()" class="btn btn-info btn-xs text-white"><i
+                                    class="fa fa-eye"></i> Add All Fields</button></h4>
+
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="">Property</label></div>
+                            </div>
+                            <div class="col-md-1">
+                                =
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Value</label>
+
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-1">
-                            =
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
+                    </div>
+                    <div class="col-md-12" *ngFor="let item of Fields;let i = index;">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group p-1 " style="display: flex;">
 
-                                <input type="text" [(ngModel)]="item.value" placeholder="Enter Value" name="name{{i}}"
-                                    class="form-control mt-1">
+                                    <span class="input-group-text input-addon" id="basic-addon1">{{i+1}}</span>
+
+                                    <p-autoComplete inputClass="form-control" [(ngModel)]="item.prop"
+                                        placeholder="Enter Property" [suggestions]="results"
+                                        (onSelect)="selectedField($event,item)" (completeMethod)="search($event)"
+                                        [forceSelection]="false">
+                                    </p-autoComplete>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-1" style="
+                            <div class="col-md-1">
+                                =
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+
+                                    <input type="text" [(ngModel)]="item.value" placeholder="Enter Value"
+                                        name="name{{i}}" class="form-control mt-1">
+                                </div>
+                            </div>
+                            <div class="col-md-1" style="
                         display: flex;
                         align-items: center;
                         justify-content: center;
                     ">
-                            <button (click)="onRemoveProperty($event , i)" class="btn btn-danger btn-sm"><i
-                                    class="fa fa-trash"></i></button>
+                                <button (click)="onRemoveProperty($event , i)" class="btn btn-danger btn-sm"><i
+                                        class="fa fa-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6 mt-3">
+                                <button (click)="onAddProperty($event)"
+                                    class="btn btn-success btn-sm d-block mt-2 pl-5 pr-5"><i class="fa fa-plus"></i> Add
+                                    More..</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-6 mt-3">
-                            <button (click)="onAddProperty($event)"
-                                class="btn btn-success btn-sm d-block mt-2 pl-5 pr-5"><i class="fa fa-plus"></i> Add
-                                More..</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </p-card>
         </div>
         <div class="col-md-4" *ngIf="success">
 
@@ -167,4 +169,5 @@
 
         </div>
     </div>
+
 </div>

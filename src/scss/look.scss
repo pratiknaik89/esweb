@@ -130,7 +130,7 @@ body .ui-dataview .ui-dataview-content {
 }
 
 body .ui-card {
-  background-color: #eeeeee;
+  background-color: #f9f9f9;
 }
 
 .doctemplate .ui-dataview-header {
@@ -192,3 +192,20 @@ span.loadingicon{
 div#loaderwrap{
     left: 0!important;
 }
+
+.btn.btn-success{
+    background-color: #4CAF50;
+}.btn.btn-danger{
+    background-color: #F44336;
+}
+.btn.btn-info{
+    background-color: #03a9f4;
+}
+.btn.btn-primary{
+    background-color: #2196F3;
+}
+
+.btn.btn-warning{
+    background-color: #FF9800;
+}
+
