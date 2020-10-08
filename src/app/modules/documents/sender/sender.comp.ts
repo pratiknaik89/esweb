@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { GlobalService } from '../../../service/global.service';
 @Component({
     selector: 'app-sender',
     templateUrl: './sender.comp.html',
@@ -7,6 +8,11 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SenderComponent implements OnInit {
     type = "temp";
+    selectedTemplat: any = '';
+    showPanel: boolean = false;
+    envlopeName: any = '';
+    abcs: any = '';
+    iputType: any = "byid";
     response = "";
     temp_env_id = ""
     buttons = [];
@@ -14,16 +20,32 @@ export class SenderComponent implements OnInit {
     success: boolean = false;
     results: Array<string>;
     FieldLst = [];
-
+    resultList: any = [];
+    templetebyenvList: any = [];
+    config: any = [];
+    showAutocomplete: boolean = false;
     Recipients: any = [{
         "key": "",
         "name": "",
         "email": ""
     }];
-    constructor(private sender: SenderService, private route: ActivatedRoute, private message: ToastService, private translate: TranslateService,) {
+    filePath: any = '';
+    constructor(private sender: SenderService, private route: ActivatedRoute, private message: ToastService, private translate: TranslateService, private global: GlobalService) {
 
         let id = this.route.snapshot.params.id;
         let type = this.route.snapshot.params.type;
+        this.sender.tempenvAutocomplete({
+            'operate': 'searchtemplate_or_env',
+            'type': 'directtosender',
+            'id': id,
+            "cmpid": this.global.getCompany(),
+        }
+        ).subscribe((data: any) => {
+            if (data.resultKey == 1) {
+                this.arrayForimge = data.resultValue;
+                this.showPanel=true;
+            }
+        })
 
         if (id && type) {
             console.log(id, type)
@@ -33,6 +55,7 @@ export class SenderComponent implements OnInit {
     }
 
     getPrefillData(id, type) {
+        this.iputType = 'byid';
         this.temp_env_id = id;
         if (type === 'e') {
             this.type = "env"
@@ -120,6 +143,9 @@ export class SenderComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
+        this.config = this.global.getConfig();
+        this.filePath = "https://" + this.config.AWS_BUCKET_PREFIX + "cmp" + this.global.getCompany() + ".s3.us-east-2.amazonaws.com/";
         this.buttons = [
             {
                 'id': 'send', 'color': 'white', 'bg': 'danger', 'text': 'Send', 'icon': ' fa fa-send', 'shortcut': 'ctrl+shift+a',
@@ -179,6 +205,7 @@ export class SenderComponent implements OnInit {
             console.log(d)
             this.response = d;
             this.success = true;
+            this.showPanel=false;
 
         }, (er) => {
             this.success = false;
@@ -209,7 +236,7 @@ export class SenderComponent implements OnInit {
     addAllFields() {
         this.Fields = []
         for (let i = 0; i < this.FieldLst.length; i++) {
-            
+
             const element = this.FieldLst[i];
             this.Fields.push({
                 "prop": element,
@@ -225,12 +252,103 @@ export class SenderComponent implements OnInit {
         })
         if (isthere && isthere.length > 1) {
             this.message.show("Duplicate", "Already in list", "warning", null)
-            item.prop ="";
-            item.value ="";
+            item.prop = "";
+            item.value = "";
             return
         }
-        
+
         console.log(e, item);
+
+    }
+
+    onRadioclick() {
+        this.selectedTemplat = '';
+        this.temp_env_id = '';
+        this.Recipients = [{
+            "key": "",
+            "name": "",
+            "email": ""
+        }];
+        this.arrayForimge=[];
+        if (this.iputType == "byname") {
+            this.showAutocomplete = true;
+
+        } else {
+            this.showAutocomplete = false;
+        }
+
+    }
+
+    searchenvortemp(event) {
+
+        this.sender.tempenvAutocomplete({
+            'operate': 'searchtemplate_or_env',
+            'type': this.type,
+            'keyword': event.query,
+            "cmpid": this.global.getCompany(),
+        }).subscribe((res: any) => {
+            if (res.resultKey === 1) {
+                if (res.resultValue.length != 0) {
+                    this.resultList = res.resultValue;
+                } else {
+                    this.message.show('Warning!', 'No record found!', 'warn', this.translate);
+                    return;
+                }
+
+
+            }
+
+        })
+
+    }
+    arrayForimge: any = [];
+    selectedResult(event) {
+        if (this.type == "temp") {
+            this.arrayForimge.push(event);
+            this.showPanel = true;
+            this.temp_env_id = event.id;
+            this.envlopeName = event.name;
+            this.bindData(this.temp_env_id, this.type);
+        } else {
+            this.arrayForimge = [];
+            this.showPanel = true;
+            this.temp_env_id = event.id;
+            this.envlopeName = event.name;
+            this.bindData(this.temp_env_id, this.type);
+            this.sender.tempenvAutocomplete({
+                'operate': 'searchtemplate_or_env',
+                'type': 'gettemplatebyenv',
+                'envid': event.id,
+                "cmpid": this.global.getCompany(),
+            }).subscribe((res: any) => {
+                if (res.resultKey === 1) {
+                    if (res.resultValue.length != 0) {
+                        this.arrayForimge = res.resultValue;
+                    } else {
+                        this.message.show('Warning!', 'No record found!', 'warn', this.translate);
+                        return;
+                    }
+
+
+                }
+
+            })
+        }
+
+    }
+    onRadioclick1() {
+        this.selectedTemplat = '';
+        this.temp_env_id = '';
+        this.Recipients = [{
+            "key": "",
+            "name": "",
+            "email": ""
+        }];
+        this.arrayForimge=[];
+    }
+    urlHandle(srcurl) {
+
+        return (srcurl == '' || srcurl != null || srcurl != undefined) ? (this.filePath + 'template/thumbnail/' + srcurl.split('/')[1].replace('.pdf', '.jpeg')) : null;
 
     }
 
