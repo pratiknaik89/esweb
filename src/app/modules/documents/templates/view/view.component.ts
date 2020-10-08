@@ -8,26 +8,26 @@ import { ConfirmationService } from 'primeng/api';
   selector: 'app-view',
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.css'],
-  providers :[ConfirmationService]
+  providers: [ConfirmationService]
 })
 export class ViewComponent implements OnInit {
   documentsDeatilList: any = [];
-  tempdocumentsDeatilList:any=[];
+  tempdocumentsDeatilList: any = [];
   sortOptions: SelectItem[];
   searchstring: any = '';
   sortKey: string;
-  config:any=[];
+  config: any = [];
   sortField: string;
-cmpid:any='';
+  cmpid: any = '';
   sortOrder: number;
   filePath: any = '';
-  noTemplatefound: boolean=false;
-  constructor(private template: TemplateService, private global: GlobalService,private router: Router,private confirmationService: ConfirmationService) { }
-  buttons:any=[];
+  noTemplatefound: boolean = false;
+  constructor(private template: TemplateService, private global: GlobalService, private router: Router, private confirmationService: ConfirmationService) { }
+  buttons: any = [];
   ngOnInit(): void {
-    this.config=this.global.getConfig();
-this.cmpid=this.global.getCompany();
-this.filePath = "https://"+this.config.AWS_BUCKET_PREFIX+"cmp"+this.global.getCompany() + ".s3.us-east-2.amazonaws.com/";
+    this.config = this.global.getConfig();
+    this.cmpid = this.global.getCompany();
+    this.filePath = this.global.format(this.config.AWS_BUCKET_PREFIX, [this.global.getCompany()]);  //"https://" + this.config.AWS_BUCKET_PREFIX + "cmp" + this.global.getCompany() + ".s3.us-east-2.amazonaws.com/";
     this.sortOptions = [
       { label: 'Newest First', value: '!year' },
       { label: 'Oldest First', value: 'year' },
@@ -60,11 +60,11 @@ this.filePath = "https://"+this.config.AWS_BUCKET_PREFIX+"cmp"+this.global.getCo
     //   { id: 6, name: "Document 1", src: "/assets/img/img1.png" }];
   }
 
-  buttonClicks(event){
-    
+  buttonClicks(event) {
+
   }
   bindTemplateGrid() {
-    
+
     this.template.getAllTemplate({
       operate: 'get'
     }).subscribe((data: any) => {
@@ -78,7 +78,7 @@ this.filePath = "https://"+this.config.AWS_BUCKET_PREFIX+"cmp"+this.global.getCo
   }
 
   makedocumentsDeatilList(data) {
-    
+
     if (data.length <= 0) {
       return;
     }
@@ -86,11 +86,11 @@ this.filePath = "https://"+this.config.AWS_BUCKET_PREFIX+"cmp"+this.global.getCo
     data.forEach(element => {
 
 
-      
-      element.src =  (element.src == '' || element.src != null || element.src != undefined) ? (this.filePath + 'template/thumbnail/' + element.src.split('/')[1].replace('.pdf', '.jpeg')) : null;
+
+      element.src = (element.src == '' || element.src != null || element.src != undefined) ? (this.filePath + 'template/thumbnail/' + element.src.split('/')[1].replace('.pdf', '.jpeg')) : null;
 
 
-     // element.src = this.filePath + element.src;
+      // element.src = this.filePath + element.src;
       this.documentsDeatilList.push(element);
       this.tempdocumentsDeatilList.push(element);
     });
@@ -98,46 +98,46 @@ this.filePath = "https://"+this.config.AWS_BUCKET_PREFIX+"cmp"+this.global.getCo
     console.log(this.documentsDeatilList);
   }
 
-//   searchTemplate() {
-//     
-//     let tempList = this.documentsDeatilList ;
-//     this.documentsDeatilList =[];
-//     this.documentsDeatilList = tempList.find((a) => {
-//       if(a.name.includes(this.searchstring)){
-// return a;
-//       }
-   
-//     })
-//   }
+  //   searchTemplate() {
+  //     
+  //     let tempList = this.documentsDeatilList ;
+  //     this.documentsDeatilList =[];
+  //     this.documentsDeatilList = tempList.find((a) => {
+  //       if(a.name.includes(this.searchstring)){
+  // return a;
+  //       }
 
-countArray:any=[];
-searchTemplate(){
-  debugger
-  if (this.searchstring != '' || this.searchstring != undefined || this.searchstring != null) { }
-  let temptemplate = this.documentsDeatilList;
- 
-   this.noTemplatefound= false;
- // this.templateList = [];
- for (let index = 0; index < this.documentsDeatilList.length; index++) {
-   const element = this.documentsDeatilList[index];
-   let name = element.name.toLowerCase();
-    
-   // name.includes(this.searchtemplatestring.toLowerCase());
-   if(!name.includes(this.searchstring.toLowerCase())){
-     element.show=false;
-     this.countArray.push(1);
-    
-   }
-   else {
-    element.show=true;
+  //     })
+  //   }
 
-    
-   }
- }
- if(this.countArray.length > 1){
-  this.noTemplatefound = true;
-}
-}
+  countArray: any = [];
+  searchTemplate() {
+    debugger
+    if (this.searchstring != '' || this.searchstring != undefined || this.searchstring != null) { }
+    let temptemplate = this.documentsDeatilList;
+
+    this.noTemplatefound = false;
+    // this.templateList = [];
+    for (let index = 0; index < this.documentsDeatilList.length; index++) {
+      const element = this.documentsDeatilList[index];
+      let name = element.name.toLowerCase();
+
+      // name.includes(this.searchtemplatestring.toLowerCase());
+      if (!name.includes(this.searchstring.toLowerCase())) {
+        element.show = false;
+        this.countArray.push(1);
+
+      }
+      else {
+        element.show = true;
+
+
+      }
+    }
+    if (this.countArray.length > 1) {
+      this.noTemplatefound = true;
+    }
+  }
   // searchTemplate() {
 
   //   if (this.searchstring == '') {
@@ -165,45 +165,45 @@ searchTemplate(){
   }
 
 
-  editTemplate(item){
-    this.router.navigate(['/documents/templates/'+item.id +'/edit']);
+  editTemplate(item) {
+    this.router.navigate(['/documents/templates/' + item.id + '/edit']);
 
     // http://localhost:4200/#/documents/templates/7305267e-edae-11ea-8aa5-029cd58f3b70/recipient
   }
 
-  deleteTemplate(item){
+  deleteTemplate(item) {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete this template?',
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-     
+
         this.template.getTemplate({
-          "operate":'delete',
-          "id":item.id,
-          "cmpid":this.cmpid
-    
-        }).subscribe((data:any)=>{
-          if(data.resultKey == 1){
+          "operate": 'delete',
+          "id": item.id,
+          "cmpid": this.cmpid
+
+        }).subscribe((data: any) => {
+          if (data.resultKey == 1) {
             this.documentsDeatilList.forEach(element => {
-               
-              if(element.id == item.id){
-                this.documentsDeatilList.splice(this.documentsDeatilList.indexOf(element),1);
+
+              if (element.id == item.id) {
+                this.documentsDeatilList.splice(this.documentsDeatilList.indexOf(element), 1);
               }
             });
           }
         })
-      
+
       },
       reject: () => {
-       
+
       }
     });
   }
 
-  sendTemplate(item){
-     
+  sendTemplate(item) {
+
     this.router.navigate(['/documents/sender/' + 'd/' + item.id]);
   }
-  
+
 }
