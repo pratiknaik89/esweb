@@ -19,7 +19,7 @@ export const environment = {
   "directUpload": "upload",
   "document_path": "http://localhost:8000/documents",
   "cloudinary_url": "https://res.cloudinary.com/djuzgpzo8/image/upload/",
-  "AWS_BUCKET_PREFIX":"elevate-stage-"
+  "AWS_BUCKET_PREFIX":"bucket-"
 
 };
 // export const environment = {
