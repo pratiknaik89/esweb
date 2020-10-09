@@ -13,7 +13,7 @@ import { ConfirmationService } from 'primeng/api';
   selector: 'app-evnolope',
   templateUrl: './evnolope.component.html',
   styleUrls: ['./evnolope.component.css'],
-  providers:[ConfirmationService]
+  providers: [ConfirmationService]
 })
 export class EvnolopeComponent implements OnInit {
   @ViewChild('actionbar', { static: false }) actionbar: ActionBarComponent;
@@ -25,12 +25,12 @@ export class EvnolopeComponent implements OnInit {
   showDocpannel: boolean = false;
   uniqueRecepientheadList: any = [];
   RecepientheadList: any = [];
-   cmpid:any='';
+  cmpid: any = '';
   buttons = [];
   form: any = {
     id: null,
     envname: '',
-    key:''
+    key: ''
   }
   isedit: boolean = false;
   isloading = false;
@@ -43,7 +43,7 @@ export class EvnolopeComponent implements OnInit {
   searchtemplatestring: any = '';
   temptemplateList: any = [];
   noTemplatefound: boolean = false;
-  constructor(private envelope: EnvolopeService, private global: GlobalService, private message: ToastService, private translate: TranslateService, private template: TemplateService, private modalService: BsModalService, private router: Router,private confirmationService: ConfirmationService) {
+  constructor(private envelope: EnvolopeService, private global: GlobalService, private message: ToastService, private translate: TranslateService, private template: TemplateService, private modalService: BsModalService, private router: Router, private confirmationService: ConfirmationService) {
 
 
     this.items = [{
@@ -81,17 +81,17 @@ export class EvnolopeComponent implements OnInit {
   envelopeList = [];
   tempEnvlopeList = [];
   filePath: any = '';
-  config:any=[];
+  config: any = [];
   showDocspinner: boolean = false;
   ngOnInit(): void {
-     
-    this.config=this.global.getConfig();
- 
-    this.cmpid=this.global.getCompany();
+
+    this.config = this.global.getConfig();
+
+    this.cmpid = this.global.getCompany();
     this.srcurl = "";
-    this.filePath = "https://"+this.config.AWS_BUCKET_PREFIX+"cmp"+this.global.getCompany() + ".s3.us-east-2.amazonaws.com/";
-    
-    console.log("filepath",this.filePath);
+    this.filePath = this.global.format(this.config.AWS_BUCKET_PREFIX, [this.global.getCompany()]); //"https://"+this.config.AWS_BUCKET_PREFIX+"cmp"+this.global.getCompany() + ".s3.us-east-2.amazonaws.com/";
+
+    console.log("filepath", this.filePath);
     // this.getAllTemplate();
     //   this.templateList = [
     //     { id: 1, name: "Template 1", src: "/assets/img/img1.png" },
@@ -127,11 +127,11 @@ export class EvnolopeComponent implements OnInit {
 
         this.open1();
         break;
-        case 'send':
-          this.router.navigate(['/documents/sender/e/'+this.onColclickid  ]);
-  
-          //    this.open();
-          break;
+      case 'send':
+        this.router.navigate(['/documents/sender/e/' + this.onColclickid]);
+
+        //    this.open();
+        break;
       default:
         break;
     }
@@ -159,7 +159,7 @@ export class EvnolopeComponent implements OnInit {
     })
   }
 
-  enableButtons(){
+  enableButtons() {
     this.buttons = [
       {
         'id': 'edit', 'color': 'white', 'bg': 'primary', 'text': 'Edit Envelope', 'icon': 'pencil', 'shortcut': 'ctrl+shift+a',
@@ -180,8 +180,8 @@ export class EvnolopeComponent implements OnInit {
     if (this.onColclickid == item.id) {
       return;
     }
-this.enableButtons();
-  
+    this.enableButtons();
+
     this.onColclickid = item.id;
 
     // this.documentsDeatilList = [
@@ -317,16 +317,16 @@ this.enableButtons();
   }
 
   save() {
-let _selectedenvelope;
+    let _selectedenvelope;
     this.envelope.SaveEnvolope({
       "id": this.form.id,
       "envname": this.form.envname,
-      "key":this.form.key,
+      "key": this.form.key,
       "comapnyid": this.global.getCompany(),
 
     }).subscribe((res: any) => {
       if (res.resultKey == 1) {
-        this.onColclickid=res.resultValue.msg;
+        this.onColclickid = res.resultValue.msg;
         this.message.show('Success', 'Saved successfully', 'success', this.translate);
         this.searchstring = '';
         this.isedit = false;
@@ -337,20 +337,20 @@ let _selectedenvelope;
             name: this.form.envname,
             comapnyid: this.global.getCompany()
           }
-       
+
           this.envelopeList.push(data);
-          this.selectedenvelope=data;
+          this.selectedenvelope = data;
           this.enableButtons();
         } else {
           this.envelopeList.forEach(element => {
             if (element.id == this.form.id) {
-              _selectedenvelope=element;
+              _selectedenvelope = element;
               element.name = this.form.envname;
 
 
             }
           });
-          this.selectedenvelope=_selectedenvelope;
+          this.selectedenvelope = _selectedenvelope;
           this.enableButtons();
         }
 
@@ -408,10 +408,10 @@ let _selectedenvelope;
 
 
 
- count:any=0;
+  count: any = 0;
   searchTemplates() {
     debugger
-    this.count=0;
+    this.count = 0;
     // if (this.searchtemplatestring == '' || this.searchtemplatestring == undefined || this.searchtemplatestring == null) {
     //   this.templateList = []
     //   this.noEnvmsg = '';
@@ -423,27 +423,27 @@ let _selectedenvelope;
     if (this.searchtemplatestring != '' || this.searchtemplatestring != undefined || this.searchtemplatestring != null) { }
     let temptemplate = this.temptemplateList;
 
-     this.noTemplatefound= false;
-   // this.templateList = [];
-   for (let index = 0; index < this.templateList.length; index++) {
-     const element = this.templateList[index];
-     let name = element.name.toLowerCase();
+    this.noTemplatefound = false;
+    // this.templateList = [];
+    for (let index = 0; index < this.templateList.length; index++) {
+      const element = this.templateList[index];
+      let name = element.name.toLowerCase();
 
-     // name.includes(this.searchtemplatestring.toLowerCase());
-     if(!name.includes(this.searchtemplatestring.toLowerCase())){
-       element.show=false;
-
-
+      // name.includes(this.searchtemplatestring.toLowerCase());
+      if (!name.includes(this.searchtemplatestring.toLowerCase())) {
+        element.show = false;
 
 
-     }
-     else {
-
-      element.show=true;
 
 
-     }
-   }
+      }
+      else {
+
+        element.show = true;
+
+
+      }
+    }
 
 
 
@@ -500,7 +500,7 @@ let _selectedenvelope;
 
         this.form.id = res.resultValue[0].id;
         this.form.envname = res.resultValue[0].name;
-        this.form.key=res.resultValue[0].key != null ? res.resultValue[0].key : res.resultValue[0].name.toLowerCase().split(/[ ,]+/).join('_');;
+        this.form.key = res.resultValue[0].key != null ? res.resultValue[0].key : res.resultValue[0].name.toLowerCase().split(/[ ,]+/).join('_');;
         this.open();
 
       } else {
@@ -645,50 +645,50 @@ let _selectedenvelope;
 
     // http://localhost:4200/#/documents/templates/7305267e-edae-11ea-8aa5-029cd58f3b70/recipient
   }
-  
-  deleteTemplate(item){
+
+  deleteTemplate(item) {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete this template?',
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-     
+
         this.template.getTemplate({
-          "operate":'delete',
-          "id":item.id,
-          "cmpid":this.cmpid
-    
-        }).subscribe((data:any)=>{
-          if(data.resultKey == 1){
+          "operate": 'delete',
+          "id": item.id,
+          "cmpid": this.cmpid
+
+        }).subscribe((data: any) => {
+          if (data.resultKey == 1) {
             this.documentsDeatilList.forEach(element => {
-               
-              if(element.id == item.id){
-                this.documentsDeatilList.splice(this.documentsDeatilList.indexOf(element),1);
+
+              if (element.id == item.id) {
+                this.documentsDeatilList.splice(this.documentsDeatilList.indexOf(element), 1);
               }
             });
           }
         })
-      
+
       },
       reject: () => {
-       
+
       }
     });
   }
 
-  sendTemplate(item){
-     
+  sendTemplate(item) {
+
     this.router.navigate(['/documents/sender/' + 'd/' + item.id]);
   }
 
-  generateKey(){
+  generateKey() {
     debugger
-    if(this.form.envname.length <=0 ){
-      this.form.key='';
-    }else{ 
-    var tempKey;
-    tempKey=this.form.envname.toLowerCase();
-    this.form.key=tempKey.split(/[ ,]+/).join('_');
-  }
+    if (this.form.envname.length <= 0) {
+      this.form.key = '';
+    } else {
+      var tempKey;
+      tempKey = this.form.envname.toLowerCase();
+      this.form.key = tempKey.split(/[ ,]+/).join('_');
+    }
   }
 }

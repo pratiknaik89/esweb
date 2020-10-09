@@ -43,7 +43,7 @@ export class SenderComponent implements OnInit {
         ).subscribe((data: any) => {
             if (data.resultKey == 1) {
                 this.arrayForimge = data.resultValue;
-                this.showPanel=true;
+                this.showPanel = true;
             }
         })
 
@@ -145,7 +145,7 @@ export class SenderComponent implements OnInit {
     ngOnInit(): void {
 
         this.config = this.global.getConfig();
-        this.filePath = "https://" + this.config.AWS_BUCKET_PREFIX + "cmp" + this.global.getCompany() + ".s3.us-east-2.amazonaws.com/";
+        this.filePath = this.global.format(this.config.AWS_BUCKET_PREFIX, [this.global.getCompany()]); //"https://" + this.config.AWS_BUCKET_PREFIX + "cmp" + this.global.getCompany() + ".s3.us-east-2.amazonaws.com/";
         this.buttons = [
             {
                 'id': 'send', 'color': 'white', 'bg': 'danger', 'text': 'Send', 'icon': ' fa fa-send', 'shortcut': 'ctrl+shift+a',
@@ -205,7 +205,7 @@ export class SenderComponent implements OnInit {
             console.log(d)
             this.response = d;
             this.success = true;
-            this.showPanel=false;
+            this.showPanel = false;
 
         }, (er) => {
             this.success = false;
@@ -269,7 +269,7 @@ export class SenderComponent implements OnInit {
             "name": "",
             "email": ""
         }];
-        this.arrayForimge=[];
+        this.arrayForimge = [];
         if (this.iputType == "byname") {
             this.showAutocomplete = true;
 
@@ -344,7 +344,7 @@ export class SenderComponent implements OnInit {
             "name": "",
             "email": ""
         }];
-        this.arrayForimge=[];
+        this.arrayForimge = [];
     }
     urlHandle(srcurl) {
 
