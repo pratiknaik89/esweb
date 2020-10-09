@@ -22,10 +22,11 @@ export class AddComponent implements OnInit {
 
   uploadMaxFilesize: any = 5000000;
   imageUrl: string = "";
-  bucketPath: string = "https://bucket-cmp" + this.global.getCompany() + ".s3.us-east-2.amazonaws.com/";
+  bucketPath: string;
 
   canSubmit: boolean;
   @ViewChild("f") ngform: NgForm;
+  config: any;
   constructor(private router: Router, private global: GlobalService,
     private translate: TranslateService, private message: ToastService,
     private template: TemplateService, public route: ActivatedRoute,) {
@@ -34,6 +35,8 @@ export class AddComponent implements OnInit {
   ngDoCheck(): void {
     //Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
     //Add 'implements DoCheck' to the class.
+    this.config = this.global.getConfig();
+    this.bucketPath = this.global.format(this.config.AWS_BUCKET_PREFIX, [this.global.getCompany()]);//"https://bucket-cmp" + this.global.getCompany() + ".s3.us-east-2.amazonaws.com/";
     this.checkIsFormValid();
   }
 
