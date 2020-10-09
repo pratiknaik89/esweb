@@ -17,4 +17,10 @@ export class SenderService {
     prefillData(req: any) {
         return this.dataservice.getHttpData('/document/prefillsender', req);
     }
+
+    
+    tempenvAutocomplete(req: any) {
+        return this.dataservice.getHttpData('/seracttempleteorenv', req);
+    }
+
 }

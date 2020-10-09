@@ -6,5 +6,5 @@ export const environment = {
   document_path: "http://ec2-54-174-155-193.compute-1.amazonaws.com:80/ELEVATEPHP/public/upload/",
   cloudinary_url: "https://res.cloudinary.com/djuzgpzo8/image/upload/",
   maxfileuploadsize: 5000000,
-  AWS_BUCKET_PREFIX: "elevate-stage-"
+  AWS_BUCKET_PREFIX: "https://dcbdb209393048bdaf49c63c3b27f5f1-cmp{0}.s3.us-east-1.amazonaws.com/"
 };

@@ -307,9 +307,9 @@ export class GlobalService {
     }
 
     public getCompanycode() {
-        let data:any = [];
+        let data: any = [];
         data = JSON.parse(localStorage.getItem('compid'));
-        return data.companycode; 
+        return data.companycode;
     }
     public getCompany(original?: boolean) {
         const _us1 = localStorage.getItem('compid');
@@ -485,5 +485,11 @@ export class GlobalService {
         this._envupdated.next(true);
     }
 
+    public format(a: string, b: any[]) {
+        for (const k in b) {
+            a = a.replace("{" + k + "}", b[k])
+        }
+        return a
+    }
 
 }

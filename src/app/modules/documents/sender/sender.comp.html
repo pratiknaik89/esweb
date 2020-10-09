@@ -17,27 +17,57 @@
                 <div class="row">
                     <div class="col-md-12 mb-3">
 
-                        <p-radioButton name="group1" value="temp" label="Template" [(ngModel)]="type" inputId="temp">
-                        </p-radioButton>
+                    <p-radioButton name="group1" value="temp" label="Template" (onClick)="onRadioclick1()"
+                        [(ngModel)]="type" inputId="temp">
+                    </p-radioButton>
 
-                        <p-radioButton name="group1" class="ml-4" value="env" label="Envelope" [(ngModel)]="type"
-                            inputId="env">
-                        </p-radioButton>
+                    <p-radioButton name="group1" class="ml-4" value="env" label="Envelope" (onClick)="onRadioclick1()"
+                        [(ngModel)]="type" inputId="env">
+                    </p-radioButton>
 
 
 
+                </div>
+                <div class="col-md-12 mb-3">
+
+                    <p-radioButton name="group2" value="byname" (onClick)="onRadioclick()" label="By Name"
+                        [(ngModel)]="iputType" inputId="byname">
+                    </p-radioButton>
+
+                    <p-radioButton name="group2" class="ml-4" value="byid" (onClick)="onRadioclick()" label="By Id"
+                        [(ngModel)]="iputType" inputId="byid">
+                    </p-radioButton>
+                    <!-- for template -->
+
+
+
+                    <!-- for Envlope
+                    <div *ngIf="!showAutocomplete">
+                        <p-autoComplete inputClass="form-control" [(ngModel)]="selectedEnvlope"
+                            placeholder="Enter Envlope name" [suggestions]="envList"
+                            (onSelect)="selectedField($event,item)" (completeMethod)="search($event)"
+                            [forceSelection]="false">
+                        </p-autoComplete>
+                    </div> -->
+                </div>
+                <div *ngIf="showAutocomplete" class="col-md-12 mb-3">
+                    <p-autoComplete inputClass="form-control" [(ngModel)]="selectedTemplat" field="name"
+                        placeholder="Enter name" [suggestions]="resultList" (onSelect)="selectedResult($event,item)"
+                        (completeMethod)="searchenvortemp($event)" [forceSelection]="false">
+                    </p-autoComplete>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <div class="form-group" *ngIf="type == 'temp'">
+                        <label for="">Template Id</label>
+                        <input [disabled]="showAutocomplete" type="text" (input)="bindData(this.temp_env_id,this.type)"
+                            [(ngModel)]="temp_env_id" placeholder="Enter valid template id" name="temp"
+                            class="form-control">
                     </div>
-                    <div class="col-md-6 mb-2">
-                        <div class="form-group" *ngIf="type == 'temp'">
-                            <label for="">Template Id</label>
-                            <input type="text" (input)="bindData(this.temp_env_id,this.type)" [(ngModel)]="temp_env_id"
-                                placeholder="Enter valid template id" name="temp" class="form-control">
-                        </div>
-                        <div class="form-group" *ngIf="type == 'env'">
-                            <label for="">Envelope Id</label>
-                            <input type="text" (input)="bindData(this.temp_env_id,this.type)" [(ngModel)]="temp_env_id"
-                                placeholder="Enter valid Envelope id" name="env" class="form-control">
-                        </div>
+                    <div class="form-group" *ngIf="type == 'env'">
+                        <label for="">Envelope Id</label>
+                        <input [disabled]="showAutocomplete" type="text" (input)="bindData(this.temp_env_id,this.type)"
+                            [(ngModel)]="temp_env_id" placeholder="Enter valid Envelope id" name="env"
+                            class="form-control">
                     </div>
 
                     <div class="col-md-12">
@@ -159,7 +189,36 @@
                 </div>
             </p-card>
         </div>
-        <div class="col-md-4" *ngIf="success">
+
+
+
+
+
+        <div class="col-md-4" *ngIf="showPanel && !success">
+            <div class="row ml-2" *ngIf="type == 'env' && arrayForimge.length>0 ">
+                <div style="width: 300px;">
+                <p-card >
+                    {{envlopeName}}
+                </p-card>
+            </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6" *ngFor="let item of arrayForimge;let i=index">
+                    <div >
+
+
+                        <img class="doc-panel" [src]="urlHandle(item.docurl)">
+                       
+                            <div>{{item.name}}</div>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col-md-4" *ngIf="success && !showPanel">
 
             <div style=" height: 300px;text-align: center;">
 
