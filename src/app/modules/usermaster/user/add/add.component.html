@@ -133,7 +133,7 @@
               <label>Confirm Password</label><span class="text-danger">*</span>
               <input class="form-control" id="cnf_pass" name="cnf_pass" #cnf_pass="ngModel" type="password"
                 [(ngModel)]="form.cnf_pass" autocomplete="off" required tabindex="7" [readonly]="form.id !=null"
-                placeholder="Confierm Password" minlength="1"  >
+                placeholder="Confirm Password" minlength="1"  >
             </div>
             <div *ngIf="form.cnf_pass">
               <small class="text-danger text-error" *ngIf="form.password!=form.cnf_pass"

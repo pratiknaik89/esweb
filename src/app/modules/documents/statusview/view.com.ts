@@ -2,11 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { GlobalService } from '../../../service/global.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
     selector: 'app-doc-view',
     templateUrl: './view.com.html',
-    styleUrls: ['./view.com.scss']
+    styleUrls: ['./view.com.scss'],
+    providers: [ConfirmationService]
 })
 export class DocStatusViewComponent implements OnInit {
     @ViewChild('template') popupContainer;
@@ -21,7 +23,7 @@ export class DocStatusViewComponent implements OnInit {
     eventLogData: any[] = [];
     eventLogForTemplate: string;
 
-    constructor(private status: StatusService, private global: GlobalService) {
+    constructor(private status: StatusService, private global: GlobalService, private confirmmsg: ConfirmationService) {
         this.buttons = [
             // {
             //     'id': 'edit', 'color': 'white', 'bg': 'primary', 'text': 'Edit Envelope', 'icon': 'pencil', 'shortcut': 'ctrl+shift+a',
@@ -111,6 +113,28 @@ export class DocStatusViewComponent implements OnInit {
             } else {
                 //Error
                 this.eventLogForTemplate = "";
+            }
+        });
+    }
+
+    sendSQSByDrid(dmid, drid) {
+        this.confirmmsg.confirm({
+            message: 'Do you want to send sqs?',
+            header: 'SQS Confirmation',
+            icon: 'pi pi-info-circle',
+            accept: () => {
+                this.status.sendSQSByDrid({ "dmid": dmid, "drid": drid, "userid": this.global.getUser().id }).subscribe((data: any) => {
+                    console.log(data);
+                    if (data.resultKey === 1) {
+
+                    } else {
+                        //Error
+
+                    }
+                });
+            },
+            reject: () => {
+
             }
         });
     }
@@ -242,6 +266,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { StatusService } from '../../../service/statusview.service';
 import { TreeTableModule } from 'primeng/treetable';
 import { identifierModuleUrl } from '@angular/compiler';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 const routes: Routes = [
     {
@@ -275,7 +300,7 @@ const routes: Routes = [
 
 @NgModule({
     declarations: [DocStatusViewComponent],
-    imports: [CommonModule, SharedModule, RouterModule.forChild(routes), SplitButtonModule, TreeTableModule],
+    imports: [CommonModule, SharedModule, ConfirmDialogModule, RouterModule.forChild(routes), SplitButtonModule, TreeTableModule],
     exports: [],
     providers: [],
 })

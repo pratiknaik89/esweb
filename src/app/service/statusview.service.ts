@@ -29,4 +29,8 @@ export class StatusService {
         return this.dataService.getHttpData('/eventlog/geteventlogbydrid', req);
     }
 
+    sendSQSByDrid(req: any) {
+        return this.dataService.postHttpData('/document/sendsqsbydrid', req);
+    }
+
 }
