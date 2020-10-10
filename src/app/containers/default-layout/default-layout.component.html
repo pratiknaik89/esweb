@@ -1,5 +1,4 @@
-<app-header #header [fixed]="true"
-  [navbarBrandFull]="{'text':'Signme', width: 140, height: 30, alt: ''}"
+<app-header #header [fixed]="true" [navbarBrandFull]="{'text':'Signme', width: 140, height: 30, alt: ''}"
   [navbarBrandMinimized]="{src: 'https://elevate-holistics.com/wp-content/themes/elevate-theme/assets/img/logo.svg', width: 140, height: 30, alt: ''}"
   [sidebarToggler]="'lg'" [sidebarToggler]=false [asideMenuToggler]=false>
 
@@ -67,7 +66,16 @@
     <!-- <li class="nav-item d-md-down-none">
       <a class="nav-link" ><i class="icon-list"></i></a>
     </li> -->
-
+    <li class="nav-item dropdown" dropdown placement="bottom right">
+      <a class="nav-link" href="#" role="button" aria-haspopup="true" aria-expanded="false" (click)="false">
+        <i class="fa fa-question-circle-o fa-2x"></i>
+        <!-- <img src="assets/img/avatars/avt.png" class="img-avatar" alt="admin@bootstrapmaster.com" /> -->
+      </a></li>
+    <li class="nav-item dropdown" dropdown placement="bottom right">
+      <a class="nav-link" href="#" role="button" aria-haspopup="true" aria-expanded="false" (click)="false">
+        <i class="fa fa-gear fa-2x"></i>
+        <!-- <img src="assets/img/avatars/avt.png" class="img-avatar" alt="admin@bootstrapmaster.com" /> -->
+      </a></li>
     <li class="nav-item dropdown" dropdown placement="bottom right">
 
       <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
@@ -112,7 +120,8 @@
           {{global.loadertext}}
         </span>
       </div>
-      <p-progressBar  *ngIf="global.loader" mode="indeterminate" [style]="{'height': '3px','width':'100%', 'position':'absolute', 'z-index':'1'}"></p-progressBar>
+      <p-progressBar *ngIf="global.loader" mode="indeterminate"
+        [style]="{'height': '3px','width':'100%', 'position':'absolute', 'z-index':'1'}"></p-progressBar>
       <router-outlet></router-outlet>
     </div><!-- /.container-fluid -->
   </main>
