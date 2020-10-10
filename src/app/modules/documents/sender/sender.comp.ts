@@ -7,6 +7,7 @@ import { GlobalService } from '../../../service/global.service';
     styleUrls: ['./sender.comp.scss']
 })
 export class SenderComponent implements OnInit {
+    failed:boolean=false;
     type = "temp";
     selectedTemplat: any = '';
     showPanel: boolean = false;
@@ -206,10 +207,26 @@ export class SenderComponent implements OnInit {
             this.response = d;
             this.success = true;
             this.showPanel = false;
+            this.Recipients = [{
+                "key": "",
+                "name": "",
+                "email": ""
+            }];
+            this.arrayForimge = [];
+            this.selectedTemplat ='';
+            this.temp_env_id='';
+            this.Fields = [];
+            
+
 
         }, (er) => {
             this.success = false;
+            this.failed =true;
+            this.message.show("Warning", "Someting went wrong!", "warn", null);
+
             this.response = er;
+            return;
+
         })
     }
 
