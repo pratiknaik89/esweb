@@ -79,8 +79,8 @@
                                     class="mr-1 {{rowData.doc_no - rowData.com_no == 0 ? 'fa fa-check-circle text-success':'fa fa-clock-o text-warning'}}"></i>
                                 <i
                                     class="mr-1 {{rowData.type=='e' ? 'fa fa-envelope-o text-primary': 'fa fa-file-pdf-o text-danger'}}"></i>
-                                <span style="font-weight: 600;">{{rowData.name}} <small
-                                        *ngIf="rowData.doc_no > 1"  style="font-size: 12px ;font-weight:500;" >{{ rowData.com_no +' of '+ rowData.doc_no +' completed'}}</small></span>
+                                <span style="font-weight: 600;">{{rowData.name}} <small *ngIf="rowData.doc_no > 1"
+                                        style="font-size: 12px ;font-weight:500;">{{ rowData.com_no +' of '+ rowData.doc_no +' completed'}}</small></span>
                             </div>
 
                             <div *ngSwitchCase="2" style="display: flex;">
@@ -89,11 +89,16 @@
                                 <span style="flex: 1;">{{rowData.subject}}</span>
                                 <div class="ml-2" style="width: 100px;">
                                     <div class="d-flex p-0" style="justify-content: center;">
-                                        <a *ngIf="rowData.finaldocurl" [href]="documentUrl(rowData.finaldocurl)"
-                                            target="_new" placement="top" ngbTooltip="View"><i
-                                                class="fa fa-file-pdf-o text-primary"></i></a>
-                                        &nbsp;&nbsp; &nbsp;
-                                        <a (click)="getEventLogByDrid(rowData.id)" style="cursor: pointer;"
+                                        <a *ngIf="rowData.finaldocurl" class="ml-3"
+                                            [href]="documentUrl(rowData.finaldocurl)" target="_new" placement="top"
+                                            ngbTooltip="View">
+                                            <i class="fa fa-file-pdf-o text-primary"></i>
+                                        </a>
+                                        <a *ngIf="!rowData.finaldocurl && rowData.status == 'completed'" class="ml-3"
+                                            (click)="sendSQSByDrid(rowData.dmid, rowData.id)" placement="top"
+                                            ngbTooltip="Resend final document to all"><i
+                                                class="fa fa-paper-plane text-primary"></i></a>
+                                        <a class="ml-3" (click)="getEventLogByDrid(rowData.id)" style="cursor: pointer;"
                                             placement="top" ngbTooltip="History">
                                             <i class="fa fa-history text-primary"></i></a>
                                     </div>
@@ -153,7 +158,7 @@
                         <th style="width: 183px;">Event time</th>
                         <th>Event</th>
                         <th style="width: 183px;">User</th>
-                        <th style="width: 100px;">Status</th>
+                        <!-- <th style="width: 100px;">Status</th> -->
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-evt>
@@ -165,11 +170,12 @@
                                 class="d-block text-secondary">{{evt.browserdtl}}</span>
                         </td>
                         <td class="border-0">{{evt.email}}</td>
-                        <td class="text-center border-0">{{evt.status || 'Completed'}}</td>
-
+                        <!-- <td class="text-center border-0">{{evt.status || 'Completed'}}</td> -->
                     </tr>
                 </ng-template>
             </p-table>
         </div>
     </form>
 </ng-template>
+
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
