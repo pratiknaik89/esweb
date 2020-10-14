@@ -28,7 +28,10 @@ export class RecipientComponent implements OnInit {
     private message: ToastService, private translate: TranslateService) {
     this.tRecipient = new ClsTRecipientDtl();
     this.tRecipientTemp = new ClsTRecipientDtl();
-    this.recipientType = [new ClsRecipientType("1", "Signer"), new ClsRecipientType("2", "Receive Carbon Copy")];
+    this.recipientType = [
+      new ClsRecipientType("1", "Signer"),
+      new ClsRecipientType("2", "Receive Carbon Copy")
+    ];
   }
 
   buttons: any = [];
